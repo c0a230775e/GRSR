@@ -1,0 +1,16 @@
+/* 日付ごとのまとまりをインデントして見やすくする */
+.date-block {
+  margin-left: 16px;       /* 日付ブロック全体のインデント */
+  padding-left: 12px;      /* 内側の余白 */
+  border-left: 4px solid #e0e0e0; /* 日付ごとの区切り線（薄いグレー） */
+  margin-bottom: 24px;     /* 日付ブロック間の余白 */
+}
+
+/* 相乗り予約だけさらにインデント */
+.indent-share {
+  margin-left: 24px;
+  padding-left: 12px;
+  border-left: 3px solid #90caf9;
+  background-color: #f0f7ff;
+  border-radius: 4px;
+}
