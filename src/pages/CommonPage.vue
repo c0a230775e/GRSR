@@ -294,14 +294,13 @@ async function loadAllSlots() {
 
   // URL を切り替え
   const url = isDev
-    ? '/assets/timeSlots.json?ts=' + Date.now()
-    : 'http://10.203.36.66:4000/assets/timeSlots.json?ts=' + Date.now()
+  ? '/assets/timeSlots.json?ts=' + Date.now()
+  : '/assets/timeSlots.json?ts=' + Date.now()
+
 
   const res = await fetch(url)
   timeSlotsRaw.value = await res.json()
 }
-
-
 
 function getFreeDates(month) {
   return timeSlotsRaw.value
