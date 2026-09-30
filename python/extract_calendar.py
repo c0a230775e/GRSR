@@ -3,7 +3,6 @@ import json
 import os
 
 excel_path = os.path.join(os.path.dirname(__file__), "calendar.xlsx")
-output_json = os.path.join(os.path.dirname(__file__), "../src/assets/timeSlots.json")
 output_json = os.path.join(os.path.dirname(__file__), "../public/assets/timeSlots.json")
 
 wb = openpyxl.load_workbook(excel_path)

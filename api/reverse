@@ -1,0 +1,20 @@
+// server.js
+import express from 'express'
+import fetch from 'node-fetch'
+
+const app = express()
+
+app.get('/api/reverse', async (req, res) => {
+  const { lat, lng } = req.query
+
+  const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`
+
+  const result = await fetch(url, {
+    headers: { 'Accept-Language': 'ja' }
+  })
+
+  const data = await result.json()
+  res.json(data)
+})
+
+app.listen(3000, () => console.log('API server running'))

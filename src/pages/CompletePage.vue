@@ -36,6 +36,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { supabase } from '@/supabase'
 
 const router = useRouter()
 const route = useRoute()
@@ -49,7 +50,7 @@ const info = ref({
   to: ''
 })
 
-onMounted(() => {
+onMounted(async () => {
   // ★ 相乗り申請で来たかどうか判定
   if (route.query.mode === 'share') {
     isShare.value = true
@@ -64,16 +65,26 @@ onMounted(() => {
     return
   }
 
-  // ★ 通常予約（localStorage の最新予約を表示）
-  const list = JSON.parse(localStorage.getItem('reservations') || '[]')
-  const last = list[list.length - 1]
+  // ★ 通常予約（Supabase の最新予約を取得）
+  const { data, error } = await supabase
+    .from('reservations')
+    .select('*')
+    .order('id', { ascending: false })
+    .limit(1)
+
+  if (error) {
+    console.error('Supabase error:', error)
+    return
+  }
+
+  const last = data[0]
 
   info.value = {
     people: last?.people,
-    rideDate: last?.rideDate,
+    rideDate: last?.ride_date,
     time: last?.time,
-    from: last?.from,
-    to: last?.to
+    from: last?.from_name,
+    to: last?.to_name
   }
 })
 
