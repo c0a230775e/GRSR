@@ -18,13 +18,11 @@
     </div>
 
     <div class="row q-col-gutter-md">
-      
       <!-- 左：マップ -->
       <div class="col-12 col-md-7">
         <div id="map" class="map-container"></div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -62,42 +60,39 @@ const redIcon = L.icon({
   iconAnchor: [16, 32]
 })
 
-// 日本形式の住所整形
-function formatJapaneseAddress(addr) {
-  const prefecture = addr.state || ''
-  const city = addr.city || addr.town || addr.village || ''
-  const suburb = addr.suburb || addr.neighbourhood || ''
-  const road = addr.road || ''
-  const houseNumber = addr.house_number || ''
+/* ------------------------------
+   Photon の住所整形ロジック
+------------------------------ */
+function formatPhotonAddress(feature) {
+  const p = feature.properties
 
-  const building =
-    addr.building ||
-    addr.amenity ||
-    addr.shop ||
-    addr.commercial ||
-    addr.public_building ||
-    ''
+  const prefecture = p.state || ''
+  const city = p.city || ''
+  const district = p.district || ''
+  const locality = p.locality || ''
+  const street = p.street || ''
+  const name = p.name || '' // 建物名
 
-  let baseAddress = `${prefecture}${city}${suburb}${road}${houseNumber}`
-  if (building) baseAddress += ` ${building}`
+  let base = `${prefecture}${city}${district}${locality}${street}`
+  if (name) base += ` ${name}`
 
-  return baseAddress
+  return base
 }
 
-// 逆ジオコーディング（自作 API）
+/* ------------------------------
+   Supabase Edge Function 経由で住所取得
+------------------------------ */
 async function fetchAddress(lat, lng) {
-  const res = await fetch(`http://localhost:3001/api/reverse?lat=${lat}&lng=${lng}`)
+  const url = `https://rcoloqruntstlceuxbly.functions.supabase.co/reverse?lat=${lat}&lng=${lng}`
+
+  const res = await fetch(url)
   const data = await res.json()
 
-  if (data.error === 'Rate limit exceeded') {
-    return 'アクセスが集中しているため住所を取得できませんでした（429）'
+  if (!data.features || data.features.length === 0) {
+    return '住所を取得できませんでした'
   }
 
-  if (!data.address) {
-    return data.display_name || '住所を取得できませんでした'
-  }
-
-  return formatJapaneseAddress(data.address)
+  return formatPhotonAddress(data.features[0])
 }
 
 onMounted(() => {
