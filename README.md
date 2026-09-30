@@ -50,6 +50,7 @@ See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-
 
 ・quasar build -m pwa
 →本番環境で動作させるファイルを生成するとき
+/gurisuro-reservation/dist/pwa$ quasar serve dist/pwaで実行
 本番環境のURL：https://grsr.vercel.app/#/
 テスト環境のURL（スマホ）:http://10.203.36.66:4000/#/
 
