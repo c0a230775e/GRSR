@@ -5,9 +5,9 @@ const { from, to } = defineProps({
 })
 </script>
 
-
 <template>
-  <div class="q-mb-md">
+  <div class="q-mb-md" v-if="from || to">
+    <!-- ★ from または to が選択されたら表示 -->
     <div class="text-subtitle1 q-mb-sm">選択した場所</div>
 
     <div class="row q-col-gutter-sm">

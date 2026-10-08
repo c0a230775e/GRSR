@@ -22,6 +22,7 @@
       v-model="rideDate"
       :freeRideDates="freeRideDates"
       :btnColor="btnColor"
+      class="day-selector-block"
     />
 
     <!-- 時間選択 -->
@@ -41,67 +42,54 @@
       :onShareRide="onShareRide"
     />
 
-    <div class="text-subtitle1 q-mb-sm">乗車場所・降車場所</div>
+    <div class="row items-center justify-between q-mt-md q-mb-sm">
+      <div class="text-subtitle1">乗車場所・降車場所</div>
 
-    <!-- 切り替えボタン（どこか見やすい位置に） -->
-    <div class="q-mt-md flex justify-around">
       <q-btn
-        label="写真で選ぶ"
         color="primary"
-        :flat="placeSelectMode !== 'photo'"
-        @click="placeSelectMode = 'photo'"
-      />
-      <q-btn
-        label="地図で選ぶ"
-        color="primary"
-        :flat="placeSelectMode !== 'map'"
-        @click="placeSelectMode = 'map'"
+        flat
+        @click="placeSelectMode = placeSelectMode === 'photo' ? 'map' : 'photo'"
+        :label="placeSelectMode === 'photo' ? '地図で選ぶ' : '写真で選ぶ'"
       />
     </div>
 
-    <!-- 写真＋選択内容（通常表示） -->
-    <div v-if="placeSelectMode === 'photo'">
-      <!-- 写真一覧 -->
+
+    <!-- ★ 写真モード -->
+    <div
+      v-if="placeSelectMode === 'photo'"
+      class="mode-wrapper photo-bg q-mt-md"
+    >
       <PhotoSelector
         :pins="pins"
         :onPhotoTap="onPhotoTap"
+        :placeSelectMode="placeSelectMode"
+        @changeMode="placeSelectMode = $event"
       />
 
-      <!-- 選択した場所 -->
       <SelectedPlaceView
         :from="from"
         :to="to"
       />
     </div>
 
-    <!-- 地図で選ぶ（切り替え時に表示） -->
-    <div v-else>
+    <!-- ★ 地図モード -->
+    <div
+      v-else
+      class="mode-wrapper map-bg q-mt-md"
+    >
       <PointSelector
         @update:from="from = $event"
         @update:to="to = $event"
       />
     </div>
 
-    <!-- 予約送信 -->
-    <SubmitButton
-      :canSubmit="people && rideDate && time && from && to"
-      :submit="submit"
-    />
 
-    <!-- プレビュー -->
-    <PreviewPanel
-      :people="people"
-      :rideDate="rideDate"
-      :time="time"
-      :from="from"
-      :to="to"
-    />
 
     <!-- 乗車/降車ポップアップ -->
     <q-dialog v-model="dialogVisible">
       <q-card class="dialog-card">
         <q-card-section class="text-h6">
-          {{ dialogMode === 'from' ? '乗車場所に設定しますか？' : '降車場所に設定しますか？' }}
+          場所を設定しますか？
         </q-card-section>
 
         <q-card-section>
@@ -109,8 +97,26 @@
           <div class="text-center q-mt-sm">{{ selectedPin?.name }}</div>
         </q-card-section>
 
-        <q-btn flat label="✖" color="red" @click="dialogVisible = false" class="dialog-btn dialog-btn-close" />
-        <q-btn flat label="✔" color="primary" @click="confirmSelection" class="dialog-btn dialog-btn-ok" />
+        <q-btn
+          label="乗車場所に設定"
+          color="primary"
+          class="full-width q-mt-sm dialog-select-btn"
+          @click="setFrom"
+        />
+
+        <q-btn
+          label="降車場所に設定"
+          color="secondary"
+          class="full-width q-mt-sm dialog-select-btn"
+          @click="setTo"
+        />
+
+        <q-btn
+          label="キャンセル"
+          flat
+          class="full-width q-mt-sm dialog-cancel-btn"
+          @click="dialogVisible = false"
+        />
       </q-card>
     </q-dialog>
 
@@ -149,8 +155,26 @@
       </q-card>
     </q-dialog>
 
+    <!-- 固定フッター -->
+    <div class="fixed-bottom-panel">
+      <PreviewPanel
+        :people="people"
+        :rideDate="rideDate"
+        :time="time"
+        :from="from"
+        :to="to"
+      />
+
+      <SubmitButton
+        v-if="people && rideDate && time && from && to"
+        :canSubmit="true"
+        :submit="submit"
+      />
+    </div>
+
   </q-page>
 </template>
+
 
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
@@ -206,20 +230,23 @@ const pins = ref([])
 const from = ref(null)
 const to = ref(null)
 const dialogVisible = ref(false)
-const dialogMode = ref('from')
 const selectedPin = ref(null)
 
 function onPhotoTap(pin) {
   selectedPin.value = pin
-  dialogMode.value = from.value ? 'to' : 'from'
   dialogVisible.value = true
 }
 
-function confirmSelection() {
-  if (dialogMode.value === 'from') from.value = selectedPin.value
-  else to.value = selectedPin.value
+function setFrom() {
+  from.value = selectedPin.value
   dialogVisible.value = false
 }
+
+function setTo() {
+  to.value = selectedPin.value
+  dialogVisible.value = false
+}
+
 
 /* --- timeSlots.json 読み込み --- */
 const timeSlotsRaw = ref([])

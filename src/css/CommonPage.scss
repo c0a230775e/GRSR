@@ -22,6 +22,31 @@
   border-radius: 4px;
 }
 
+.active-tab-btn {
+  background: rgba(0, 150, 255, 0.15); /* 選択中タブの背景 */
+  border-radius: 6px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.mode-wrapper {
+  width: 100%;
+  border-radius: 8px;
+  padding: 12px 16px;
+  box-sizing: border-box;
+}
+
+.photo-bg {
+  background: rgba(0, 150, 255, 0.08);
+}
+
+.map-bg {
+  background: rgba(0, 200, 100, 0.08);
+}
+
+
+
+
 .img-base {
   width: 100%;
   object-fit: cover;
@@ -50,6 +75,33 @@
   margin: 8px 0 12px;
 }
 
+.day-selector-block {
+  margin-bottom: 24px;   /* ← 好きな値に変更可能 */
+}
+
+.place-mode-buttons {
+  margin-bottom: 20px;   /* ← 写真カードとの間に余白を追加 */
+}
+
+.fixed-bottom-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  padding: 16px;
+  padding-top: 0px;      /* ← 上の余白を最小化 */
+  padding-bottom: 12px;  /* ← ボタンの余白は少し残す */
+  font-size: 16px;   /* ← 全体の文字サイズを調整 */
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.15);
+  z-index: 1000;
+}
+
+.q-page {
+  padding-bottom: 300px;  /* 固定フッターの高さ分余白を確保 */
+}
+
+
 /* 時間ボタン 3 + 2 レイアウト */
 .time-grid {
   display: grid;
@@ -67,9 +119,21 @@
 /* ポップアップ */
 .dialog-card {
   position: relative;
-  padding-bottom: 80px;
-  width: 200px;
+  padding-bottom: 0px;
+  width: 400px;
 }
+
+.dialog-select-btn {
+  height: 50px;        /* ← 好きな高さに変更 */
+  font-size: 21px;     /* ← 文字サイズを大きく */
+  border-radius: 8px;  /* ← UI を整える（任意） */
+}
+
+.dialog-cancel-btn {
+  height: 48px;        /* ← 少し小さめでもOK */
+  font-size: 18px;
+}
+
 
 .dialog-btn {
   position: absolute;

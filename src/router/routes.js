@@ -7,8 +7,8 @@ const routes = [
       { path: 'admin', component: () => import('@/pages/AdminPage.vue') },
       { path: 'complete', component: () => import('@/pages/CompletePage.vue') },
       { path: 'calendar', component: () => import('@/pages/CalendarPage.vue') },
-      { path: 'map', component: () => import('@/pages/MapPage.vue') }
-      // { path: 'admin/setup', component: () => import('@/pages/AdminSetupPage.vue')}
+      { path: 'map', component: () => import('@/pages/MapPage.vue') },
+      { path: 'test', component: () => import('@/pages/testPage.vue')}
     ]
   },
 

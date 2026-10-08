@@ -1,12 +1,15 @@
 <script setup>
-const { pins, onPhotoTap } = defineProps({
+const { pins, onPhotoTap, placeSelectMode } = defineProps({
   pins: Array,
-  onPhotoTap: Function
+  onPhotoTap: Function,
+  placeSelectMode: String
 })
+
 </script>
 
 <template>
-  <div class="q-mb-md">
+  <!-- 写真モードのときだけ写真一覧を表示 -->
+  <div v-if="placeSelectMode === 'photo'" class="q-mb-md">
     <div style="overflow-x: auto; white-space: nowrap;">
       <div class="photo-grid">
         <div
@@ -15,7 +18,6 @@ const { pins, onPhotoTap } = defineProps({
           class="photo-card"
           @click="onPhotoTap(pin)"
         >
-          <div class="text-center text-bold q-mb-xs">No. {{ pin.id }}</div>
           <div class="text-center q-mb-xs">{{ pin.name }}</div>
           <q-img :src="pin.image" class="photo-img" />
         </div>

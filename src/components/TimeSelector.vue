@@ -27,5 +27,6 @@ const emit = defineEmits(['update:modelValue'])
         />
       </div>
     </div>
+    <div class="divider-line"></div>
   </div>
 </template>

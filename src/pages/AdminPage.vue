@@ -10,6 +10,15 @@
         <div>{{ grouped[t].parent.ride_date }}</div>
         <div>{{ grouped[t].parent.people }}人</div>
         <div>{{ grouped[t].parent.from_name }} → {{ grouped[t].parent.to_name }}</div>
+
+        <!-- ★ 削除ボタン（親予約） -->
+        <q-btn
+          color="red"
+          flat
+          label="削除"
+          class="q-mt-sm"
+          @click="removeReservation(grouped[t].parent)"
+        />
       </div>
 
       <!-- 相乗り予約（インデント表示） -->
@@ -21,13 +30,20 @@
         <div class="text-bold">相乗り予約</div>
         <div>{{ child.people }}人</div>
         <div>{{ child.from_name }} → {{ child.to_name }}</div>
+
+        <!-- ★ 削除ボタン（子予約） -->
+        <q-btn
+          color="red"
+          flat
+          label="削除"
+          class="q-mt-sm"
+          @click="removeReservation(child)"
+        />
       </div>
 
     </div>
   </q-page>
 </template>
-
-
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
@@ -48,6 +64,39 @@ async function loadReservations() {
   }
 
   reservations.value = data
+}
+
+/* -------------------------
+   ★ 削除処理（親なら子も削除）
+------------------------- */
+async function removeReservation(item) {
+  if (!item) return
+
+  // 親予約の場合 → 子予約も削除
+  if (item.share === false) {
+    const { error: childErr } = await supabase
+      .from('reservations')
+      .delete()
+      .eq('parentId', item.id)
+
+    if (childErr) {
+      console.error('子予約削除エラー:', childErr)
+    }
+  }
+
+  // 親・子どちらでも自身を削除
+  const { error } = await supabase
+    .from('reservations')
+    .delete()
+    .eq('id', item.id)
+
+  if (error) {
+    console.error('予約削除エラー:', error)
+    return
+  }
+
+  // 再読み込み
+  loadReservations()
 }
 
 // 時間帯ごとにグループ化
