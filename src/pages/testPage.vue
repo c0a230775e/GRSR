@@ -5,21 +5,24 @@
 
     <!-- タブ -->
     <q-tabs
-      v-model="activeTab"
-      class="custom-tabs"
-      no-caps
-      align="left"
-    >
+        v-model="activeTab"
+        class="custom-tabs"
+        no-caps
+        align="left"
+      >
       <q-tab
         name="tab1"
         label="Tab 1"
+        :class="activeTab === 'tab2' ? 'tab1-inactive' : ''"
       />
 
       <q-tab
         name="tab2"
         label="Tab 2"
+        :class="activeTab === 'tab1' ? 'tab2-inactive' : ''"
       />
     </q-tabs>
+
 
     <!-- コンテンツ -->
     <div
@@ -68,7 +71,9 @@ const activeTab = ref('tab1')
 
 .custom-tabs {
   height: 44px;
-  border-bottom: 2px solid #2fb087;
+  /* ★ 下線を消す */
+  border-bottom: none;
+  background-color: #ffffff; /* ← コンテンツと同じ色に統一 */
 }
 
 /* =========================
@@ -92,55 +97,62 @@ const activeTab = ref('tab1')
 }
 
 /* =========================
-   選択中のタブ
+   選択中のタブ（外枠線を完全に消す）
 ========================= */
 
 .custom-tabs :deep(.q-tab--active) {
   color: #2fb087;
-  background-color: white;
 
-  border: 2px solid #2fb087;
-  border-bottom: none;
+  /* ★ 選択タブの背景色は動的に切り替え（既存のまま） */
+  background-color: v-bind(activeTab === 'tab1' ? '#e8f8f2' : '#ffe8e8');
+
+  /* ★ 外枠線を完全に消す */
+  border: none;
 
   position: relative;
   z-index: 2;
 }
 
-/* Quasar標準の下線を消す */
+/* =========================
+   非選択タブ（既に色を切り替えている）
+========================= */
 
-.custom-tabs :deep(.q-tab__indicator) {
-  display: none;
+.tab1-inactive {
+  background-color: #e8f8f2 !important;
+  color: #2fb087 !important;
+}
+
+.tab2-inactive {
+  background-color: #ffe8e8 !important;
+  color: #d9822b !important;
 }
 
 /* =========================
-   コンテンツ
+   コンテンツ（境界線なし）
 ========================= */
 
 .tab-content {
   min-height: 200px;
-
   padding: 32px;
-
   font-size: 20px;
   text-align: center;
 
-  border: 2px solid #2fb087;
-  border-top: none;
+  border: none; /* ← 境界線なし */
 
+  /* ★ タブと完全に一体化させるため角丸を下だけに */
   border-radius: 0 0 10px 10px;
 }
 
-/* Tab 1 */
-
+/* Tab1 */
 .tab1-content {
   background-color: #e8f8f2;
   color: #2fb087;
 }
 
-/* Tab 2 */
-
+/* Tab2 */
 .tab2-content {
-  background-color: #fff3e8;
+  background-color: #ffe8e8;
   color: #d9822b;
 }
+
 </style>

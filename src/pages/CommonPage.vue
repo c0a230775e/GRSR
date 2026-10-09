@@ -57,7 +57,7 @@
     <!-- ★ 写真モード -->
     <div
       v-if="placeSelectMode === 'photo'"
-      class="mode-wrapper photo-bg q-mt-md"
+      class="mode-wrapper q-mt-md"
     >
       <PhotoSelector
         :pins="pins"
@@ -75,7 +75,7 @@
     <!-- ★ 地図モード -->
     <div
       v-else
-      class="mode-wrapper map-bg q-mt-md"
+      class="mode-wrapper q-mt-md"
     >
       <PointSelector
         @update:from="from = $event"
@@ -155,22 +155,22 @@
       </q-card>
     </q-dialog>
 
-    <!-- 固定フッター -->
-    <div class="fixed-bottom-panel">
-      <PreviewPanel
-        :people="people"
-        :rideDate="rideDate"
-        :time="time"
-        :from="from"
-        :to="to"
-      />
+    <!-- ★ 選択内容のプレビュー（写真モード・地図モード共通） -->
+    <PreviewPanel
+      :people="people"
+      :rideDate="rideDate"
+      :time="time"
+      :from="from"
+      :to="to"
+    />
 
-      <SubmitButton
-        v-if="people && rideDate && time && from && to"
-        :canSubmit="true"
-        :submit="submit"
-      />
-    </div>
+    <!-- ★ 予約送信ボタン（選択内容の下に表示） -->
+    <SubmitButton
+      v-if="people && rideDate && time && from && to"
+      :canSubmit="true"
+      :submit="submit"
+    />
+
 
   </q-page>
 </template>

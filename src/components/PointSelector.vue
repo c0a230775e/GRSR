@@ -1,28 +1,34 @@
 <template>
   <div class="point-selector">
-    <!-- ピン設定モード選択 -->
-    <div class="q-mb-md flex justify-around">
-      <q-btn
+
+    <!-- タブ -->
+    <q-tabs
+      v-model="selectMode"
+      class="custom-tabs"
+      no-caps
+      align="left"
+    >
+      <q-tab
+        name="from"
         label="乗車場所を設定"
-        color="primary"
-        :flat="selectMode !== 'from'"
-        @click="selectMode = 'from'"
+        :class="selectMode === 'to' ? 'tab1-inactive' : ''"
       />
 
-      <q-btn
+      <q-tab
+        name="to"
         label="降車場所を設定"
-        color="red"
-        :flat="selectMode !== 'to'"
-        @click="selectMode = 'to'"
+        :class="selectMode === 'from' ? 'tab2-inactive' : ''"
       />
+    </q-tabs>
+
+    <!-- コンテンツ（地図） -->
+    <div
+      class="tab-content"
+      :class="selectMode === 'from' ? 'tab1-content' : 'tab2-content'"
+    >
+      <div id="map" class="map-container"></div>
     </div>
 
-    <div class="row q-col-gutter-md">
-      <!-- 左：マップ -->
-      <div class="col-12 col-md-7">
-        <div id="map" class="map-container"></div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -34,16 +40,6 @@ import 'leaflet/dist/leaflet.css'
 const emit = defineEmits(['update:from', 'update:to'])
 
 let map
-
-// 乗車場所
-let fromMarker = null
-const fromAddress = ref('')
-
-// 降車場所
-let toMarker = null
-const toAddress = ref('')
-
-// ピン設定モード
 const selectMode = ref('from')
 
 // 青ピン（乗車）
@@ -60,42 +56,7 @@ const redIcon = L.icon({
   iconAnchor: [16, 32]
 })
 
-/* ------------------------------
-   Photon の住所整形ロジック
------------------------------- */
-function formatPhotonAddress(feature) {
-  const p = feature.properties
-
-  const prefecture = p.state || ''
-  const city = p.city || ''
-  const district = p.district || ''
-  const locality = p.locality || ''
-  const street = p.street || ''
-  const name = p.name || '' // 建物名
-
-  let base = `${prefecture}${city}${district}${locality}${street}`
-  if (name) base += ` ${name}`
-
-  return base
-}
-
-/* ------------------------------
-   Supabase Edge Function 経由で住所取得
------------------------------- */
-async function fetchAddress(lat, lng) {
-  const url = `https://rcoloqruntstlceuxbly.functions.supabase.co/reverse?lat=${lat}&lng=${lng}`
-
-  const res = await fetch(url)
-  const data = await res.json()
-
-  if (!data.features || data.features.length === 0) {
-    return '住所を取得できませんでした'
-  }
-
-  return formatPhotonAddress(data.features[0])
-}
-
-onMounted(() => {
+onMounted(async () => {
   const centerLat = 35.64063
   const centerLng = 140.04563
 
@@ -114,61 +75,35 @@ onMounted(() => {
     attribution: '&copy; OpenStreetMap contributors'
   }).addTo(map)
 
-  // 地図クリックでピンを刺す
-  map.on('click', async e => {
-    const { lat, lng } = e.latlng
+  const res = await fetch('/assets/pins.json')
+  const pins = await res.json()
 
-    if (selectMode.value === 'from') {
-      if (fromMarker) map.removeLayer(fromMarker)
-      fromMarker = L.marker([lat, lng], { icon: blueIcon }).addTo(map)
+  pins.forEach(pin => {
+    if (!pin.lat || !pin.lng) return
 
-      fromMarker.bindTooltip('乗車場所', {
-        permanent: true,
-        direction: 'top',
-        offset: [0, -20]
-      }).openTooltip()
+    const marker = L.marker([pin.lat, pin.lng], {
+      icon: selectMode.value === 'from' ? blueIcon : redIcon
+    }).addTo(map)
 
-      fromAddress.value = await fetchAddress(lat, lng)
+    marker.bindTooltip(pin.name, {
+      permanent: false,
+      direction: 'top'
+    })
 
-      emit('update:from', {
-        name: fromAddress.value,
-        lat,
-        lng,
-        image: null
-      })
+    marker.on('click', () => {
+      const payload = {
+        name: pin.name,
+        lat: pin.lat,
+        lng: pin.lng,
+        image: pin.image
+      }
 
-    } else {
-      if (toMarker) map.removeLayer(toMarker)
-      toMarker = L.marker([lat, lng], { icon: redIcon }).addTo(map)
-
-      toMarker.bindTooltip('降車場所', {
-        permanent: true,
-        direction: 'top',
-        offset: [0, -20]
-      }).openTooltip()
-
-      toAddress.value = await fetchAddress(lat, lng)
-
-      emit('update:to', {
-        name: toAddress.value,
-        lat,
-        lng,
-        image: null
-      })
-    }
+      if (selectMode.value === 'from') {
+        emit('update:from', payload)
+      } else {
+        emit('update:to', payload)
+      }
+    })
   })
 })
 </script>
-
-<style scoped>
-.map-container {
-  width: 100%;
-  height: 300px;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.selected-box {
-  border: 1px solid #ccc;
-}
-</style>
