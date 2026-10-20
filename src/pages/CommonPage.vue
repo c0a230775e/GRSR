@@ -155,23 +155,24 @@
       </q-card>
     </q-dialog>
 
-    <!-- ★ 選択内容のプレビュー（写真モード・地図モード共通） -->
-    <PreviewPanel
-      :people="people"
-      :rideDate="rideDate"
-      :time="time"
-      :from="from"
-      :to="to"
-    />
+    <!-- ★ フッター固定エリア -->
+    <div class="reservation-footer">
 
-    <!-- ★ 予約送信ボタン（選択内容の下に表示） -->
-    <SubmitButton
-      v-if="people && rideDate && time && from && to"
-      :canSubmit="true"
-      :submit="submit"
-    />
+      <PreviewPanel
+        :people="people"
+        :rideDate="rideDate"
+        :time="time"
+        :from="from"
+        :to="to"
+      />
 
+      <SubmitButton
+        v-if="people && rideDate && time && from && to"
+        :canSubmit="true"
+        :submit="submit"
+      />
 
+    </div>
   </q-page>
 </template>
 
