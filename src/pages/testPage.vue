@@ -81,12 +81,12 @@ const activeTab = ref('tab1')
 ========================= */
 
 .custom-tabs :deep(.q-tab) {
-  min-width: 174px;
+  min-width: 500px;
   height: 44px;
   padding: 0 24px;
 
   color: white;
-  background-color: #2fb087;
+  background-color: #ffffff;
 
   border-radius: 10px 10px 0 0;
 
@@ -118,8 +118,8 @@ const activeTab = ref('tab1')
 ========================= */
 
 .tab1-inactive {
-  background-color: #e8f8f2 !important;
-  color: #2fb087 !important;
+  background-color: #ffffff !important;
+  color: #a39b9b !important;
 }
 
 .tab2-inactive {
