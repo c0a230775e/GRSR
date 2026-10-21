@@ -67,6 +67,7 @@ import '@/css/CommonPage.scss'
 const emit = defineEmits(['update:from', 'update:to'])
 
 let map
+let subMap = null
 const markers = []
 const selectMode = ref('from')
 
@@ -127,12 +128,6 @@ onMounted(async () => {
 
     markers.push(marker)
 
-    watch(selectMode, (newMode) => {
-      markers.forEach(marker => {
-        marker.setIcon(newMode === 'from' ? blueIcon : redIcon)
-      })
-    })
-
     marker.bindTooltip(pin.name, {
       permanent: false,
       direction: 'top'
@@ -148,13 +143,26 @@ onMounted(async () => {
       }, 50)
     })
   })
+
+  watch(selectMode, (newMode) => {
+      markers.forEach(marker => {
+        marker.setIcon(newMode === 'from' ? blueIcon : redIcon)
+      })
+    })
 })
 
 function showSubMap(mainPin) {
+
   const subMapElement = document.getElementById('submap')
   if (!subMapElement) return
 
-  const subMap = L.map('submap', {
+  // 前回の地図を削除
+  if (subMap) {
+    subMap.remove()
+    subMap = null
+  }
+
+  subMap = L.map('submap', {
     center: [mainPin.lat, mainPin.lng],
     zoom: 18,
     zoomControl: false,
@@ -163,42 +171,84 @@ function showSubMap(mainPin) {
     touchRotate: false
   })
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(subMap)
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      attribution: '&copy; OpenStreetMap contributors'
+    }
+  ).addTo(subMap)
 
-  if (!mainPin.subs || mainPin.subs.length === 0) return
+  // オーバーレイ表示後にサイズ再計算
+  setTimeout(() => {
+    subMap.invalidateSize()
+  }, 100)
 
-  mainPin.subs.forEach(sub => {
-    const subMarker = L.marker([sub.lat, sub.lng], {
-      icon: L.icon({
-        iconUrl: '/assets/subpin.png',
-        iconSize: [28, 28],
-        iconAnchor: [14, 28]
-      })
-    }).addTo(subMap)
+  console.log(mainPin)
+  console.log(mainPin.subLocations)
 
-    subMarker.bindTooltip(`${mainPin.id}-${sub.code}`)
+  if (!mainPin.subLocations || mainPin.subLocations.length === 0) {
+    return
+  }
+
+  mainPin.subLocations.forEach(sub => {
+
+    console.log('sub=', sub)
+
+    const subMarker = L.marker(
+      [sub.lat, sub.lng],
+      {
+        icon: L.icon({
+          iconUrl: '/assets/subpin.png',
+          iconSize: [28, 28],
+          iconAnchor: [14, 28]
+        })
+      }
+    ).addTo(subMap)
+
+    subMarker.bindTooltip(sub.name)
 
     subMarker.on('click', () => {
       selectedSubPin.value = sub
     })
   })
+  const latlngs = mainPin.subLocations.map(sub => [
+    sub.lat,
+    sub.lng
+  ])
+
+  subMap.fitBounds(latlngs)
 }
 
 function confirmSubPin() {
+
+  console.log('confirm', selectedSubPin.value)
+
   if (!selectedSubPin.value || !overlayPin.value) return
 
-  emit(selectMode.value === 'from' ? 'update:from' : 'update:to', {
-    mainId: overlayPin.value.id,
-    subCode: selectedSubPin.value.code,
-    lat: selectedSubPin.value.lat,
-    lng: selectedSubPin.value.lng,
-    image: selectedSubPin.value.image
-  })
+  emit(
+    selectMode.value === 'from'
+      ? 'update:from'
+      : 'update:to',
+    {
+      mainId: overlayPin.value.id,
+      subCode: selectedSubPin.value.id,
+      name: selectedSubPin.value.name,
+      lat: selectedSubPin.value.lat,
+      lng: selectedSubPin.value.lng,
+      image: selectedSubPin.value.image
+    }
+  )
 
   closeOverlay()
 }
 
 function closeOverlay() {
+
+  if (subMap) {
+    subMap.remove()
+    subMap = null
+  }
+
   showOverlay.value = false
   selectedSubPin.value = null
 }

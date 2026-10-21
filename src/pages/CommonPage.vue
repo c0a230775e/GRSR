@@ -61,9 +61,9 @@
     >
       <PhotoSelector
         :pins="pins"
-        :onPhotoTap="onPhotoTap"
         :placeSelectMode="placeSelectMode"
-        @changeMode="placeSelectMode = $event"
+        @update:from="from = $event"
+        @update:to="to = $event"
       />
 
       <SelectedPlaceView
@@ -82,43 +82,6 @@
         @update:to="to = $event"
       />
     </div>
-
-
-
-    <!-- 乗車/降車ポップアップ -->
-    <q-dialog v-model="dialogVisible">
-      <q-card class="dialog-card">
-        <q-card-section class="text-h6">
-          場所を設定しますか？
-        </q-card-section>
-
-        <q-card-section>
-          <q-img :src="selectedPin?.image" class="dialog-img" />
-          <div class="text-center q-mt-sm">{{ selectedPin?.name }}</div>
-        </q-card-section>
-
-        <q-btn
-          label="乗車場所に設定"
-          color="primary"
-          class="full-width q-mt-sm dialog-select-btn"
-          @click="setFrom"
-        />
-
-        <q-btn
-          label="降車場所に設定"
-          color="secondary"
-          class="full-width q-mt-sm dialog-select-btn"
-          @click="setTo"
-        />
-
-        <q-btn
-          label="キャンセル"
-          flat
-          class="full-width q-mt-sm dialog-cancel-btn"
-          @click="dialogVisible = false"
-        />
-      </q-card>
-    </q-dialog>
 
     <!-- 相乗りポップアップ -->
     <q-dialog v-model="shareDialogVisible">
@@ -230,24 +193,6 @@ const placeSelectMode = ref('photo')  // 'photo' or 'map'
 const pins = ref([])
 const from = ref(null)
 const to = ref(null)
-const dialogVisible = ref(false)
-const selectedPin = ref(null)
-
-function onPhotoTap(pin) {
-  selectedPin.value = pin
-  dialogVisible.value = true
-}
-
-function setFrom() {
-  from.value = selectedPin.value
-  dialogVisible.value = false
-}
-
-function setTo() {
-  to.value = selectedPin.value
-  dialogVisible.value = false
-}
-
 
 /* --- timeSlots.json 読み込み --- */
 const timeSlotsRaw = ref([])

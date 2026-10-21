@@ -98,6 +98,7 @@
   position: relative;
   padding-bottom: 0px;
   width: 400px;
+  height: 330px;
 }
 
 .dialog-select-btn {
@@ -400,4 +401,28 @@
 }
 .q-page {
   padding-bottom: 160px;
+}
+
+.sub-photo-dialog {
+  width: 90vw;
+  max-width: 1200px;
+}
+
+.sub-photo-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.sub-photo-card {
+  flex: 0 0 250px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  padding: 8px;
+}
+
+.sub-photo-card.selected {
+  border-color: #1976d2;
 }
