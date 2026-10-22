@@ -298,6 +298,7 @@ async function loadReservedSlots() {
 
     if (!reservedDetailMap[r.time]) {
       reservedDetailMap[r.time] = {
+        id: r.id,
         from: r.from_name,
         to: r.to_name
       }
@@ -329,6 +330,7 @@ const availableTimeSlots = computed(() => {
       ...slot,
       reserved,
       reservedPeople: reservedPeopleMap[slot.label] || 0,
+      reservedId: reservedDetailMap[slot.label]?.id || null,
       reservedFrom: reservedDetailMap[slot.label]?.from || null,
       reservedTo: reservedDetailMap[slot.label]?.to || null,
       disabled: reserved || expired || groupDisabled
@@ -372,15 +374,23 @@ const shareTarget = ref(null)
 const shareError = ref('')
 
 function onShareRide(mode) {
+
   let targetSlots = mode === 'front'
     ? availableTimeSlots.value.slice(0, 3)
     : availableTimeSlots.value.slice(3, 5)
 
-  const reservedSlot = targetSlots.find(s => s.reserved)
+  console.log('mode=', mode)
+  console.log('targetSlots=', targetSlots)
+
+  const reservedSlot = targetSlots.find(
+    s => s.reserved
+  )
+
+  console.log('reservedSlot=', reservedSlot)
+
   if (!reservedSlot) return
 
   shareTarget.value = reservedSlot
-  shareError.value = ''
   shareDialogVisible.value = true
 }
 
@@ -389,34 +399,49 @@ const isFrontShareTarget = computed(() => {
   return idx >= 0 && idx < 3
 })
 
-function confirmShareRide() {
+async function confirmShareRide() {
+
   if (!people.value) {
     shareError.value = '乗車人数を選択してください'
     return
   }
 
-  const isFront = availableTimeSlots.value.indexOf(shareTarget.value) < 3
-  const remaining = isFront ? remainingFront.value : remainingBack.value
+  const isFront =
+    availableTimeSlots.value.indexOf(
+      shareTarget.value
+    ) < 3
+
+  const remaining =
+    isFront
+      ? remainingFront.value
+      : remainingBack.value
 
   if (people.value > remaining) {
-    shareError.value = `人数オーバーです（あと ${remaining} 人まで）`
+
+    shareError.value =
+      `人数オーバーです（あと ${remaining} 人まで）`
+
     return
   }
 
-  const reservations = JSON.parse(localStorage.getItem('reservations') || '[]')
+  const { error } = await supabase
+    .from('reservations')
+    .insert({
+      ride_date: rideDate.value,
+      time: shareTarget.value.label,
+      people: Number(people.value),
+      from_name: shareTarget.value.reservedFrom,
+      to_name: shareTarget.value.reservedTo,
+      share: true,
+      parent_id: shareTarget.value.reservedId
+    })
 
-  reservations.push({
-    id: Date.now(),
-    share: true,
-    rideDate: rideDate.value,
-    time: shareTarget.value.label,
-    from: shareTarget.value.reservedFrom,
-    to: shareTarget.value.reservedTo,
-    people: people.value
-  })
+  if (error) {
+    console.error('share insert error', error)
+    return
+  }
 
-  localStorage.setItem('reservations', JSON.stringify(reservations))
-  loadReservedSlots()
+  await loadReservedSlots()
 
   router.push({
     path: '/complete',
@@ -429,6 +454,7 @@ function confirmShareRide() {
       to: shareTarget.value.reservedTo
     }
   })
+
 }
 
 /* --- 初期ロード --- */
@@ -453,12 +479,13 @@ onMounted(async () => {
 
 /* --- 予約送信 --- */
 async function submit() {
+
   const { error } = await supabase
     .from('reservations')
     .insert({
       ride_date: rideDate.value,
       time: time.value.label,
-      people: people.value,
+      people: Number(people.value),
       from_name: from.value.name,
       to_name: to.value.name,
       share: false

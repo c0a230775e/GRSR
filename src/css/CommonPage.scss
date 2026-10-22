@@ -341,14 +341,23 @@
   cursor: pointer;
   z-index: 10;
 }
+
+// PreviewPanel.vue
 .preview-panel {
   margin-top: 6px;
 }
 
 .preview-container {
   display: flex;
-  gap: 2px;
-  flex-wrap: wrap;
+  gap: 6px;
+  align-items: stretch;
+}
+
+.preview-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 90px;
 }
 
 .preview-card {
@@ -356,22 +365,20 @@
   align-items: center;
   gap: 6px;
 
-  padding: 2px 8px;
+  padding: 4px 8px;
 
   background: #fff;
   border: 1px solid #e0e0e0;
   border-radius: 12px;
 }
-.preview-card-people {
-  width: 60px;
-}
 
+.preview-card-people,
 .preview-card-datetime {
-  width: 90px;
+  width: 100%;
 }
 
 .preview-card-location {
-  width: 220px;
+  flex: 1;
 }
 
 .preview-card-column {
@@ -385,6 +392,8 @@
   align-items: center;
   gap: 6px;
 }
+
+//---
 .reservation-footer {
   position: fixed;
   bottom: 0;

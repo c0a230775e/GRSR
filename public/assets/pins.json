@@ -3,7 +3,7 @@
     "subLocations": [
       { "id": "A", "name": "イオンスタイル南自転車置き場前", "lat": 35.384702, "lng": 140.025779, "image": "/assets/photo/イオンスタイル南自転車置き場前.jpg" },
       { "id": "B", "name": "ミニストップ幕張ベイーパーク", "lat": 35.384589, "lng": 140.030375, "image": "/assets/photo/ミニストップ幕張ベイパーク.jpg" },
-      { "id": "C", "name": "ZOZOPARK", "lat": 35.384489, "lng": 140.025577, "image": "/assets/photo/ZOZOPARK.jpg" },
+      { "id": "C", "name": "ZOZOPARK", "lat": 35.645803, "lng": 140.048825, "image": "/assets/photo/ZOZOPARK.jpg" },
       { "id": "D", "name": "クロスポート", "lat": 35.6465617, "lng": 140.0500605, "image": "/assets/photo/クロスポート.jpg" }
     ] 
   },

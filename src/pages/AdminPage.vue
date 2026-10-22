@@ -1,62 +1,157 @@
 <template>
   <q-page padding>
-    <h5 class="text-center q-mb-lg">予約一覧</h5>
 
-    <div v-for="t in sortedTimes" :key="t" class="q-mb-md">
+    <h5 class="text-center q-mb-lg">
+      予約一覧
+    </h5>
 
-      <!-- 親予約 -->
-      <div v-if="grouped[t].parent" class="q-pa-sm bg-grey-3 rounded-borders">
-        <div class="text-bold">{{ t }}</div>
-        <div>{{ grouped[t].parent.ride_date }}</div>
-        <div>{{ grouped[t].parent.people }}人</div>
-        <div>{{ grouped[t].parent.from_name }} → {{ grouped[t].parent.to_name }}</div>
+    <div
+      v-for="(day, date) in groupedReservations"
+      :key="date"
+      class="date-group"
+    >
 
-        <!-- ★ 削除ボタン（親予約） -->
-        <q-btn
-          color="red"
-          flat
-          label="削除"
-          class="q-mt-sm"
-          @click="removeReservation(grouped[t].parent)"
-        />
+      <!-- 日付 -->
+      <div class="date-title">
+        {{ displayDate(date) }}
       </div>
 
-      <!-- 相乗り予約（インデント表示） -->
-      <div
-        v-for="child in grouped[t].children"
-        :key="child.id"
-        class="q-pa-sm q-ml-lg bg-grey-2 rounded-borders"
-      >
-        <div class="text-bold">相乗り予約</div>
-        <div>{{ child.people }}人</div>
-        <div>{{ child.from_name }} → {{ child.to_name }}</div>
+      <div class="reservation-list-card q-mb-md">
 
-        <!-- ★ 削除ボタン（子予約） -->
-        <q-btn
-          color="red"
-          flat
-          label="削除"
-          class="q-mt-sm"
-          @click="removeReservation(child)"
-        />
+        <div
+          v-for="slot in ['front', 'back']"
+          :key="slot"
+          class="reservation-half"
+        >
+
+          <template v-if="day[slot]">
+
+            <div class="preview-container">
+
+              <!-- 左側（人数＋時間） -->
+              <div class="preview-left">
+
+                <!-- 人数 -->
+                <div class="preview-card preview-card-people">
+
+                  <q-icon
+                    name="groups"
+                    color="primary"
+                    size="24px"
+                  />
+
+                  <span>
+                    {{ day[slot].people }}人
+                  </span>
+
+                </div>
+
+                <!-- 時間 -->
+                <div class="preview-card preview-card-datetime">
+
+                  <q-icon
+                    name="event"
+                    color="orange"
+                    size="24px"
+                  />
+
+                  <div class="preview-card-column">
+
+                    <div>
+                      {{ day[slot].time }}
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+              <!-- 場所 -->
+              <div class="preview-card preview-card-location">
+
+                <div class="preview-card-column">
+
+                  <div class="preview-location">
+
+                    <q-icon
+                      name="location_on"
+                      color="primary"
+                      size="20px"
+                    />
+
+                    <span>
+                      {{ day[slot].from_name }}
+                    </span>
+                    
+                  </div>
+
+                  <div class="preview-location">
+
+                    <q-icon
+                      name="location_on"
+                      color="negative"
+                      size="20px"
+                    />
+
+                    <span>
+                      {{ day[slot].to_name }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="delete-button-area">
+
+              <q-btn
+                color="negative"
+                icon="delete"
+                label="削除"
+                flat
+                @click="removeReservation(day[slot])"
+              />
+
+            </div>
+
+          </template>
+
+          <template v-else>
+
+            <div class="no-reservation">
+              予約なし
+            </div>
+
+          </template>
+
+          <q-separator
+            v-if="slot === 'front'"
+          />
+
+        </div>
+
       </div>
 
     </div>
+
   </q-page>
 </template>
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { supabase } from '@/supabase'
+import '@/css/AdminPage.scss'
 
 const reservations = ref([])
 
-// 予約一覧を Supabase から取得
+/* -------------------------
+   予約一覧取得
+------------------------- */
 async function loadReservations() {
+
   const { data, error } = await supabase
     .from('reservations')
     .select('*')
-    .order('time', { ascending: true })
+    .order('ride_date', { ascending: true })
 
   if (error) {
     console.error('Supabase error:', error)
@@ -67,24 +162,26 @@ async function loadReservations() {
 }
 
 /* -------------------------
-   ★ 削除処理（親なら子も削除）
+   削除処理
 ------------------------- */
 async function removeReservation(item) {
+
   if (!item) return
 
-  // 親予約の場合 → 子予約も削除
+  // 親予約を削除すると相乗り予約も削除
   if (item.share === false) {
+
     const { error: childErr } = await supabase
       .from('reservations')
       .delete()
-      .eq('parentId', item.id)
+      .eq('parent_id', item.id)
 
     if (childErr) {
       console.error('子予約削除エラー:', childErr)
     }
+
   }
 
-  // 親・子どちらでも自身を削除
   const { error } = await supabase
     .from('reservations')
     .delete()
@@ -95,33 +192,85 @@ async function removeReservation(item) {
     return
   }
 
-  // 再読み込み
-  loadReservations()
+  await loadReservations()
 }
 
-// 時間帯ごとにグループ化
-const grouped = computed(() => {
-  const map = {}
+/* -------------------------
+   日付表示
+------------------------- */
+function displayDate(date) {
+
+  if (!date) return ''
+
+  const parts = date.split('-')
+
+  return `${parts[1]}/${parts[2]}`
+}
+
+/* -------------------------
+   前半後半でグループ化
+   相乗り人数を加算
+------------------------- */
+const groupedReservations = computed(() => {
+
+  const result = {}
 
   reservations.value.forEach(r => {
-    if (!map[r.time]) map[r.time] = { parent: null, children: [] }
 
-    if (r.share === false) {
-      map[r.time].parent = r
-    } else {
-      map[r.time].children.push(r)
+    console.log(
+      r.ride_date,
+      r.time,
+      r.people,
+      r.share
+    )
+    const date = r.ride_date
+
+    if (!result[date]) {
+
+      result[date] = {
+        front: null,
+        back: null
+      }
+
     }
+
+    const minute = Number(r.time.split(':')[1])
+
+    const slotType =
+      minute < 30
+        ? 'front'
+        : 'back'
+
+    if (!result[date][slotType]) {
+
+      result[date][slotType] = {
+        id: r.id,
+        share: r.share,
+        people: Number(r.people),
+        ride_date: r.ride_date,
+        time: r.time,
+        from_name: r.from_name,
+        to_name: r.to_name
+      }
+
+    } else {
+
+      result[date][slotType].people += Number(r.people)
+
+    }
+
   })
 
-  return map
+  return result
+
 })
 
-// 時間順に並べる
-const sortedTimes = computed(() => {
-  return Object.keys(grouped.value).sort()
-})
-
+/* -------------------------
+   初期ロード
+------------------------- */
 onMounted(() => {
+
   loadReservations()
+
 })
 </script>

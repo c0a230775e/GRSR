@@ -14,3 +14,161 @@
   background-color: #f0f7ff;
   border-radius: 4px;
 }
+
+.date-card {
+  display: flex;
+  border: 3px solid #19c23e;
+  border-radius: 4px;
+  background: #e8e8e8;
+  overflow: hidden;
+}
+
+.date-label {
+  width: 70px;
+  min-width: 70px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 32px;
+  color: #19c23e;
+  font-weight: bold;
+
+  border-right: 2px solid #19c23e;
+}
+
+.reservation-list {
+  flex: 1;
+}
+
+.reservation-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 10px 12px;
+
+  border-bottom: 1px solid #19c23e;
+}
+
+.reservation-row:last-child {
+  border-bottom: none;
+}
+
+.reservation-info {
+  color: #19c23e;
+}
+
+.reservation-header {
+  display: flex;
+  gap: 8px;
+  font-weight: bold;
+}
+
+.time {
+  min-width: 50px;
+}
+
+.people {
+  min-width: 30px;
+}
+
+.place {
+  margin-left: 16px;
+  line-height: 1.4;
+}
+
+.share-row {
+  background: #f0f7ff;
+}
+
+.reservation-list-card {
+
+  background: white;
+
+  border: 2px solid #ddd;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+}
+
+.reservation-half {
+
+  padding: 4px;
+}
+
+.no-reservation {
+
+  text-align: center;
+
+  color: #777;
+
+  padding: 30px 0;
+}
+
+.preview-container {
+  display: flex;
+  gap: 6px;
+  align-items: stretch;
+}
+.preview-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 90px;
+}
+.preview-card {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+
+  padding: 2px 3px;
+
+  background: #fff;
+  border: 0.5px solid #e0e0e0;
+  border-radius: 12px;
+}
+
+.preview-card-people {
+  width: 100px;
+}
+
+.preview-card-datetime {
+  width: 100px;
+}
+
+.preview-card-location {
+  flex: 1;
+}
+
+.preview-card-column {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.preview-location {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+.date-group {
+  margin-bottom: 20px;
+}
+.date-title {
+  margin-left: 12px;
+  margin-bottom: 6px;
+
+  font-size: 24px;
+  font-weight: bold;
+
+  color: #1976d2;
+}
+
+.delete-button-area {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}

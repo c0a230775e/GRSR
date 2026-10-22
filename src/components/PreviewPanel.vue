@@ -20,44 +20,45 @@ const displayRideDate = computed(() => {
 
 <template>
   <div class="preview-panel">
-    <div class="text-subtitle1 q-mb-sm">
-      選択内容
-    </div>
-
     <div class="preview-container">
 
-      <!-- 乗車人数 -->
-      <div class="preview-card preview-card-people">
-        <q-icon
-          name="groups"
-          color="primary"
-          size="24px"
-        />
-        <span>
-          {{ people || '未選択' }}
-        </span>
-      </div>
+      <!-- 左側（人数 + 日時） -->
+      <div class="preview-left">
 
-      <!-- 乗車日・予約時間 -->
-      <div class="preview-card preview-card-datetime">
-        <q-icon
-          name="event"
-          color="orange"
-          size="24px"
-        />
+        <!-- 乗車人数 -->
+        <div class="preview-card preview-card-people">
+          <q-icon
+            name="groups"
+            color="primary"
+            size="24px"
+          />
+          <span>
+            {{ people || '未選択' }}
+          </span>
+        </div>
 
-        <div class="preview-card-column">
-          <div>
-            {{ displayRideDate || '未選択' }}
-          </div>
+        <!-- 乗車日・予約時間 -->
+        <div class="preview-card preview-card-datetime">
+          <q-icon
+            name="event"
+            color="orange"
+            size="24px"
+          />
 
-          <div>
-            {{ time?.label || '未選択' }}
+          <div class="preview-card-column">
+            <div>
+              {{ displayRideDate || '未選択' }}
+            </div>
+
+            <div>
+              {{ time?.label || '未選択' }}
+            </div>
           </div>
         </div>
+
       </div>
 
-      <!-- 乗車場所・降車場所 -->
+      <!-- 右側（乗車場所・降車場所） -->
       <div class="preview-card preview-card-location">
         <div class="preview-card-column">
 
