@@ -1,6 +1,12 @@
 <template>
   <q-page padding>
 
+    <q-btn
+      label="管理者画面"
+      color="primary"
+      @click="$router.push('/auth')"
+    />
+
     <!-- 乗車人数 -->
     <RidePeopleSelector
       v-model="people"

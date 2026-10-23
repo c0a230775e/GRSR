@@ -192,12 +192,14 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { supabase } from '@/supabase'
+import { useRouter } from 'vue-router'
 import '@/css/AdminPage.scss'
 
 
 const reservations = ref([])
 const expandedItems = ref({})
 const pins = ref([])
+const router = useRouter()
 
 /* -------------------------
    予約一覧取得
@@ -357,10 +359,17 @@ const groupedReservations = computed(() => {
 ------------------------- */
 onMounted(async () => {
 
+  const isAdmin = localStorage.getItem('adminAuth')
+
+  if (isAdmin !== 'true') {
+    router.replace('/auth')
+    return
+  }
+
   const res = await fetch('/assets/pins.json')
   pins.value = await res.json()
 
   await loadReservations()
-
 })
+
 </script>
