@@ -14,7 +14,7 @@
       { "id": "C", "name": "くちかほう", "lat": 35.383845, "lng": 140.031059, "image": "/assets/photo/くちかほう.jpg" }
     ] 
   },
-  { "id": 3,  "name": "パークウェルステイト西口", "lat": 35.383974, "lng": 140.031178, "image": "/assets/photo/パークウェルステイト西口" ,
+  { "id": 3,  "name": "パークウェルステイト西口", "lat": 35.644374, "lng": 140.053272, "image": "/assets/photo/パークウェルステイト西口" ,
     "subLocations": [
       { "id": "A", "name": "幕張ベイパークメゾンミュージアム", "lat": 35.384120, "lng": 140.031056, "image": "/assets/photo/幕張ベイパークメゾンミュージアム.jpg" }
     ] 
@@ -47,7 +47,7 @@
 
   { "id": 10,  "name": "エクシア", "lat": 35.6408045, "lng": 140.0495830, "image": "/assets/photo/" ,
     "subLocations": [
-      { "id": "A", "name": "エクシア3番館", "lat": 35.383045, "lng": 140.025980, "image": "/assets/photo/.jpg" },
+      { "id": "A", "name": "エクシア3番館", "lat": 35.641792, "lng": 140.049946, "image": "/assets/photo/.jpg" },
       { "id": "B", "name": "エクシア２番館バレンタイン通り", "lat": 35.383045, "lng": 140.025980, "image": "/assets/photo/エクシア２番館バレンタイン通り.jpg" },
       { "id": "C", "name": "エクシア２番館白帆通り", "lat": 35.382751, "lng": 140.025731, "image": "/assets/photo/エクシア２番館白帆通り.jpg" }
     ] 
@@ -87,35 +87,35 @@
       { "id": "A", "name": "９番街バレンタイン通り東", "lat": 35.382855, "lng": 140.025594, "image": "/assets/photo/９番街バレンタイン通り東.jpg" },
       { "id": "B", "name": "９番街白帆通り", "lat": 35.382758, "lng": 140.025681, "image": "/assets/photo/.jpg" },
       { "id": "C", "name": "９番街南", "lat": 35.382580, "lng": 140.025583, "image": "/assets/photo/９番街南.jpg" },
-      { "id": "D", "name": "９番街西", "lat": 35.382642, "lng": 140.025375, "image": "/assets/photo/.jpg" },
+      { "id": "D", "name": "９番街西", "lat": 35.640673, "lng": 140.048264, "image": "/assets/photo/.jpg" },
       { "id": "E", "name": "９番街バレンタイン通り西", "lat": 35.382803, "lng": 140.025447, "image": "/assets/photo/９番街バレンタイン通り西.jpg" }
     ] 
   },
   { "id": 16, "name": "8番街", "lat": 35.6413053, "lng": 140.0472736, "image": "/assets/photo/" ,
     "subLocations": [
-      { "id": "A", "name": "８番街打瀬小前西", "lat": 35.382954, "lng": 140.024942, "image": "/assets/photo/.jpg" },
-      { "id": "B", "name": "８番街打瀬小前東", "lat": 35.382989, "lng": 140.025056, "image": "/assets/photo/.jpg" },
-      { "id": "C", "name": "８番街東", "lat": 35.382878, "lng": 140.025218, "image": "/assets/photo/.jpg" },
-      { "id": "D", "name": "８番街バレンタイン通り東", "lat": 35.382763, "lng": 140.025150, "image": "/assets/photo/.jpg" },
-      { "id": "E", "name": "８番街バレンタイン通り西", "lat": 35.382716, "lng": 140.025014, "image": "/assets/photo/.jpg" },
-      { "id": "F", "name": "８番街打瀬東通り南", "lat": 35.382749, "lng": 140024920, "image": "/assets/photo/.jpg" },
-      { "id": "G", "name": "８番街打瀬東通り北", "lat": 35.382870, "lng": 140.024865, "image": "/assets/photo/.jpg" }
+      { "id": "A", "name": "８番街打瀬小前西", "lat": 35.641541, "lng": 140.047063, "image": "/assets/photo/.jpg" },
+      { "id": "B", "name": "８番街打瀬小前東", "lat": 35.641637, "lng": 140.047380, "image": "/assets/photo/.jpg" },
+      { "id": "C", "name": "８番街東", "lat": 35.641329, "lng": 140.047829, "image": "/assets/photo/.jpg" },
+      { "id": "D", "name": "８番街バレンタイン通り東", "lat": 35.641010, "lng": 140.047639, "image": "/assets/photo/.jpg" },
+      { "id": "E", "name": "８番街バレンタイン通り西", "lat": 35.640879, "lng": 140.047264, "image": "/assets/photo/.jpg" },
+      { "id": "F", "name": "８番街打瀬東通り南", "lat": 35.640971, "lng": 140.047002, "image": "/assets/photo/.jpg" },
+      { "id": "G", "name": "８番街打瀬東通り北", "lat": 35.641307, "lng": 140.046848, "image": "/assets/photo/.jpg" }
     ] 
   },
   { "id": 17, "name": "10番街", "lat": 35.6406005, "lng": 140.0477273, "image": "/assets/photo/" ,
     "subLocations": [
-      { "id": "A", "name": "１０番街南", "lat": 35.382471, "lng": 140.025191, "image": "/assets/photo/.jpg" },
-      { "id": "B", "name": "１０番街打瀬東通り", "lat": 35.382590, "lng": 140.024991, "image": "/assets/photo/.jpg" },
-      { "id": "C", "name": "１０番街バレンタイン通り東", "lat": 35.382715, "lng": 140.025181, "image": "/assets/photo/.jpg" },
-      { "id": "C", "name": "１０番街バレンタイン通り西", "lat": 35.382681, "lng": 140.025014, "image": "/assets/photo/.jpg" },
-      { "id": "D", "name": "１０番街東", "lat": 35.382576, "lng": 140.025338, "image": "/assets/photo/.jpg" }
+      { "id": "A", "name": "１０番街南", "lat": 35.640198, "lng": 140.047755, "image": "/assets/photo/.jpg" },
+      { "id": "B", "name": "１０番街打瀬東通り", "lat": 35.640529, "lng": 140.047199, "image": "/assets/photo/.jpg" },
+      { "id": "C", "name": "１０番街バレンタイン通り東", "lat": 35.640876, "lng": 140.047727, "image": "/assets/photo/.jpg" },
+      { "id": "C", "name": "１０番街バレンタイン通り西", "lat": 35.640782, "lng": 140.047263, "image": "/assets/photo/.jpg" },
+      { "id": "D", "name": "１０番街東", "lat": 35.640489, "lng": 140.048161, "image": "/assets/photo/.jpg" }
     ] 
   },
   { "id": 18, "name": "打瀬１丁目公園", "lat": 35.6430061, "lng": 140.0440282, "image": "/assets/photo/" ,
     "subLocations": [
       { "id": "A", "name": "打瀬１丁目公園北", "lat": null, "lng": null, "image": "/assets/photo/打瀬１丁目公園北.jpg" },
       { "id": "B", "name": "打瀬１丁目公園東", "lat": null, "lng": null, "image": "/assets/photo/打瀬１丁目公園東.jpg" },
-      { "id": "C", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
+      { "id": "C", "name": "打瀬１丁目公園西", "lat": 35.639767, "lng": 140.047554, "image": "/assets/photo/.jpg" },
       { "id": "D", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" }
     ] 
   },
@@ -138,44 +138,48 @@
 
   { "id": 20, "name": "3番街", "lat": 35.6417187, "lng": 140.0460770, "image": "/assets/photo/" ,
     "subLocations": [
-      { "id": "A", "name": "３番街北", "lat": 35.383135, "lng": 140.024564, "image": "/assets/photo/.jpg" },
-      { "id": "B", "name": "３番街東", "lat": 35.383006, "lng": 140.024742, "image": "/assets/photo/.jpg" },
-      { "id": "C", "name": "KUMON", "lat": 35.382916, "lng": 140.024694, "image": "/assets/photo/.jpg" },
-      { "id": "D", "name": "３番街南車庫", "lat": 35.382873, "lng": 140.024558, "image": "/assets/photo/.jpg" },
-      { "id": "D", "name": "Sアカデミー", "lat": 35.382905, "lng": 140.024431, "image": "/assets/photo/.jpg" },
-      { "id": "D", "name": "ヤックスドラッグ", "lat": 35.383037, "lng": 140.024380, "image": "/assets/photo/.jpg" }
+      { "id": "A", "name": "３番街北", "lat": 35.642043, "lng": 140.046012, "image": "/assets/photo/.jpg" },
+      { "id": "B", "name": "３番街東", "lat": 35.641685, "lng": 140.046507, "image": "/assets/photo/.jpg" },
+      { "id": "C", "name": "KUMON", "lat": 35.641435, "lng": 140.046373, "image": "/assets/photo/.jpg" },
+      { "id": "D", "name": "３番街南車庫", "lat": 35.641316, "lng": 140.045997, "image": "/assets/photo/.jpg" },
+      { "id": "D", "name": "Sアカデミー", "lat": 35.641404, "lng": 140.045644, "image": "/assets/photo/.jpg" },
+      { "id": "D", "name": "ヤックスドラッグ", "lat": 35.641771, "lng": 140.045501, "image": "/assets/photo/.jpg" },
+      { "id": "E", "name": "３番街バレンタイン通り", "lat": 35.640589, "lng": 140.046276, "image": "/assets/photo/.jpg" },
+      { "id": "F", "name": "３番街打瀬東通り南", "lat": 35.641002, "lng": 140.046824, "image": "/assets/photo/.jpg" },
+      { "id": "G", "name": "３番街打瀬東通り北", "lat": 35.641291, "lng": 140.046698, "image": "/assets/photo/.jpg" }
     ] 
   },
   { "id": 21, "name": "5番街", "lat": 35.6409566, "lng": 140.0463355, "image": "/assets/photo/" ,
     "subLocations": [
-      { "id": "A", "name": "５番街北", "lat": 35.382833, "lng": 140.024546, "image": "/assets/photo/.jpg" },
+      { "id": "A", "name": "５番街北", "lat": 35.641204, "lng": 140.045961, "image": "/assets/photo/.jpg" },
       { "id": "B", "name": "５番街打瀬東通り北", "lat": 35.382864, "lng": 140.024811, "image": "/assets/photo/.jpg" },
       { "id": "C", "name": "５番街打瀬東通り南", "lat": 35.382760, "lng": 140.024856, "image": "/assets/photo/.jpg" },
       { "id": "D", "name": "５番街バレンタイン通り", "lat": 35.382612, "lng": 140.024659, "image": "/assets/photo/.jpg" },
-      { "id": "E", "name": "ヤンマー", "lat": 35.382673, "lng": 140.024531, "image": "/assets/photo/.jpg" },
-      { "id": "F", "name": "ジャイネパール", "lat": 35.382742, "lng": 140.024496, "image": "/assets/photo/.jpg" }
+      { "id": "E", "name": "ヤンマー", "lat": 35.640759, "lng": 140.045920, "image": "/assets/photo/.jpg" },
+      { "id": "F", "name": "ジャイネパール", "lat": 35.640950, "lng": 140.045825, "image": "/assets/photo/.jpg" }
     ] 
   },
-  { "id": 22, "name": "地域連携センター", "lat": 35.6387520, "lng": 140.0473538, "image": "/assets/photo/" ,
+  { "id": 22, "name": "地域連携センター", "lat": 35.640179, "lng": 140.047210, "image": "/assets/photo/" ,
     "subLocations": [
       { "id": "A", "name": "地域連携センター", "lat": 35.382464, "lng": 140.024995, "image": "/assets/photo/.jpg" },
-      { "id": "B", "name": "美浜図書館打瀬分館", "lat": 35.382278, "lng": 140.025075, "image": "/assets/photo/.jpg" },
-      { "id": "C", "name": "打瀬公民館", "lat": 35.382266, "lng": 140.024717, "image": "/assets/photo/.jpg" }
+      { "id": "B", "name": "美浜図書館打瀬分館", "lat": 35.639663, "lng": 140.047431, "image": "/assets/photo/.jpg" },
+      { "id": "C", "name": "打瀬公民館", "lat": 35.639630, "lng": 140.046438, "image": "/assets/photo/.jpg" },
+      { "id": "D", "name": "三井のリパーク幕張BT3美浜プロムナード", "lat": 35.640226, "lng": 140.046156, "image": "/assets/photo/.jpg" }
     ] 
   },
   { "id": 23, "name": "12番街", "lat": 35.6387520, "lng": 140.0473538, "image": "/assets/photo/" ,
     "subLocations": [
-      { "id": "A", "name": "１２番街北", "lat": 35.382100, "lng": 140.025053, "image": "/assets/photo/.jpg" },
-      { "id": "B", "name": "１２番街打瀬東通り北", "lat": 35.382080, "lng": 140.025160, "image": "/assets/photo/.jpg" },
-      { "id": "C", "name": "１２番街打瀬東通り南", "lat": 35.381949, "lng": 140.025235, "image": "/assets/photo/.jpg" },
-      { "id": "D", "name": "美浜プロムナード南", "lat": 35.381860, "lng": 140.024910, "image": "/assets/photo/.jpg" },
-      { "id": "E", "name": "美浜プロムナード北", "lat": 35.381987, "lng": 140.024854, "image": "/assets/photo/.jpg" }
+      { "id": "A", "name": "１２番街北", "lat": 35.639168, "lng": 140.047371, "image": "/assets/photo/.jpg" },
+      { "id": "B", "name": "１２番街打瀬東通り北", "lat": 35.639113, "lng": 140.047667, "image": "/assets/photo/.jpg" },
+      { "id": "C", "name": "１２番街打瀬東通り南", "lat": 35.638748, "lng": 140.047877, "image": "/assets/photo/.jpg" },
+      { "id": "D", "name": "美浜プロムナード南", "lat": 35.638500, "lng": 140.046972, "image": "/assets/photo/.jpg" },
+      { "id": "E", "name": "美浜プロムナード北", "lat": 35.638853, "lng": 140.046819, "image": "/assets/photo/.jpg" }
     ] 
   },
   { "id": 24, "name": "サウスコート", "lat": 35.6379893, "lng": 140.0478647, "image": "/assets/photo/" ,
     "subLocations": [
-      { "id": "A", "name": "サウスコート東", "lat": 35.381840, "lng": 140.025254, "image": "/assets/photo/.jpg" },
-      { "id": "B", "name": "サウスコート西", "lat": 35.381792, "lng": 140.025086, "image": "/assets/photo/.jpg" },
+      { "id": "A", "name": "サウスコート東", "lat": 35.638445, "lng": 140.047929, "image": "/assets/photo/.jpg" },
+      { "id": "B", "name": "サウスコート西", "lat": 35.638313, "lng": 140.047462, "image": "/assets/photo/.jpg" },
       { "id": "C", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
       { "id": "D", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" }
     ] 
@@ -188,33 +192,44 @@
       { "id": "D", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" }
     ] 
   },
-  { "id": 22, "name": "2番街", "lat": 35.6421293, "lng": 140.0446514, "image": "/assets/photo/" ,
+  { "id": 22, "name": "２番街", "lat": 35.6421293, "lng": 140.0446514, "image": "/assets/photo/" ,
 "subLocations": [
-      { "id": "A", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
-      { "id": "B", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
-      { "id": "C", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
-      { "id": "D", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" }
+      { "id": "A", "name": "２番街ファミリーマート", "lat": 35.642414, "lng": 140.045043, "image": "/assets/photo/.jpg" },
+      { "id": "B", "name": "２番街打瀬北通り", "lat": 35.642487, "lng": 140.044714, "image": "/assets/photo/.jpg" },
+      { "id": "C", "name": "２番街打瀬北通り車庫", "lat": 35.642376, "lng": 140.044321, "image": "/assets/photo/.jpg" },
+      { "id": "D", "name": "２番街西", "lat": 35.641954, "lng": 140.044247, "image": "/assets/photo/.jpg" },
+      { "id": "D", "name": "２番街南", "lat": 35.641813, "lng": 140.044819, "image": "/assets/photo/.jpg" },
+      { "id": "D", "name": "２番街kidsResortUTASE", "lat": 35.642075, "lng": 140.045195, "image": "/assets/photo/.jpg" }
     ] },
   { "id": 23, "name": "4番街", "lat": 35.6414364, "lng": 140.0450316, "image": "/assets/photo/" ,
 "subLocations": [
-      { "id": "A", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
-      { "id": "B", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
-      { "id": "C", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
-      { "id": "D", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" }
+      { "id": "A", "name": "４番街北", "lat": 35.641732, "lng": 140.044906, "image": "/assets/photo/.jpg" },
+      { "id": "B", "name": "４番街打瀬中通り北", "lat": 35.641382°N 140.044474°E, "lng": 35.641382°N 140.044474°E, "image": "/assets/photo/.jpg" },
+      { "id": "C", "name": "４番街打瀬中通り南", "lat": 35.641119°N 140.044614°E, "lng": 35.641119°N 140.044614°E, "image": "/assets/photo/.jpg" },
+      { "id": "D", "name": "４番街南", "lat": 35.641099°N 140.045200°E, "lng": 35.641099°N 140.045200°E, "image": "/assets/photo/.jpg" },
+      { "id": "C", "name": "４番街京葉学院", "lat": 35.641381°N 140.045504°E, "lng": 35.641381°N 140.045504°E, "image": "/assets/photo/.jpg" },
+      { "id": "D", "name": "４番街ベイタウン郵便局", "lat": 35.641699°N 140.045371°E, "lng": 35.641699°N 140.045371°E, "image": "/assets/photo/.jpg" }
     ] },
   { "id": 24, "name": "6番街", "lat": 35.6406759, "lng": 140.0453210, "image": "/assets/photo/" ,
 "subLocations": [
-      { "id": "A", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
-      { "id": "B", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
-      { "id": "C", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
-      { "id": "D", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" }
+      { "id": "A", "name": "６番街北", "lat": 35.641010°N 140.045267°E, "lng": 35.641010°N 140.045267°E, "image": "/assets/photo/.jpg" },
+      { "id": "B", "name": "６番街打瀬中通り南", "lat": 35.640428°N 140.044934°E, "lng": 35.640428°N 140.044934°E, "image": "/assets/photo/.jpg" },
+      { "id": "B", "name": "６番街打瀬中通り北", "lat": 35.640641°N 140.044814°E, "lng": 35.640641°N 140.044814°E, "image": "/assets/photo/.jpg" },
+      { "id": "C", "name": "６番街バレンタイン通り西", "lat": 35.640313°N 140.045330°E, "lng": 35.640313°N 140.045330°E, "image": "/assets/photo/.jpg" },
+      { "id": "D", "name": "６番街へアファッション", "lat": 35.640442°N 140.045721°E, "lng": 35.640442°N 140.045721°E, "image": "/assets/photo/.jpg" },
+      { "id": "D", "name": "６番街デイリーヤマザキ", "lat": 35.640683°N 140.045825°E, "lng": 35.640683°N 140.045825°E, "image": "/assets/photo/.jpg" },
+      { "id": "D", "name": "６番街家CoCo", "lat": 35.640949°N 140.045695°E, "lng": 35.640949°N 140.045695°E, "image": "/assets/photo/.jpg" }
     ] },
   { "id": 25, "name": "11番街", "lat": 35.6398054, "lng": 140.0456911, "image": "/assets/photo/" ,
 "subLocations": [
-      { "id": "A", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
-      { "id": "B", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
-      { "id": "C", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
-      { "id": "D", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" }
+      { "id": "A", "name": "１１番街絆", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
+      { "id": "B", "name": "１１番街今日和", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
+      { "id": "C", "name": "１１番街打瀬中通り北", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
+      { "id": "D", "name": "１１番街打瀬中通り南", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
+      { "id": "A", "name": "１１番街三井のリパーク東", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
+      { "id": "B", "name": "１１番街三井のリパーク西", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
+      { "id": "C", "name": "１１番街美浜プロムナード南", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
+      { "id": "D", "name": "１１番街美浜プロムナード北", "lat": null, "lng": null, "image": "/assets/photo/.jpg" }
     ] },
   { "id": 26, "name": "13番街", "lat": 35.6384563, "lng": 140.0463580, "image": "/assets/photo/" ,
 "subLocations": [
@@ -385,5 +400,8 @@
       { "id": "B", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
       { "id": "C", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
       { "id": "D", "name": "", "lat": null, "lng": null, "image": "/assets/photo/.jpg" }
-    ]  }
+    ]  },
+    { "id": 49, "name": "くすりの福太郎", "lat": 35.639179, "lng": 140.047792, "image": "/assets/photo/" },
+    { "id": 49, "name": "グリーナ", "lat": 35.638883, "lng": 140.047956, "image": "/assets/photo/" }
+
 ]
