@@ -82,7 +82,7 @@ const markers = []
 
 const pins = ref([])
 
-const centerLat = 35.6439633
+const centerLat = 35.6417633
 const centerLng = 140.0473219
 
 // オーバーレイ制御
@@ -106,18 +106,64 @@ onMounted(async () => {
     zoom: 15,
     minZoom: 15,
     maxBounds: [
-      [35.6488675, 140.0542611],
-      [35.6347742, 140.0411377]
+      [35.6517931, 140.0636615],
+      [35.6318486, 140.0317373]
     ],
-    maxBoundsViscosity: 1.0,
+    maxBoundsViscosity: 0.2,
     rotate: true,
     touchRotate: true
   })
+
   map.setBearing(-40)
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map)
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      attribution: '&copy; OpenStreetMap contributors'
+    }
+  ).addTo(map)
+
+  /* -------------------------
+     初期位置へ戻るボタン
+  ------------------------- */
+  const CompassControl = L.Control.extend({
+    options: {
+      position: 'topleft'
+    },
+
+    onAdd() {
+      const wrapper = L.DomUtil.create(
+        'div',
+        'leaflet-control-zoom leaflet-bar'
+      )
+
+      const button = L.DomUtil.create(
+        'a',
+        'leaflet-control-zoom-in',
+        wrapper
+      )
+
+      button.innerHTML = '🧭'
+      button.href = '#'
+      button.title = '初期位置へ戻る'
+      button.setAttribute('role', 'button')
+
+      L.DomEvent.disableClickPropagation(wrapper)
+
+      L.DomEvent.on(button, 'click', (e) => {
+        L.DomEvent.preventDefault(e)
+
+        map.setView(
+          [centerLat, centerLng],
+          15
+        )
+      })
+
+      return wrapper
+    }
+  })
+
+  map.addControl(new CompassControl())
 
   const res = await fetch('/assets/pins.json')
   pins.value = await res.json()
@@ -140,7 +186,6 @@ onMounted(async () => {
     })
 
     marker.on('click', () => {
-
       overlayPin.value = pin
 
       if (
