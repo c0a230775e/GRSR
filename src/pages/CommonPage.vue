@@ -37,9 +37,21 @@
     <ShareRideButtons
       :hasReservedFront="hasReservedFront"
       :hasReservedBack="hasReservedBack"
+
       :reservedFrontLabel="reservedFrontLabel"
       :reservedBackLabel="reservedBackLabel"
-      :onShareRide="onShareRide"
+
+      :shareDialogVisible="shareDialogVisible"
+      :shareTarget="shareTarget"
+      :shareError="shareError"
+
+      :remainingFront="remainingFront"
+      :remainingBack="remainingBack"
+      :isFrontShareTarget="isFrontShareTarget"
+
+      @open-share="onShareRide"
+      @close-share="shareDialogVisible = false"
+      @confirm-share="confirmShareRide"
     />
 
     <div class="row items-center justify-between q-mt-md q-mb-sm">
@@ -54,7 +66,7 @@
     </div>
 
 
-    <!-- ★ 写真モード -->
+    <!-- 写真モード -->
     <div
       v-if="placeSelectMode === 'photo'"
       class="mode-wrapper q-mt-md"
@@ -65,14 +77,9 @@
         @update:from="from = $event"
         @update:to="to = $event"
       />
-
-      <SelectedPlaceView
-        :from="from"
-        :to="to"
-      />
     </div>
 
-    <!-- ★ 地図モード -->
+    <!-- 地図モード -->
     <div
       v-else
       class="mode-wrapper q-mt-md"
@@ -83,40 +90,11 @@
       />
     </div>
 
-    <!-- 相乗りポップアップ -->
-    <q-dialog v-model="shareDialogVisible">
-      <q-card class="dialog-card">
-        <q-card-section class="text-h6">相乗り申請</q-card-section>
-
-        <q-card-section>
-          <div class="q-mb-sm">
-            <div>予約時間：{{ shareTarget?.label }}</div>
-            <div>予約済み人数：{{ shareTarget?.reservedPeople }} 人</div>
-            <div>
-              あと乗れる人数：
-              {{ isFrontShareTarget ? remainingFront : remainingBack }} 人
-            </div>
-          </div>
-
-          <div class="q-mb-md">
-            <div class="text-bold">乗車場所</div>
-            <div>{{ shareTarget?.reservedFrom }}</div>
-          </div>
-
-          <div class="q-mb-md">
-            <div class="text-bold">降車場所</div>
-            <div>{{ shareTarget?.reservedTo }}</div>
-          </div>
-
-          <div v-if="shareError" class="text-red q-mt-sm">
-            {{ shareError }}
-          </div>
-        </q-card-section>
-
-        <q-btn flat label="✖" color="red" @click="shareDialogVisible = false" class="dialog-btn dialog-btn-close" />
-        <q-btn flat label="✔" color="primary" @click="confirmShareRide" class="dialog-btn dialog-btn-ok" />
-      </q-card>
-    </q-dialog>
+    <!-- 共通表示 -->
+    <SelectedPlaceView
+      :from="from"
+      :to="to"
+    />
 
     <!-- ★ フッター固定エリア -->
     <div class="reservation-footer">

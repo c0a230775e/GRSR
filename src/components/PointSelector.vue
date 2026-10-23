@@ -1,55 +1,65 @@
 <template>
   <div class="point-selector">
 
-    <q-tabs
-      v-model="selectMode"
-      class="custom-tabs"
-      :class="selectMode === 'from' ? 'tab1-active' : 'tab2-active'"
-    >
-      <q-tab
-        name="from"
-        label="乗車場所を設定"
-        :class="[
-          selectMode === 'from' ? 'tab1-active' : '',
-          selectMode === 'to' ? 'tab1-inactive' : ''
-        ]"
-      />
+    <!-- メイン地図 -->
+    <div id="map" class="map-container"></div>
 
-      <q-tab
-        name="to"
-        label="降車場所を設定"
-        :class="[
-          selectMode === 'to' ? 'tab2-active' : '',
-          selectMode === 'from' ? 'tab2-inactive' : ''
-        ]"
-      />
-    </q-tabs>
-
+    <!-- オーバーレイ -->
     <div
-      class="tab-content"
-      :class="selectMode === 'from' ? 'tab1-content' : 'tab2-content'"
+      v-if="showOverlay"
+      class="overlay"
     >
-      <div id="map" class="map-container"></div>
-    </div>
-
-    <!-- ★ オーバーレイ -->
-    <div v-if="showOverlay" class="overlay">
       <div class="overlay-content">
 
-        <!-- 左上 × ボタン -->
-        <div class="overlay-close" @click="closeOverlay">×</div>
+        <!-- サブ地図（サブ地点がある場合のみ表示） -->
+        <div
+          v-if="
+            overlayPin?.subLocations &&
+            overlayPin.subLocations.length > 0
+          "
+          id="submap"
+          class="submap-container"
+        />
 
-        <!-- サブ地図 -->
-        <div id="submap" class="submap-container"></div>
-
-        <!-- 左下：サブピン画像（クリック時のみ表示） -->
-        <div v-if="selectedSubPin" class="overlay-subimg">
-          <img :src="selectedSubPin.image" alt="" class="overlay-img" />
+        <!-- 選択画像 -->
+        <div
+          v-if="selectedSubPin"
+          class="selected-image-wrapper"
+        >
+          <q-img
+            :src="selectedSubPin.image"
+            class="point-selected-img"
+          />
         </div>
 
-        <!-- 右下：チェックボタン（クリック時のみ表示） -->
-        <div v-if="selectedSubPin" class="overlay-check-btn" @click="confirmSubPin">
-          ✔
+        <!-- ボタン -->
+        <div class="sub-photo-actions">
+
+          <div
+            v-if="selectedSubPin"
+            class="sub-photo-actions-top"
+          >
+            <q-btn
+              color="negative"
+              label="降車場所に設定"
+              @click="setToLocation"
+            />
+
+            <q-btn
+              color="primary"
+              label="乗車場所に設定"
+              @click="setFromLocation"
+            />
+          </div>
+
+          <div class="sub-photo-actions-bottom">
+            <q-btn
+              flat
+              label="キャンセル"
+              @click="closeOverlay"
+            />
+          </div>
+
         </div>
 
       </div>
@@ -59,7 +69,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted } from 'vue'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import '@/css/CommonPage.scss'
@@ -69,7 +79,6 @@ const emit = defineEmits(['update:from', 'update:to'])
 let map
 let subMap = null
 const markers = []
-const selectMode = ref('from')
 
 const pins = ref([])
 
@@ -90,12 +99,6 @@ const blueIcon = L.icon({
   iconAnchor: [10, 20]
 })
 
-// 赤ピン（降車）
-const redIcon = L.icon({
-  iconUrl: 'https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png',
-  iconSize: [20, 20],
-  iconAnchor: [10, 20]
-})
 
 onMounted(async () => {
   map = L.map('map', {
@@ -122,9 +125,12 @@ onMounted(async () => {
   pins.value.forEach(pin => {
     if (!pin.lat || !pin.lng) return
 
-    const marker = L.marker([pin.lat, pin.lng], {
-      icon: selectMode.value === 'from' ? blueIcon : redIcon
-    }).addTo(map)
+    const marker = L.marker(
+      [pin.lat, pin.lng],
+      {
+        icon: blueIcon
+      }
+    ).addTo(map)
 
     markers.push(marker)
 
@@ -134,22 +140,60 @@ onMounted(async () => {
     })
 
     marker.on('click', () => {
-      overlayPin.value = pin
-      selectedSubPin.value = null
-      showOverlay.value = true
 
-      setTimeout(() => {
-        showSubMap(pin)
-      }, 50)
+      overlayPin.value = pin
+
+      if (
+        pin.subLocations &&
+        pin.subLocations.length > 0
+      ) {
+        selectedSubPin.value = null
+        showOverlay.value = true
+
+        setTimeout(() => {
+          showSubMap(pin)
+        }, 50)
+
+        return
+      }
+
+      selectedSubPin.value = pin
+      showOverlay.value = true
     })
   })
-
-  watch(selectMode, (newMode) => {
-      markers.forEach(marker => {
-        marker.setIcon(newMode === 'from' ? blueIcon : redIcon)
-      })
-    })
 })
+
+function setFromLocation() {
+
+  if (!selectedSubPin.value) return
+
+  emit('update:from', {
+    mainId: overlayPin.value.id,
+    subCode: selectedSubPin.value.id,
+    name: selectedSubPin.value.name,
+    lat: selectedSubPin.value.lat,
+    lng: selectedSubPin.value.lng,
+    image: selectedSubPin.value.image
+  })
+
+  closeOverlay()
+}
+
+function setToLocation() {
+
+  if (!selectedSubPin.value) return
+
+  emit('update:to', {
+    mainId: overlayPin.value.id,
+    subCode: selectedSubPin.value.id,
+    name: selectedSubPin.value.name,
+    lat: selectedSubPin.value.lat,
+    lng: selectedSubPin.value.lng,
+    image: selectedSubPin.value.image
+  })
+
+  closeOverlay()
+}
 
 function showSubMap(mainPin) {
 
@@ -219,28 +263,6 @@ function showSubMap(mainPin) {
   subMap.fitBounds(latlngs)
 }
 
-function confirmSubPin() {
-
-  console.log('confirm', selectedSubPin.value)
-
-  if (!selectedSubPin.value || !overlayPin.value) return
-
-  emit(
-    selectMode.value === 'from'
-      ? 'update:from'
-      : 'update:to',
-    {
-      mainId: overlayPin.value.id,
-      subCode: selectedSubPin.value.id,
-      name: selectedSubPin.value.name,
-      lat: selectedSubPin.value.lat,
-      lng: selectedSubPin.value.lng,
-      image: selectedSubPin.value.image
-    }
-  )
-
-  closeOverlay()
-}
 
 function closeOverlay() {
 

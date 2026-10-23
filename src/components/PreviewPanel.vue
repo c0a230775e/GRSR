@@ -1,23 +1,3 @@
-<script setup>
-import { computed } from 'vue'
-
-const { people, rideDate, time, from, to } = defineProps({
-  people: String,
-  rideDate: String,
-  time: Object,
-  from: Object,
-  to: Object
-})
-
-const displayRideDate = computed(() => {
-  if (!rideDate) return '未選択'
-
-  const parts = rideDate.split('-')
-
-  return `${parts[1]}/${parts[2]}`
-})
-</script>
-
 <template>
   <div class="preview-panel">
     <div class="preview-container">
@@ -90,3 +70,23 @@ const displayRideDate = computed(() => {
     </div>
   </div>
 </template>
+
+<script setup>
+import { computed } from 'vue'
+
+const { people, rideDate, time, from, to } = defineProps({
+  people: String,
+  rideDate: String,
+  time: Object,
+  from: Object,
+  to: Object
+})
+
+const displayRideDate = computed(() => {
+  if (!rideDate) return '未選択'
+
+  const parts = rideDate.split('-')
+
+  return `${parts[1]}/${parts[2]}`
+})
+</script>

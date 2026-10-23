@@ -1,109 +1,3 @@
-<script setup>
-import { computed, ref } from 'vue'
-
-const emit = defineEmits([
-  'update:from',
-  'update:to'
-])
-
-const { pins, placeSelectMode } = defineProps({
-  pins: Array,
-  placeSelectMode: String
-})
-
-const showDialog = ref(false)
-const selectedMainPin = ref(null)
-const selectedSubPin = ref(null)
-
-/* -----------------------------------
-   2行 × 縦方向優先の並び順に変換
------------------------------------ */
-const arrangedPins = computed(() => {
-
-  const row1 = []
-  const row2 = []
-
-  pins.forEach((p, i) => {
-    if (i % 2 === 0) {
-      row1.push(p)
-    } else {
-      row2.push(p)
-    }
-  })
-
-  const result = []
-  const maxLen = Math.max(row1.length, row2.length)
-
-  for (let i = 0; i < maxLen; i++) {
-
-    if (row1[i]) {
-      result.push(row1[i])
-    }
-
-    if (row2[i]) {
-      result.push(row2[i])
-    }
-
-  }
-
-  return result
-})
-
-function openSubSelector(pin) {
-
-  selectedMainPin.value = pin
-  selectedSubPin.value = null
-  showDialog.value = true
-
-}
-
-function selectSubPin(sub) {
-
-  selectedSubPin.value = sub
-
-}
-
-function setFromLocation() {
-
-  if (!selectedSubPin.value) return
-
-  emit('update:from', {
-    mainId: selectedMainPin.value.id,
-    subCode: selectedSubPin.value.id,
-    name: selectedSubPin.value.name,
-    lat: selectedSubPin.value.lat,
-    lng: selectedSubPin.value.lng,
-    image: selectedSubPin.value.image
-  })
-
-  closeDialog()
-}
-
-function setToLocation() {
-
-  if (!selectedSubPin.value) return
-
-  emit('update:to', {
-    mainId: selectedMainPin.value.id,
-    subCode: selectedSubPin.value.id,
-    name: selectedSubPin.value.name,
-    lat: selectedSubPin.value.lat,
-    lng: selectedSubPin.value.lng,
-    image: selectedSubPin.value.image
-  })
-
-  closeDialog()
-}
-
-function closeDialog() {
-
-  showDialog.value = false
-  selectedMainPin.value = null
-  selectedSubPin.value = null
-
-}
-</script>
-
 <template>
 
   <div
@@ -160,58 +54,165 @@ function closeDialog() {
       <q-card-section>
 
         <div class="sub-photo-scroll">
+          <div class="sub-photo-grid">
+            <div
+              v-for="sub in selectedMainPin?.subLocations || []"
+              :key="sub.id"
+              class="sub-photo-card"
+              :class="{ selected: selectedSubPin?.id === sub.id }"
+              @click="selectSubPin(sub)"
+            >
+              <div class="sub-photo-title">
+                {{ sub.name }}
+              </div>
 
-          <div
-            v-for="sub in selectedMainPin?.subLocations || []"
-            :key="sub.id"
-            class="sub-photo-card"
-            :class="{
-              selected: selectedSubPin?.id === sub.id
-            }"
-            @click="selectSubPin(sub)"
-          >
-
-            <div class="text-center q-mb-xs">
-              {{ sub.name }}
+              <q-img
+                :src="sub.image"
+                class="photo-img"
+              />
             </div>
-
-            <q-img
-              :src="sub.image"
-              class="photo-img"
-            />
-
           </div>
-
         </div>
 
       </q-card-section>
 
-      <q-card-actions align="right">
+      <div class="sub-photo-actions">
 
-        <q-btn
-          color="primary"
-          label="乗車場所に設定"
-          :disable="!selectedSubPin"
-          @click="setFromLocation"
-        />
+        <div class="sub-photo-actions-top">
+          <q-btn
+            color="negative"
+            label="降車場所に設定"
+            :disable="!selectedSubPin"
+            @click="setToLocation"
+          />
 
-        <q-btn
-          color="negative"
-          label="降車場所に設定"
-          :disable="!selectedSubPin"
-          @click="setToLocation"
-        />
+          <q-btn
+            color="primary"
+            label="乗車場所に設定"
+            :disable="!selectedSubPin"
+            @click="setFromLocation"
+          />
+        </div>
 
-        <q-btn
-          flat
-          label="キャンセル"
-          @click="closeDialog"
-        />
+        <div class="sub-photo-actions-bottom">
+          <q-btn
+            flat
+            label="キャンセル"
+            @click="closeDialog"
+          />
+        </div>
 
-      </q-card-actions>
+      </div>
+
 
     </q-card>
 
   </q-dialog>
 
 </template>
+
+<script setup>
+  import { computed, ref } from 'vue'
+
+  const emit = defineEmits([
+    'update:from',
+    'update:to'
+  ])
+
+  const { pins, placeSelectMode } = defineProps({
+    pins: Array,
+    placeSelectMode: String
+  })
+
+  const showDialog = ref(false)
+  const selectedMainPin = ref(null)
+  const selectedSubPin = ref(null)
+
+  /* -----------------------------------
+    2行 × 縦方向優先の並び順に変換
+  ----------------------------------- */
+  const arrangedPins = computed(() => {
+
+    const row1 = []
+    const row2 = []
+
+    pins.forEach((p, i) => {
+      if (i % 2 === 0) {
+        row1.push(p)
+      } else {
+        row2.push(p)
+      }
+    })
+
+    const result = []
+    const maxLen = Math.max(row1.length, row2.length)
+
+    for (let i = 0; i < maxLen; i++) {
+
+      if (row1[i]) {
+        result.push(row1[i])
+      }
+
+      if (row2[i]) {
+        result.push(row2[i])
+      }
+
+    }
+
+    return result
+  })
+
+  function openSubSelector(pin) {
+
+    selectedMainPin.value = pin
+    selectedSubPin.value = null
+    showDialog.value = true
+
+  }
+
+  function selectSubPin(sub) {
+
+    selectedSubPin.value = sub
+
+  }
+
+  function setFromLocation() {
+
+    if (!selectedSubPin.value) return
+
+    emit('update:from', {
+      mainId: selectedMainPin.value.id,
+      subCode: selectedSubPin.value.id,
+      name: selectedSubPin.value.name,
+      lat: selectedSubPin.value.lat,
+      lng: selectedSubPin.value.lng,
+      image: selectedSubPin.value.image
+    })
+
+    closeDialog()
+  }
+
+  function setToLocation() {
+
+    if (!selectedSubPin.value) return
+
+    emit('update:to', {
+      mainId: selectedMainPin.value.id,
+      subCode: selectedSubPin.value.id,
+      name: selectedSubPin.value.name,
+      lat: selectedSubPin.value.lat,
+      lng: selectedSubPin.value.lng,
+      image: selectedSubPin.value.image
+    })
+
+    closeDialog()
+  }
+
+  function closeDialog() {
+
+    showDialog.value = false
+    selectedMainPin.value = null
+    selectedSubPin.value = null
+
+  }
+</script>

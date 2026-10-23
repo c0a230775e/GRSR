@@ -14,14 +14,20 @@ const { from, to } = defineProps({
       <!-- 乗車場所 -->
       <div class="col-6" v-if="from">
         <div class="text-center q-mb-xs">乗車場所</div>
-        <q-img :src="from.image" class="selected-img" />
+        <q-img
+          :src="from.image"
+          class="selected-place-img"
+        />
         <div class="text-center q-mt-xs">{{ from.name }}</div>
       </div>
 
       <!-- 降車場所 -->
       <div class="col-6" v-if="to">
         <div class="text-center q-mb-xs">降車場所</div>
-        <q-img :src="to.image" class="selected-img" />
+        <q-img
+          :src="to.image"
+          class="selected-place-img"
+        />
         <div class="text-center q-mt-xs">{{ to.name }}</div>
       </div>
     </div>

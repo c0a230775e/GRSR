@@ -28,13 +28,6 @@
   border-radius: 4px;
 }
 
-.active-tab-btn {
-  background: rgba(0, 150, 255, 0.15); /* 選択中タブの背景 */
-  border-radius: 6px;
-  padding-left: 16px;
-  padding-right: 16px;
-}
-
 .mode-wrapper {
   width: 100%;
   border-radius: 8px;
@@ -48,14 +41,16 @@
 }
 
 .photo-img {
-  @extend .img-base;
-  height: 100px;
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
 }
 
 .selected-img {
-  @extend .img-base;
-  height: 120px;
+  width: 100%;
+  height: auto;
 }
+
 
 .dialog-img {
   @extend .img-base;
@@ -140,113 +135,6 @@
 }
 
 /* =========================
-   タブ全体（背景を横に拡大）
-========================= */
-
-.custom-tabs {
-  position: relative;
-}
-
-/* ★ タブ背景を左右に広げる疑似要素（ここが横幅を決める） */
-.custom-tabs::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -16px;
-  right: -16px;
-  bottom: 0;
-  border-radius: 10px 10px 0 0;
-  z-index: -1;
-}
-
-
-/* Tab1 選択時（from） → タブ背景を青に */
-.tab1-active ~ .tab-content::before,
-.tab1-active ~ .custom-tabs::before,
-.tab1-active.custom-tabs::before {
-  background-color: #5c74ec;
-}
-
-/* Tab2 選択時（to） → タブ背景を赤に */
-.tab2-active ~ .tab-content::before,
-.tab2-active ~ .custom-tabs::before,
-.tab2-active.custom-tabs::before {
-  background-color: #f34e4e;
-}
-
-/* =========================
-   各タブ
-========================= */
-
-.custom-tabs :deep(.q-tab) {
-  min-width: 174px;
-  height: 44px;
-  padding: 0 24px;
-  color: white;
-  background-color: transparent !important; /* ← これが最重要 */
-  border-radius: 10px 10px 0 0;
-  font-size: 20px;
-  font-weight: 600;
-  margin-right: 10px;
-  position: relative;
-}
-
-/* 選択中タブ */
-.tab1-active {
-  background-color: #5c74ec !important;
-  color: white !important;
-}
-
-.tab2-active {
-  background-color: #f34e4e !important;
-  color: white !important;
-}
-
-/* 非選択タブ */
-.tab1-inactive {
-  background-color: #ffffff !important;
-  color: rgb(0, 0, 0) !important;
-}
-
-.tab2-inactive {
-  background-color: #ffffff !important;
-  color: rgb(0, 0, 0) !important;
-}
-
-/* =========================
-   コンテンツ（背景色だけ横に拡大）
-========================= */
-
-.tab-content {
-  position: relative;
-  padding: 0;
-  border: none;
-  border-radius: 0 0 10px 10px;
-  overflow: visible;
-}
-
-.tab-content::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -16px;   /* ← タブと完全に揃える */
-  right: -16px;
-  bottom: -16px;
-  border-radius: 0 0 10px 10px;
-  z-index: -1;
-}
-
-/* Tab1（青） */
-.tab1-content::before {
-  background-color: #5c74ec;
-}
-
-/* Tab2（赤） */
-.tab2-content::before {
-  background-color: #f34e4e;
-}
-
-/* =========================
    オーバーレイのトップバー（閉じるボタン）
 ========================= */
 
@@ -291,60 +179,31 @@
 
 .overlay-content {
   background: white;
-  width: 350px;
-  height: 350px;
+  width: 420px;
+  max-width: 95vw;
+
   border-radius: 12px;
-  padding: 10px;
-  position: relative;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+
+  padding: 12px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 /* サブ地図 */
 .submap-container {
   width: 100%;
-  height: 100%;
+  height: 280px;
   border-radius: 10px;
   overflow: hidden;
-  position: relative;
-  z-index: 1;
 }
-
-/* 左下：サブピン画像 */
-.overlay-subimg {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  z-index: 10;
+.selected-image-wrapper {
+  text-align: center;
 }
-
-.overlay-img {
-  width: 70px;
-  height: 70px;
-  object-fit: cover;
-  border-radius: 6px;
-}
-
-/* 右下：チェックボタン */
-.overlay-check-btn {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  font-size: 28px;
-  background: #4caf50;
-  color: white;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  z-index: 10;
-}
-
 // PreviewPanel.vue
 .preview-panel {
-  margin-top: 6px;
+  margin-top: 1px;
 }
 
 .preview-container {
@@ -418,20 +277,71 @@
 }
 
 .sub-photo-scroll {
-  display: flex;
-  gap: 12px;
   overflow-x: auto;
-  padding-bottom: 8px;
+  width: 100%;
 }
 
+.sub-photo-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 160px;
+  grid-template-rows: repeat(2, auto);
+  gap: 12px;
+  width: max-content;
+  padding-bottom: 2px;
+}
 .sub-photo-card {
-  flex: 0 0 250px;
-  cursor: pointer;
+  width: 160px;
+
   border: 2px solid transparent;
-  border-radius: 10px;
-  padding: 8px;
+  border-radius: 0px;
+
+  cursor: pointer;
+
+  transition: all 0.2s;
 }
 
 .sub-photo-card.selected {
   border-color: #1976d2;
+
+  box-shadow: 0 0 2px rgba(25, 118, 210, 0.5);
+
+  background-color: #e3f2fd;
+}
+.sub-photo-title {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.sub-photo-actions {
+  padding: 12px 16px;
+}
+
+.sub-photo-actions-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.sub-photo-actions-bottom {
+  display: flex;
+  justify-content: flex-start;
+}
+.selected-image-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.point-selected-img {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.selected-place-img {
+  width: 100%;
+  max-width: 300px;
 }
