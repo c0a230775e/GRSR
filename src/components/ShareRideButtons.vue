@@ -7,7 +7,7 @@
   >
     <q-btn
       class="common-btn"
-      color="secondary"
+      color="light-green-6"
       :label="
         reservedFrontLabel
           ? `${reservedFrontLabel} の相乗り`
@@ -24,7 +24,7 @@
   >
     <q-btn
       class="common-btn"
-      color="secondary"
+      color="light-green-6"
       :label="
         reservedBackLabel
           ? `${reservedBackLabel} の相乗り`

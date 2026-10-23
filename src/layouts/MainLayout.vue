@@ -1,6 +1,14 @@
 <template>
   <q-layout view="lHh Lpr lFf" class="layout-bg">
 
+    <q-header class="custom-header">
+      <q-toolbar>
+        <q-toolbar-title class="text-center header-title">
+          ベイ太くん乗車予約
+        </q-toolbar-title>
+      </q-toolbar>
+    </q-header>
+
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -9,19 +17,32 @@
 </template>
 
 <script setup>
-// タブ関連のコードは不要なので空でOK
+// 特になし
 </script>
 
 <style scoped>
-/* 画面全体の背景画像 */
 .layout-bg {
-  background-image: url('/assets/ベイタ君.jpg'); /* ← 好きな画像に変更 */
-  background-size: cover;                 /* 画面全体に敷き詰める */
-  background-position: center;            /* 中央に配置 */
-  background-repeat: no-repeat;           /* 繰り返しなし */
+  background-image: url('/assets/ベイタ君.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-/* q-page の背景を透明にする（重要） */
+.custom-header {
+  background: linear-gradient(
+    to bottom,
+    #8bc34a 0%,
+    #aed581 50%,
+    #fcfcfc 100%
+  );
+}
+
+.header-title {
+  color: white;
+  font-size: 24px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
 .q-page {
   background: transparent !important;
 }

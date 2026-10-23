@@ -1,6 +1,5 @@
 <template>
   <q-page padding>
-    <h5 class="text-center q-mb-lg">予約情報入力</h5>
 
     <!-- 乗車人数 -->
     <RidePeopleSelector
@@ -141,8 +140,9 @@ const router = useRouter()
 /* --- UI 共通ボタンカラー --- */
 function btnColor(active, disabled) {
   if (disabled) return 'grey-4'
-  return active ? 'primary' : 'grey-5'
+  return active ? 'light-green' : 'grey-5'
 }
+
 
 /* --- 乗車人数 --- */
 const peopleOptions = ['1', '2', '3', '4', '5']
