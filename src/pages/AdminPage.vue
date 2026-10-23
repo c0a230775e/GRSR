@@ -26,9 +26,10 @@
 
           <template v-if="day[slot]">
 
+            <!-- 予約概要 -->
             <div class="preview-container">
 
-              <!-- 左側（人数＋時間） -->
+              <!-- 左側 -->
               <div class="preview-left">
 
                 <!-- 人数 -->
@@ -83,7 +84,7 @@
                     <span>
                       {{ day[slot].from_name }}
                     </span>
-                    
+
                   </div>
 
                   <div class="preview-location">
@@ -97,11 +98,63 @@
                     <span>
                       {{ day[slot].to_name }}
                     </span>
+
                   </div>
+
                 </div>
+
               </div>
+
             </div>
-            <div class="delete-button-area">
+
+            <!-- 展開エリア -->
+            <div
+              v-if="expandedItems[day[slot].id]"
+              class="location-photo-area"
+            >
+
+              <div class="location-photo-card">
+
+                <div class="photo-title">
+                  乗車場所
+                </div>
+
+                <img
+                  :src="getPlaceImage(day[slot].from_name)"
+                  class="location-photo"
+                >
+
+              </div>
+
+              <div class="location-photo-card">
+
+                <div class="photo-title">
+                  降車場所
+                </div>
+
+                <img
+                  :src="getPlaceImage(day[slot].to_name)"
+                  class="location-photo"
+                >
+
+              </div>
+
+            </div>
+
+            <!-- 一番下に矢印と削除 -->
+            <div class="card-footer">
+
+              <q-btn
+                flat
+                dense
+                size="lg"
+                :icon="
+                  expandedItems[day[slot].id]
+                    ? 'expand_less'
+                    : 'expand_more'
+                "
+                @click="toggleExpand(day[slot])"
+              />
 
               <q-btn
                 color="negative"
@@ -141,7 +194,10 @@ import { ref, onMounted, computed } from 'vue'
 import { supabase } from '@/supabase'
 import '@/css/AdminPage.scss'
 
+
 const reservations = ref([])
+const expandedItems = ref({})
+const pins = ref([])
 
 /* -------------------------
    予約一覧取得
@@ -207,6 +263,37 @@ function displayDate(date) {
   return `${parts[1]}/${parts[2]}`
 }
 
+function toggleExpand(item) {
+  expandedItems.value[item.id] =
+    !expandedItems.value[item.id]
+}
+
+// 画像取得
+function getPlaceImage(placeName) {
+
+  for (const mainPin of pins.value) {
+
+    if (mainPin.name === placeName) {
+      return mainPin.image
+    }
+
+    if (mainPin.subLocations) {
+
+      const sub = mainPin.subLocations.find(
+        s => s.name === placeName
+      )
+
+      if (sub) {
+        return sub.image
+      }
+
+    }
+
+  }
+
+  return ''
+}
+
 /* -------------------------
    前半後半でグループ化
    相乗り人数を加算
@@ -268,9 +355,12 @@ const groupedReservations = computed(() => {
 /* -------------------------
    初期ロード
 ------------------------- */
-onMounted(() => {
+onMounted(async () => {
 
-  loadReservations()
+  const res = await fetch('/assets/pins.json')
+  pins.value = await res.json()
+
+  await loadReservations()
 
 })
 </script>

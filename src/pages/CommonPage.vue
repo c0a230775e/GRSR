@@ -486,8 +486,13 @@ async function submit() {
       ride_date: rideDate.value,
       time: time.value.label,
       people: Number(people.value),
+
+      from_id: from.value.id,
+      to_id: to.value.id,
+
       from_name: from.value.name,
       to_name: to.value.name,
+
       share: false
     })
 
