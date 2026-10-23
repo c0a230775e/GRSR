@@ -1,5 +1,15 @@
 <template>
   <q-page padding>
+    <!-- 予約画面へ戻る -->
+    <div class="back-button-area">
+      <q-btn
+        outline
+        color="primary"
+        icon="arrow_back"
+        label="予約画面へ戻る"
+        @click="goReservation"
+      />
+    </div>
 
     <h5 class="text-center q-mb-lg">
       予約一覧
@@ -353,6 +363,10 @@ const groupedReservations = computed(() => {
   return result
 
 })
+
+function goReservation () {
+  router.push('/')
+}
 
 /* -------------------------
    初期ロード

@@ -1,11 +1,15 @@
 <template>
   <q-page padding>
 
+   <div class="admin-button-area">
     <q-btn
-      label="管理者画面"
+      outline
       color="primary"
+      label="管理者画面"
+      icon-right="arrow_forward"
       @click="$router.push('/auth')"
     />
+  </div>
 
     <!-- 乗車人数 -->
     <RidePeopleSelector

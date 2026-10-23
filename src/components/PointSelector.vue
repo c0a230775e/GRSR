@@ -238,14 +238,10 @@ function showSubMap(mainPin) {
 
     console.log('sub=', sub)
 
-    const subMarker = L.marker(
+   const subMarker = L.marker(
       [sub.lat, sub.lng],
       {
-        icon: L.icon({
-          iconUrl: '/assets/subpin.png',
-          iconSize: [28, 28],
-          iconAnchor: [14, 28]
-        })
+        icon: blueIcon
       }
     ).addTo(subMap)
 

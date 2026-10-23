@@ -5,6 +5,13 @@
   font-size: 19px;
 }
 
+.admin-button-area {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+  margin-bottom: 16px;
+}
+
 /* 写真一覧 */
 .photo-grid {
   display: grid;

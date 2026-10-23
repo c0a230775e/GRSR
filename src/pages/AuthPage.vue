@@ -1,4 +1,14 @@
 <template>
+    <!-- 予約画面へ戻る -->
+    <div class="back-button-area">
+      <q-btn
+        outline
+        color="primary"
+        icon="arrow_back"
+        label="予約画面へ戻る"
+        @click="goReservation"
+      />
+    </div>
   <q-page class="flex flex-center">
     <q-card style="width: 320px">
       <q-card-section>
@@ -63,5 +73,8 @@ async function login () {
 console.log(error)
 
   router.push('/admin')
+}
+function goReservation () {
+  router.push('/')
 }
 </script>
