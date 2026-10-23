@@ -14,7 +14,7 @@
       { "id": "C", "name": "くちかほう", "lat": 35.644015, "lng": 140.052944, "image": "/assets/photo/くちかほう.jpg" }
     ] 
   },
-  { "id": 3,  "name": "パークウェルステイト西口", "lat": 35.644374, "lng": 140.053272, "image": "/assets/photo/パークウェルステイト西口" ,
+  { "id": 3,  "name": "パークウェルステイト西口", "lat": 35.644374, "lng": 140.053272, "image": "/assets/photo/パークウェルステイト西口.jpg" ,
     "subLocations": [
       { "id": "A", "name": "幕張ベイパークメゾンミュージアム", "lat": 35.644778, "lng": 140.052935, "image": "/assets/photo/幕張ベイパークメゾンミュージアム.jpg" }
     ] 
