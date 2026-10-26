@@ -171,6 +171,7 @@ onMounted(async () => {
         icon: blueIcon
       }
     ).addTo(map)
+    console.log('subMap=', subMap)
 
     marker.bindTooltip(pin.name, {
       permanent: true,
@@ -353,21 +354,25 @@ function showSubPins(mainPin) {
       {
         icon: blueIcon
       }
-    ).addTo(subMap)
+    ).addTo(map)
 
     marker.bindTooltip(sub.name, {
       permanent: true,
-      direction: 'top',
-      offset: [0, -10]
+      direction: 'top'
     })
 
     marker.on('click', () => {
+      overlayPin.value = mainPin
       selectedSubPin.value = sub
+      showOverlay.value = true
 
       setTimeout(() => {
         showSubMap(mainPin)
       }, 50)
     })
+
+    subMarkers.push(marker)
   })
 }
+
 </script>
