@@ -46,7 +46,7 @@
       <q-card-section>
 
         <div class="text-h6">
-          場所を選択
+          画像を選択
         </div>
 
       </q-card-section>
