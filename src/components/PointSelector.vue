@@ -260,14 +260,11 @@ function showSubMap(mainPin) {
       }
     ).addTo(subMap)
 
-    if (
-      selectedSubPin.value &&
-      selectedSubPin.value.id === sub.id
-    ) {
-      marker.openTooltip()
-    }
-
-    marker.bindTooltip(sub.name)
+    marker.bindTooltip(sub.name, {
+      permanent: true,
+      direction: 'top',
+      offset: [0, -10]
+    })
   })
 
   const bounds = mainPin.subLocations.map(sub => [
@@ -356,24 +353,21 @@ function showSubPins(mainPin) {
       {
         icon: blueIcon
       }
-    ).addTo(map)
+    ).addTo(subMap)
 
     marker.bindTooltip(sub.name, {
       permanent: true,
-      direction: 'top'
+      direction: 'top',
+      offset: [0, -10]
     })
 
     marker.on('click', () => {
-      overlayPin.value = mainPin
       selectedSubPin.value = sub
-      showOverlay.value = true
 
       setTimeout(() => {
         showSubMap(mainPin)
-      }, 100)
+      }, 50)
     })
-
-    subMarkers.push(marker)
   })
 }
 </script>
