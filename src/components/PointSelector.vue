@@ -10,17 +10,6 @@
       class="overlay"
     >
       <div class="overlay-content">
-
-        <!-- サブ地図（サブ地点がある場合のみ表示） -->
-        <div
-          v-if="
-            overlayPin?.subLocations &&
-            overlayPin.subLocations.length > 0
-          "
-          id="submap"
-          class="submap-container"
-        />
-
         <!-- 選択画像 -->
         <div
           v-if="selectedSubPin"
@@ -77,9 +66,8 @@ import '@/css/CommonPage.scss'
 const emit = defineEmits(['update:from', 'update:to'])
 
 let map
-let subMap = null
 const markers = []
-
+const subMarkers = []
 const pins = ref([])
 
 const centerLat = 35.6417633
@@ -178,12 +166,15 @@ onMounted(async () => {
       }
     ).addTo(map)
 
-    markers.push(marker)
-
     marker.bindTooltip(pin.name, {
-      permanent: false,
-      direction: 'top'
+      permanent: true,
+      direction: 'top',
+      offset: [0, -10]
     })
+
+    marker.closeTooltip()
+
+    markers.push(marker)
 
     marker.on('click', () => {
       overlayPin.value = pin
@@ -192,13 +183,7 @@ onMounted(async () => {
         pin.subLocations &&
         pin.subLocations.length > 0
       ) {
-        selectedSubPin.value = null
-        showOverlay.value = true
-
-        setTimeout(() => {
-          showSubMap(pin)
-        }, 50)
-
+        showSubPins(pin)
         return
       }
 
@@ -206,6 +191,19 @@ onMounted(async () => {
       showOverlay.value = true
     })
   })
+
+  map.on('zoomend', () => {
+    updatePinLabels()
+
+    if (map.getZoom() < 18) {
+      clearSubPins()
+
+      selectedSubPin.value = null
+      showOverlay.value = false
+    }
+  })
+
+  updatePinLabels()
 })
 
 function setFromLocation() {
@@ -240,79 +238,74 @@ function setToLocation() {
   closeOverlay()
 }
 
-function showSubMap(mainPin) {
+function closeOverlay() {
+  showOverlay.value = false
 
-  const subMapElement = document.getElementById('submap')
-  if (!subMapElement) return
+  selectedSubPin.value = null
 
-  // 前回の地図を削除
-  if (subMap) {
-    subMap.remove()
-    subMap = null
-  }
+  clearSubPins()
 
-  subMap = L.map('submap', {
-    center: [mainPin.lat, mainPin.lng],
-    zoom: 18,
-    zoomControl: false,
-    attributionControl: false,
-    rotate: true,
-    touchRotate: false
+  map.setView(
+    [centerLat, centerLng],
+    15
+  )
+}
+
+function updatePinLabels() {
+  if (!map) return
+
+  const zoom = map.getZoom()
+
+  markers.forEach(marker => {
+    if (zoom >= 16) {
+      marker.openTooltip()
+    } else {
+      marker.closeTooltip()
+    }
+  })
+}
+function clearSubPins() {
+  subMarkers.forEach(marker => {
+    marker.closeTooltip()
+
+    if (map.hasLayer(marker)) {
+      map.removeLayer(marker)
+    }
   })
 
-  L.tileLayer(
-    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  subMarkers.length = 0
+}
+function showSubPins(mainPin) {
+  clearSubPins()
+
+  map.setView(
+    [mainPin.lat, mainPin.lng],
+    18,
     {
-      attribution: '&copy; OpenStreetMap contributors'
+      animate: true
     }
-  ).addTo(subMap)
-
-  // オーバーレイ表示後にサイズ再計算
-  setTimeout(() => {
-    subMap.invalidateSize()
-  }, 100)
-
-  console.log(mainPin)
-  console.log(mainPin.subLocations)
-
-  if (!mainPin.subLocations || mainPin.subLocations.length === 0) {
-    return
-  }
+  )
 
   mainPin.subLocations.forEach(sub => {
-
-    console.log('sub=', sub)
-
-   const subMarker = L.marker(
+    const marker = L.marker(
       [sub.lat, sub.lng],
       {
         icon: blueIcon
       }
-    ).addTo(subMap)
+    ).addTo(map)
 
-    subMarker.bindTooltip(sub.name)
-
-    subMarker.on('click', () => {
-      selectedSubPin.value = sub
+    marker.bindTooltip(sub.name, {
+      permanent: true,
+      direction: 'top'
     })
+
+    marker.on('click', () => {
+      overlayPin.value = mainPin
+      selectedSubPin.value = sub
+      showOverlay.value = true
+    })
+
+    subMarkers.push(marker)
   })
-  const latlngs = mainPin.subLocations.map(sub => [
-    sub.lat,
-    sub.lng
-  ])
-
-  subMap.fitBounds(latlngs)
-}
-
-
-function closeOverlay() {
-
-  if (subMap) {
-    subMap.remove()
-    subMap = null
-  }
-
-  showOverlay.value = false
-  selectedSubPin.value = null
 }
 </script>
