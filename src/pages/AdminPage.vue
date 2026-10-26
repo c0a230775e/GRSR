@@ -316,12 +316,6 @@ const groupedReservations = computed(() => {
 
   reservations.value.forEach(r => {
 
-    console.log(
-      r.ride_date,
-      r.time,
-      r.people,
-      r.share
-    )
     const date = r.ride_date
 
     if (!result[date]) {

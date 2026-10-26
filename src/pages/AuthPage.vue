@@ -53,10 +53,6 @@ async function login () {
     .eq('key', 'admin_password')
     .single()
 
-
-    console.log(data)
-    console.log(error)
-
   if (error) {
     alert('設定取得エラー')
     console.error(error)
@@ -69,9 +65,6 @@ async function login () {
   }
 
   localStorage.setItem('adminAuth', 'true')
-  console.log(data)
-console.log(error)
-
   router.push('/admin')
 }
 function goReservation () {

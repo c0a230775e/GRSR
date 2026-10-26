@@ -171,7 +171,6 @@ onMounted(async () => {
         icon: blueIcon
       }
     ).addTo(map)
-    console.log('subMap=', subMap)
 
     marker.bindTooltip(pin.name, {
       permanent: true,

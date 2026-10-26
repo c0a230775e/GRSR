@@ -366,15 +366,9 @@ function onShareRide(mode) {
   let targetSlots = mode === 'front'
     ? availableTimeSlots.value.slice(0, 3)
     : availableTimeSlots.value.slice(3, 5)
-
-  console.log('mode=', mode)
-  console.log('targetSlots=', targetSlots)
-
   const reservedSlot = targetSlots.find(
     s => s.reserved
   )
-
-  console.log('reservedSlot=', reservedSlot)
 
   if (!reservedSlot) return
 
