@@ -10,6 +10,11 @@
       class="overlay"
     >
       <div class="overlay-content">
+        <div
+          v-if="selectedSubPin"
+          id="submap"
+          class="submap-container"
+        />
         <!-- 選択画像 -->
         <div
           v-if="selectedSubPin"
@@ -69,6 +74,7 @@ let map
 const markers = []
 const subMarkers = []
 const pins = ref([])
+let subMap = null
 
 const centerLat = 35.6417633
 const centerLng = 140.0473219
@@ -222,6 +228,60 @@ function setFromLocation() {
   closeOverlay()
 }
 
+function showSubMap(mainPin) {
+  const element = document.getElementById('submap')
+
+  if (!element) return
+
+  if (subMap) {
+    subMap.remove()
+    subMap = null
+  }
+
+  subMap = L.map('submap', {
+    center: [mainPin.lat, mainPin.lng],
+    zoom: 18,
+    zoomControl: false,
+    attributionControl: false
+  })
+
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      attribution: '&copy; OpenStreetMap contributors'
+    }
+  ).addTo(subMap)
+
+  mainPin.subLocations.forEach(sub => {
+    const marker = L.marker(
+      [sub.lat, sub.lng],
+      {
+        icon: blueIcon
+      }
+    ).addTo(subMap)
+
+    if (
+      selectedSubPin.value &&
+      selectedSubPin.value.id === sub.id
+    ) {
+      marker.openTooltip()
+    }
+
+    marker.bindTooltip(sub.name)
+  })
+
+  const bounds = mainPin.subLocations.map(sub => [
+    sub.lat,
+    sub.lng
+  ])
+
+  subMap.fitBounds(bounds)
+
+  setTimeout(() => {
+    subMap.invalidateSize()
+  }, 100)
+}
+
 function setToLocation() {
 
   if (!selectedSubPin.value) return
@@ -239,6 +299,10 @@ function setToLocation() {
 }
 
 function closeOverlay() {
+  if (subMap) {
+    subMap.remove()
+    subMap = null
+  }
   showOverlay.value = false
 
   selectedSubPin.value = null
@@ -303,6 +367,10 @@ function showSubPins(mainPin) {
       overlayPin.value = mainPin
       selectedSubPin.value = sub
       showOverlay.value = true
+
+      setTimeout(() => {
+        showSubMap(mainPin)
+      }, 100)
     })
 
     subMarkers.push(marker)
