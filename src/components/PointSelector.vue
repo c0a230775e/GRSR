@@ -266,6 +266,10 @@ function showSubMap(mainPin) {
       direction: 'top',
       offset: [0, -10]
     })
+
+    marker.on('click', () => {
+      selectedSubPin.value = sub
+    })
   })
 
   const bounds = mainPin.subLocations.map(sub => [
