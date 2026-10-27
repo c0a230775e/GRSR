@@ -1,16 +1,6 @@
 <template>
   <q-page padding>
 
-   <div class="admin-button-area">
-    <q-btn
-      outline
-      color="primary"
-      label="管理者画面"
-      icon-right="arrow_forward"
-      @click="$router.push('/auth')"
-    />
-  </div>
-
     <!-- 乗車人数 -->
     <RidePeopleSelector
       v-model="people"
@@ -123,6 +113,24 @@
       />
 
     </div>
+
+    <q-expansion-item
+      icon="person"
+      label="氏名・電話番号を入力する（任意）"
+      class="q-mt-md"
+      header-class="text-grey-7"
+    >
+
+      <div class="text-caption text-grey q-mb-md">
+        通常は入力不要です。必要な方のみ入力してください。
+      </div>
+
+      <MemoPage
+        v-model:name="passengerName"
+        v-model:phone="phoneNumber"
+      />
+
+    </q-expansion-item>
   </q-page>
 </template>
 
@@ -144,6 +152,8 @@ import ShareRideButtons from '@/components/ShareRideButtons.vue'
 import PreviewPanel from '@/components/PreviewPanel.vue'
 import SubmitButton from '@/components/SubmitButton.vue'
 import PointSelector from '@/components/PointSelector.vue'
+import MemoPage from '@/components/MemoPage.vue'
+
 
 const router = useRouter()
 
@@ -181,6 +191,9 @@ const placeSelectMode = ref('photo')  // 'photo' or 'map'
 const pins = ref([])
 const from = ref(null)
 const to = ref(null)
+
+const passengerName = ref('')
+const phoneNumber = ref('')
 
 /* --- timeSlots.json 読み込み --- */
 const timeSlotsRaw = ref([])
@@ -412,8 +425,13 @@ async function confirmShareRide() {
       ride_date: rideDate.value,
       time: shareTarget.value.label,
       people: Number(people.value),
+
       from_name: shareTarget.value.reservedFrom,
       to_name: shareTarget.value.reservedTo,
+
+      passenger_name: passengerName.value,
+      phone_number: phoneNumber.value,
+
       share: true,
       parent_id: shareTarget.value.reservedId
     })
@@ -474,6 +492,9 @@ async function submit() {
 
       from_name: from.value.name,
       to_name: to.value.name,
+
+      passenger_name: passengerName.value,
+      phone_number: phoneNumber.value,
 
       share: false
     })

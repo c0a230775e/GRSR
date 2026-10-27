@@ -3,7 +3,10 @@
 
     <q-header class="custom-header">
       <q-toolbar>
-        <q-toolbar-title class="text-center header-title">
+        <q-toolbar-title
+          class="text-center header-title"
+          @click="onTitleClick"
+        >
           ベイ太くん乗車予約
         </q-toolbar-title>
       </q-toolbar>
@@ -17,17 +20,37 @@
 </template>
 
 <script setup>
-// 特になし
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const tapCount = ref(0)
+
+let tapTimer = null
+
+function onTitleClick () {
+
+  tapCount.value++
+
+  clearTimeout(tapTimer)
+
+  tapTimer = setTimeout(() => {
+    tapCount.value = 0
+  }, 3000)
+
+  if (tapCount.value >= 3) {
+
+    tapCount.value = 0
+
+    clearTimeout(tapTimer)
+
+    router.push('/admin')
+  }
+}
 </script>
 
 <style scoped>
-.layout-bg {
-  background-image: url('/assets/ベイタ君.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
 .custom-header {
   background: linear-gradient(
     to bottom,

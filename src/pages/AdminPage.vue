@@ -16,6 +16,58 @@
     </h5>
 
     <div
+      v-if="!isAdmin"
+      class="text-center q-mb-lg"
+    >
+      <q-btn
+        color="primary"
+        label="サインイン"
+        @click="showLoginDialog = true"
+      />
+    </div>
+
+    <q-dialog v-model="showLoginDialog">
+
+      <q-card style="width:300px">
+
+        <q-card-section>
+          <div class="text-h6">
+            管理者認証
+          </div>
+        </q-card-section>
+
+        <q-card-section>
+
+          <q-input
+            v-model="password"
+            type="password"
+            label="パスワード"
+            outlined
+          />
+
+        </q-card-section>
+
+        <q-card-actions align="right">
+
+          <q-btn
+            flat
+            label="キャンセル"
+            v-close-popup
+          />
+
+          <q-btn
+            color="primary"
+            label="ログイン"
+            @click="login"
+          />
+
+        </q-card-actions>
+
+      </q-card>
+
+    </q-dialog>
+
+    <div
       v-for="(day, date) in groupedReservations"
       :key="date"
       class="date-group"
@@ -117,6 +169,23 @@
 
             </div>
 
+            <div
+              v-if="isAdmin"
+              class="q-mt-sm"
+            >
+
+              <div>
+                氏名：
+                {{ day[slot].passenger_name }}
+              </div>
+
+              <div>
+                電話番号：
+                {{ day[slot].phone_number }}
+              </div>
+
+            </div>
+
             <!-- 展開エリア -->
             <div
               v-if="expandedItems[day[slot].id]"
@@ -167,6 +236,7 @@
               />
 
               <q-btn
+                v-if="isAdmin"
                 color="negative"
                 icon="delete"
                 label="削除"
@@ -210,6 +280,9 @@ const reservations = ref([])
 const expandedItems = ref({})
 const pins = ref([])
 const router = useRouter()
+const isAdmin = ref(false)
+const showLoginDialog = ref(false)
+const password = ref('')
 
 /* -------------------------
    予約一覧取得
@@ -343,7 +416,9 @@ const groupedReservations = computed(() => {
         ride_date: r.ride_date,
         time: r.time,
         from_name: r.from_name,
-        to_name: r.to_name
+        to_name: r.to_name,
+        passenger_name: r.passenger_name,
+        phone_number: r.phone_number
       }
 
     } else {
@@ -361,23 +436,86 @@ const groupedReservations = computed(() => {
 function goReservation () {
   router.push('/')
 }
+function logout () {
+
+  localStorage.removeItem('adminAuth')
+
+  isAdmin.value = false
+
+  alert('認証の有効期限が切れました')
+
+}
+async function login () {
+
+  const { data, error } = await supabase
+    .from('settings')
+    .select('value')
+    .eq('key', 'admin_password')
+    .single()
+
+  if (error) {
+    alert('設定取得エラー')
+    return
+  }
+
+  if (password.value !== data.value) {
+    alert('パスワードが違います')
+    return
+  }
+
+  localStorage.setItem('adminAuth', 'true')
+  localStorage.setItem('adminLoginTime', Date.now())
+
+  isAdmin.value = true
+
+  showLoginDialog.value = false
+
+  // 3分後に自動ログアウト
+  setTimeout(() => {
+
+    logout()
+
+  }, 3 * 60 * 1000)
+}
 
 /* -------------------------
    初期ロード
 ------------------------- */
 onMounted(async () => {
+  const loginTime = Number(localStorage.getItem('adminLoginTime'))
+  const now = Date.now()
 
-  const isAdmin = localStorage.getItem('adminAuth')
+  if (
+    loginTime &&
+    now - loginTime < 3 * 60 * 1000
+  ) {
 
-  if (isAdmin !== 'true') {
-    router.replace('/auth')
-    return
+    isAdmin.value = true
+
+    const remain =
+      3 * 60 * 1000 - (now - loginTime)
+
+    setTimeout(() => {
+      logout()
+    }, remain)
+
+  } else {
+
+    localStorage.removeItem('adminAuth')
+    localStorage.removeItem('adminLoginTime')
+
+    isAdmin.value = false
+
   }
+
+  isAdmin.value =
+    localStorage.getItem('adminAuth') === 'true'
 
   const res = await fetch('/assets/pins.json')
   pins.value = await res.json()
 
   await loadReservations()
+
 })
 
 </script>
