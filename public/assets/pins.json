@@ -114,8 +114,8 @@
       { "id": "C", "name": "打瀬１丁目公園西", "lat": 35.639767, "lng": 140.047554, "image": "/assets/photo/打瀬１丁目公園西.jpg" }
     ] 
   },
-  { "id": 26, "name": "くすりの福太郎", "lat": 35.639179, "lng": 140.047792, "image": "/assets/photo/" },
-  { "id": 27, "name": "グリーナ", "lat": 35.638883, "lng": 140.047956, "image": "/assets/photo/" },
+  { "id": 26, "name": "くすりの福太郎", "lat": 35.639179, "lng": 140.047792, "image": "/assets/photo/くすりの福太郎.jpg" },
+  { "id": 27, "name": "グリーナ", "lat": 35.638883, "lng": 140.047956, "image": "/assets/photo/グリーナ.jpg" },
   { "id": 28, "name": "セントラルパークW", "lat": 35.6435415, "lng": 140.0454370, "image": "/assets/photo/セントラルパークW_D棟_東口.jpg" ,
     "subLocations": [
       { "id": "A", "name": "セントラルパークW D棟東口", "lat": 35.642903, "lng": 140.045623, "image": "/assets/photo/セントラルパークW_D棟_東口.jpg" },
