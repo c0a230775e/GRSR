@@ -441,9 +441,6 @@ function logout () {
   localStorage.removeItem('adminAuth')
 
   isAdmin.value = false
-
-  alert('認証の有効期限が切れました')
-
 }
 async function login () {
 

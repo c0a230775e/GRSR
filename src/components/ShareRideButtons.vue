@@ -1,39 +1,4 @@
 <template>
-
-  <!-- 前半 -->
-  <div
-    v-if="hasReservedFront"
-    class="q-mt-md text-center"
-  >
-    <q-btn
-      class="common-btn"
-      color="light-green-6"
-      :label="
-        reservedFrontLabel
-          ? `${reservedFrontLabel} の相乗り`
-          : '前半の相乗り'
-      "
-      @click="emit('open-share', 'front')"
-    />
-  </div>
-
-  <!-- 後半 -->
-  <div
-    v-if="hasReservedBack"
-    class="q-mt-md text-center"
-  >
-    <q-btn
-      class="common-btn"
-      color="light-green-6"
-      :label="
-        reservedBackLabel
-          ? `${reservedBackLabel} の相乗り`
-          : '後半の相乗り'
-      "
-      @click="emit('open-share', 'back')"
-    />
-  </div>
-
   <!-- 相乗りポップアップ -->
   <q-dialog
     :model-value="shareDialogVisible"

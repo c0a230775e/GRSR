@@ -92,7 +92,16 @@
 
 .time-grid > div {
   width: 100%;
-  max-width: 160px;
+  max-width: 380px;
+}
+
+.share-btn-wrapper {
+  grid-column: span 3;
+  width: 100%;
+}
+
+.share-btn {
+  width: 100%;
 }
 
 /* ポップアップ */
@@ -356,4 +365,13 @@
 .leaflet-control-zoom a {
   font-size: 18px;
   line-height: 26px;
+}
+
+.share-btn-wrapper {
+  width: 100%;
+  grid-column: span 3;
+}
+
+.share-btn {
+  width: 100%;
 }

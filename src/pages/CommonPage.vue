@@ -30,6 +30,14 @@
       v-model="time"
       :availableTimeSlots="availableTimeSlots"
       :btnColor="btnColor"
+
+      :hasReservedFront="hasReservedFront"
+      :hasReservedBack="hasReservedBack"
+
+      :reservedFrontLabel="reservedFrontLabel"
+      :reservedBackLabel="reservedBackLabel"
+
+      @open-share="onShareRide"
     />
 
     <!-- 相乗りボタン -->
@@ -119,6 +127,7 @@
       label="氏名・電話番号を入力する（任意）"
       class="q-mt-md"
       header-class="text-grey-7"
+      @show="onOpenPassengerInfo"
     >
 
       <div class="text-caption text-grey q-mb-md">
@@ -454,6 +463,19 @@ async function confirmShareRide() {
       to: shareTarget.value.reservedTo
     }
   })
+
+}
+
+function onOpenPassengerInfo () {
+
+  setTimeout(() => {
+
+    window.scrollBy({
+      top: 200,
+      behavior: 'smooth'
+    })
+
+  }, 300)
 
 }
 

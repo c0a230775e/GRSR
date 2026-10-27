@@ -3,14 +3,16 @@
   <div class="memo-card">
 
     <q-input
-      v-model="name"
+      :model-value="name"
+      @update:model-value="$emit('update:name', $event)"
       outlined
       label="お名前"
       maxlength="20"
     />
 
     <q-input
-      v-model="phone"
+      :model-value="phone"
+      @update:model-value="$emit('update:phone', $event)"
       outlined
       type="tel"
       label="電話番号"
@@ -22,8 +24,23 @@
 </template>
 
 <script setup>
-const name = defineModel('name')
-const phone = defineModel('phone')
+
+defineProps({
+  name: {
+    type: String,
+    default: ''
+  },
+  phone: {
+    type: String,
+    default: ''
+  }
+})
+
+defineEmits([
+  'update:name',
+  'update:phone'
+])
+
 </script>
 
 <style scoped>
