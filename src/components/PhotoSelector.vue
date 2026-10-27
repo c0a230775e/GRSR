@@ -56,7 +56,7 @@
         <div class="sub-photo-scroll">
           <div class="sub-photo-grid">
             <div
-              v-for="sub in selectedMainPin?.subLocations || []"
+              v-for="sub in displayLocations"
               :key="sub.id"
               class="sub-photo-card"
               :class="{ selected: selectedSubPin?.id === sub.id }"
@@ -165,9 +165,23 @@
   function openSubSelector(pin) {
 
     selectedMainPin.value = pin
-    selectedSubPin.value = null
-    showDialog.value = true
 
+    if (
+      pin.subLocations &&
+      pin.subLocations.length > 0
+    ) {
+      selectedSubPin.value = null
+    } else {
+      selectedSubPin.value = {
+        id: pin.id,
+        name: pin.name,
+        image: pin.image,
+        lat: pin.lat,
+        lng: pin.lng
+      }
+    }
+
+    showDialog.value = true
   }
 
   function selectSubPin(sub) {
@@ -207,6 +221,27 @@
 
     closeDialog()
   }
+
+  const displayLocations = computed(() => {
+    if (!selectedMainPin.value) {
+      return []
+    }
+
+    if (
+      selectedMainPin.value.subLocations &&
+      selectedMainPin.value.subLocations.length > 0
+    ) {
+      return selectedMainPin.value.subLocations
+    }
+
+    return [{
+      id: selectedMainPin.value.id,
+      name: selectedMainPin.value.name,
+      image: selectedMainPin.value.image,
+      lat: selectedMainPin.value.lat,
+      lng: selectedMainPin.value.lng
+    }]
+  })
 
   function closeDialog() {
 
