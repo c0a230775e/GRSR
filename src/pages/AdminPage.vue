@@ -1,7 +1,8 @@
 <template>
   <q-page padding>
     <!-- 予約画面へ戻る -->
-    <div class="back-button-area">
+    <div class="top-button-row">
+
       <q-btn
         outline
         color="primary"
@@ -9,22 +10,21 @@
         label="予約画面へ戻る"
         @click="goReservation"
       />
+
+      <q-btn
+        v-if="!isAdmin"
+        outline
+        color="primary"
+        icon="login"
+        label="サインイン"
+        @click="showLoginDialog = true"
+      />
+
     </div>
 
     <h5 class="text-center q-mb-lg">
       予約一覧
     </h5>
-
-    <div
-      v-if="!isAdmin"
-      class="text-center q-mb-lg"
-    >
-      <q-btn
-        color="primary"
-        label="サインイン"
-        @click="showLoginDialog = true"
-      />
-    </div>
 
     <q-dialog v-model="showLoginDialog">
 
