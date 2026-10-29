@@ -203,6 +203,11 @@
                   class="location-photo"
                 >
 
+                <div
+                  :id="`from-map-${day[slot].id}`"
+                  class="location-mini-map"
+                />
+
               </div>
 
               <div class="location-photo-card">
@@ -210,11 +215,16 @@
                 <div class="photo-title">
                   降車場所
                 </div>
-
+                
                 <img
                   :src="getPlaceImage(day[slot].to_name)"
                   class="location-photo"
                 >
+
+                <div
+                  :id="`to-map-${day[slot].id}`"
+                  class="location-mini-map"
+                />
 
               </div>
 
@@ -248,14 +258,6 @@
 
           </template>
 
-          <template v-else>
-
-            <div class="no-reservation">
-              予約なし
-            </div>
-
-          </template>
-
           <q-separator
             v-if="slot === 'front'"
           />
@@ -274,6 +276,8 @@ import { ref, onMounted, computed } from 'vue'
 import { supabase } from '@/supabase'
 import { useRouter } from 'vue-router'
 import '@/css/AdminPage.scss'
+import L from 'leaflet'
+import { nextTick } from 'vue'
 
 
 const reservations = ref([])
@@ -283,6 +287,7 @@ const router = useRouter()
 const isAdmin = ref(false)
 const showLoginDialog = ref(false)
 const password = ref('')
+const maps = {}
 
 /* -------------------------
    予約一覧取得
@@ -336,6 +341,37 @@ async function removeReservation(item) {
   await loadReservations()
 }
 
+async function drawMap(placeName, mapId) {
+
+  const location = getPlaceLocation(placeName)
+
+  if (!location) return
+
+  await nextTick()
+
+  if (maps[mapId]) {
+    maps[mapId].remove()
+  }
+
+  maps[mapId] = L.map(mapId, {
+    zoomControl: false,
+    attributionControl: false
+  }).setView(
+    [location.lat, location.lng],
+    17
+  )
+
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+  ).addTo(maps[mapId])
+
+  L.marker([
+    location.lat,
+    location.lng
+  ]).addTo(maps[mapId])
+}
+
+
 /* -------------------------
    日付表示
 ------------------------- */
@@ -348,9 +384,25 @@ function displayDate(date) {
   return `${parts[1]}/${parts[2]}`
 }
 
-function toggleExpand(item) {
+async function toggleExpand(item) {
+
   expandedItems.value[item.id] =
     !expandedItems.value[item.id]
+
+  if (expandedItems.value[item.id]) {
+
+    await nextTick()
+
+    drawMap(
+      item.from_name,
+      `from-map-${item.id}`
+    )
+
+    drawMap(
+      item.to_name,
+      `to-map-${item.id}`
+    )
+  }
 }
 
 // 画像取得
@@ -377,6 +429,34 @@ function getPlaceImage(placeName) {
   }
 
   return ''
+}
+
+function getPlaceLocation(placeName) {
+  for (const mainPin of pins.value) {
+
+    if (mainPin.name === placeName) {
+      return {
+        lat: mainPin.lat,
+        lng: mainPin.lng
+      }
+    }
+
+    if (mainPin.subLocations) {
+
+      const sub = mainPin.subLocations.find(
+        s => s.name === placeName
+      )
+
+      if (sub) {
+        return {
+          lat: sub.lat,
+          lng: sub.lng
+        }
+      }
+    }
+  }
+
+  return null
 }
 
 /* -------------------------

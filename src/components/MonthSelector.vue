@@ -12,7 +12,7 @@ const emit = defineEmits(['update:modelValue'])
 
 <template>
   <div class="q-mb-md">
-    <div class="text-subtitle1 q-mb-sm">乗車日</div>
+    <div class="section-title q-mb-sm">乗車日</div>
 
     <!-- 月選択 -->
     <div class="row q-col-gutter-sm q-mb-sm">

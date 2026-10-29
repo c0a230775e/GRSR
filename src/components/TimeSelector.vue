@@ -14,7 +14,16 @@ const props = defineProps({
   hasReservedBack: Boolean,
 
   reservedFrontLabel: String,
-  reservedBackLabel: String
+  reservedBackLabel: String,
+
+  reservedFrontFrom: String,
+  reservedFrontTo: String,
+
+  reservedBackFrom: String,
+  reservedBackTo: String,
+
+  frontFull: Boolean,
+  backFull: Boolean,
 })
 
 const emit = defineEmits([
@@ -31,7 +40,7 @@ const emit = defineEmits([
     class="q-mb-md"
   >
 
-    <div class="text-subtitle1 q-mb-sm">
+    <div class="section-title q-mb-sm">
       予約時間
     </div>
 
@@ -44,10 +53,35 @@ const emit = defineEmits([
         <div class="share-btn-wrapper">
           <q-btn
             class="common-btn share-btn"
-            color="light-green-6"
-            :label="`${props.reservedFrontLabel} の相乗り`"
+            :disable="props.frontFull"
+            :class="{ 'share-btn-full': props.frontFull }"
             @click="emit('open-share', 'front')"
-          />
+          >
+            <div class="share-content">
+
+              <div class="share-left">
+                <div class="share-time">
+                  {{ props.reservedFrontLabel }}
+                </div>
+
+                <div class="share-text">
+                  {{ props.frontFull ? '満員' : '相乗り' }}
+                </div>
+
+              </div>
+
+              <div class="share-right">
+                <div class="share-place">
+                  {{ props.reservedFrontFrom }}
+                </div>
+
+                <div class="share-place">
+                  {{ props.reservedFrontTo }}
+                </div>
+              </div>
+
+            </div>
+          </q-btn>
         </div>
 
       </template>
@@ -84,10 +118,34 @@ const emit = defineEmits([
         <div class="share-btn-wrapper">
           <q-btn
             class="common-btn share-btn"
-            color="light-green-6"
-            :label="`${props.reservedBackLabel} の相乗り`"
+            :disable="props.backFull"
+            :class="{ 'share-btn-full': props.backFull }"
             @click="emit('open-share', 'back')"
-          />
+          >
+            <div class="share-content">
+
+              <div class="share-left">
+                <div class="share-time">
+                  {{ props.reservedBackLabel }}
+                </div>
+
+                <div class="share-text">
+                  {{ props.backFull ? '満員' : '相乗り' }}
+                </div>
+              </div>
+
+              <div class="share-right">
+                <div>
+                  {{ props.reservedBackFrom }}
+                </div>
+
+                <div>
+                  {{ props.reservedBackTo }}
+                </div>
+              </div>
+
+            </div>
+          </q-btn>
         </div>
 
       </template>

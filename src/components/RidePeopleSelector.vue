@@ -20,7 +20,9 @@ const emit = defineEmits(['update:modelValue'])
 
 <template>
   <div class="q-mb-md">
-    <div class="text-subtitle1 q-mb-sm">乗車人数</div>
+    <div class="section-title q-mb-sm">
+      乗車人数
+    </div>
 
     <div class="row q-col-gutter-sm">
       <div
@@ -30,7 +32,7 @@ const emit = defineEmits(['update:modelValue'])
       >
         <q-btn
           class="common-btn"
-          :label="n"
+          :label="`${n}人`"
           :color="btnColor(modelValue === n, false)"
           @click="emit('update:modelValue', n)"
         />

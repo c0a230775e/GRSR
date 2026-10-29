@@ -37,6 +37,15 @@
       :reservedFrontLabel="reservedFrontLabel"
       :reservedBackLabel="reservedBackLabel"
 
+      :reservedFrontFrom="reservedFront?.reservedFrom"
+      :reservedFrontTo="reservedFront?.reservedTo"
+
+      :reservedBackFrom="reservedBack?.reservedFrom"
+      :reservedBackTo="reservedBack?.reservedTo"
+
+      :frontFull="remainingFront <= 0"
+      :backFull="remainingBack <= 0"
+
       @open-share="onShareRide"
     />
 
@@ -63,7 +72,7 @@
 
     <div class="mode-wrapper q-mt-md">
 
-      <div class="text-subtitle1 q-mb-sm">
+      <div class="section-title q-mb-sm">
         乗車場所・降車場所
       </div>
 
@@ -144,10 +153,9 @@ const router = useRouter()
 
 /* --- UI 共通ボタンカラー --- */
 function btnColor(active, disabled) {
-  if (disabled) return 'grey-4'
-  return active ? 'light-green' : 'grey-5'
+  if (disabled) return 'grey-3'
+  return active ? 'positive' : 'white'
 }
-
 
 /* --- 乗車人数 --- */
 const peopleOptions = ['1', '2', '3', '4', '5']
@@ -270,17 +278,25 @@ async function loadReservedSlots() {
   const { data, error } = await supabase.from('reservations').select('*')
   if (error) return
 
-  reservedSlots.value = data.map(r => r.time)
+  reservedSlots.value = data.map(
+    r => `${r.ride_date}_${r.time}`
+  )
 
   reservedPeopleMap = {}
   reservedDetailMap = {}
 
   data.forEach(r => {
-    if (!reservedPeopleMap[r.time]) reservedPeopleMap[r.time] = 0
-    reservedPeopleMap[r.time] += r.people
+    const key =
+      `${r.ride_date}_${r.time}`
 
-    if (!reservedDetailMap[r.time]) {
-      reservedDetailMap[r.time] = {
+    if (!reservedPeopleMap[key]) {
+      reservedPeopleMap[key] = 0
+    }
+
+    reservedPeopleMap[key] += r.people
+
+    if (!reservedDetailMap[key]) {
+      reservedDetailMap[key] = {
         id: r.id,
         from: r.from_name,
         to: r.to_name
@@ -302,7 +318,13 @@ const availableTimeSlots = computed(() => {
   const groupB_reserved = groupB.some(slot => reservedSlots.value.includes(slot.label))
 
   return timeSlots.value.map((slot, index) => {
-    const reserved = reservedSlots.value.includes(slot.label)
+    const reservationKey =
+      `${rideDate.value}_${slot.label}`
+
+    const reserved =
+      reservedSlots.value.includes(
+        reservationKey
+      )
     const expired = isExpired(slot)
 
     let groupDisabled = false
@@ -312,10 +334,11 @@ const availableTimeSlots = computed(() => {
     return {
       ...slot,
       reserved,
-      reservedPeople: reservedPeopleMap[slot.label] || 0,
-      reservedId: reservedDetailMap[slot.label]?.id || null,
-      reservedFrom: reservedDetailMap[slot.label]?.from || null,
-      reservedTo: reservedDetailMap[slot.label]?.to || null,
+      reservedPeople:reservedPeopleMap[reservationKey] || 0,
+      reservedId:
+      reservedDetailMap[reservationKey]?.id || null,
+      reservedFrom:reservedDetailMap[reservationKey]?.from || null,
+      reservedTo:reservedDetailMap[reservationKey]?.to || null,
       disabled: reserved || expired || groupDisabled
     }
   })
@@ -328,6 +351,18 @@ const reservedPeopleFront = computed(() =>
 
 const reservedPeopleBack = computed(() =>
   availableTimeSlots.value.slice(3, 5).reduce((sum, slot) => sum + slot.reservedPeople, 0)
+)
+
+const reservedFront = computed(() =>
+  availableTimeSlots.value
+    .slice(0, 3)
+    .find(slot => slot.reserved)
+)
+
+const reservedBack = computed(() =>
+  availableTimeSlots.value
+    .slice(3, 5)
+    .find(slot => slot.reserved)
 )
 
 const reservedFrontLabel = computed(() => {
@@ -344,11 +379,15 @@ const remainingFront = computed(() => 5 - reservedPeopleFront.value)
 const remainingBack = computed(() => 5 - reservedPeopleBack.value)
 
 const hasReservedFront = computed(() =>
-  availableTimeSlots.value.slice(0, 3).some(slot => slot.reserved && remainingFront.value > 0)
+  availableTimeSlots.value
+    .slice(0, 3)
+    .some(slot => slot.reserved)
 )
 
 const hasReservedBack = computed(() =>
-  availableTimeSlots.value.slice(3, 5).some(slot => slot.reserved && remainingBack.value > 0)
+  availableTimeSlots.value
+    .slice(3, 5)
+    .some(slot => slot.reserved)
 )
 
 /* --- 相乗りポップアップ --- */
