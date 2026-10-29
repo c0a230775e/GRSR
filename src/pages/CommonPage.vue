@@ -61,40 +61,17 @@
       @confirm-share="confirmShareRide"
     />
 
-    <div class="row items-center justify-between q-mt-md q-mb-sm">
-      <div class="text-subtitle1">乗車場所・降車場所</div>
+    <div class="mode-wrapper q-mt-md">
 
-      <q-btn
-        color="primary"
-        flat
-        @click="placeSelectMode = placeSelectMode === 'photo' ? 'map' : 'photo'"
-        :label="placeSelectMode === 'photo' ? '地図で選ぶ' : '写真で選ぶ'"
-      />
-    </div>
+      <div class="text-subtitle1 q-mb-sm">
+        乗車場所・降車場所
+      </div>
 
-
-    <!-- 写真モード -->
-    <div
-      v-if="placeSelectMode === 'photo'"
-      class="mode-wrapper q-mt-md"
-    >
-      <PhotoSelector
-        :pins="pins"
-        :placeSelectMode="placeSelectMode"
-        @update:from="from = $event"
-        @update:to="to = $event"
-      />
-    </div>
-
-    <!-- 地図モード -->
-    <div
-      v-else
-      class="mode-wrapper q-mt-md"
-    >
       <PointSelector
         @update:from="from = $event"
         @update:to="to = $event"
       />
+
     </div>
 
     <!-- 共通表示 -->
@@ -155,7 +132,6 @@ import RidePeopleSelector from '@/components/RidePeopleSelector.vue'
 import MonthSelector from '@/components/MonthSelector.vue'
 import DaySelector from '@/components/DaySelector.vue'
 import TimeSelector from '@/components/TimeSelector.vue'
-import PhotoSelector from '@/components/PhotoSelector.vue'
 import SelectedPlaceView from '@/components/SelectedPlaceView.vue'
 import ShareRideButtons from '@/components/ShareRideButtons.vue'
 import PreviewPanel from '@/components/PreviewPanel.vue'
@@ -194,10 +170,7 @@ const months = computed(() => [
 const rideDate = ref('')
 const freeRideDates = ref([])
 
-const placeSelectMode = ref('photo')  // 'photo' or 'map'
-
-/* --- 写真選択 --- */
-const pins = ref([])
+/* --- 乗降場所選択 --- */
 const from = ref(null)
 const to = ref(null)
 
@@ -482,10 +455,6 @@ function onOpenPassengerInfo () {
 /* --- 初期ロード --- */
 onMounted(async () => {
   loadReservedSlots()
-
-  const res = await fetch('/assets/pins.json')
-  pins.value = await res.json()
-
   await loadAllSlots()
   updateFreeRideDates(currentYear, currentMonth)
 
