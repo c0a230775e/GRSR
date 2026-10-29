@@ -139,6 +139,9 @@ const selectedMainPlace = ref(null)
 const mainPlaceOptions = ref([])
 
 const allPlaces = ref([])
+const userLocation = ref(null)
+let currentLocationMarker = null
+
 
 // オーバーレイ制御
 const showOverlay = ref(false)
@@ -154,6 +157,11 @@ const blueIcon = L.icon({
   iconAnchor: [10, 20]
 })
 
+const currentLocationIcon = L.icon({
+  iconUrl: 'https://maps.gstatic.com/mapfiles/ms2/micons/man.png',
+  iconSize: [28, 28],
+  iconAnchor: [14, 28]
+})
 
 onMounted(async () => {
   map = L.map('map', {
@@ -223,11 +231,45 @@ onMounted(async () => {
   const res = await fetch('/assets/pins.json')
   pins.value = await res.json()
 
+  if (navigator.geolocation) {
+
+    navigator.geolocation.getCurrentPosition(position => {
+
+      const lat = position.coords.latitude
+      const lng = position.coords.longitude
+
+      userLocation.value = {
+        lat,
+        lng
+      }
+
+      currentLocationMarker = L.marker(
+        [lat, lng],
+        {
+          icon: currentLocationIcon
+        }
+      ).addTo(map)
+
+      currentLocationMarker.bindTooltip(
+        '現在地',
+        {
+          permanent: true,
+          direction: 'top'
+        }
+      )
+
+    })
+
+  }
+
   allPlaces.value = []
   mainPlaceOptions.value = []
+  mainPlaceOptions.value.push({
+    label: '📍現在地から選択',
+    value: 'current-location'
+  })
 
   pins.value.forEach(main => {
-
     mainPlaceOptions.value.push({
       label: main.name,
       value: main
@@ -582,6 +624,40 @@ function moveToPlace(place) {
 }
 
 function selectMainPlace(option) {
+  if (
+    option.value === 'current-location'
+  ) {
+
+    if (!userLocation.value) return
+
+    let nearest = null
+    let minDistance = Infinity
+
+    pins.value.forEach(pin => {
+
+      const distance =
+        getDistance(
+          userLocation.value.lat,
+          userLocation.value.lng,
+          pin.lat,
+          pin.lng
+        )
+
+      if (distance < minDistance) {
+
+        minDistance = distance
+        nearest = pin
+
+      }
+
+    })
+
+    if (!nearest) return
+
+    option = {
+      value: nearest
+    }
+  }
 
   if (!option) return
 
@@ -623,6 +699,31 @@ function selectMainPlace(option) {
     }
 
   }, 100)
+}
+
+function getDistance(lat1, lng1, lat2, lng2) {
+
+  const R = 6371000
+
+  const dLat =
+    (lat2 - lat1) * Math.PI / 180
+
+  const dLng =
+    (lng2 - lng1) * Math.PI / 180
+
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(lat1 * Math.PI / 180) *
+    Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLng / 2) ** 2
+
+  const c =
+    2 * Math.atan2(
+      Math.sqrt(a),
+      Math.sqrt(1 - a)
+    )
+
+  return R * c
 }
 
 </script>
