@@ -9,9 +9,10 @@
         use-input
         fill-input
         hide-selected
+        hide-dropdown-icon
+        prepend-icon="search"
         input-debounce="0"
         outlined
-        dense
         label="場所を検索"
         option-label="label"
         :options="searchOptions"
@@ -39,7 +40,6 @@
       <q-select
         v-model="selectedMainPlace"
         outlined
-        dense
         label="メイン地点一覧"
         :options="mainPlaceOptions"
         @update:model-value="selectMainPlace"
@@ -264,10 +264,6 @@ onMounted(async () => {
 
   allPlaces.value = []
   mainPlaceOptions.value = []
-  mainPlaceOptions.value.push({
-    label: '📍現在地から選択',
-    value: 'current-location'
-  })
 
   pins.value.forEach(main => {
     mainPlaceOptions.value.push({
@@ -281,32 +277,37 @@ onMounted(async () => {
       subPin: null
     })
 
-    if (main.subLocations) {
+    main.subLocations?.forEach(sub => {
 
-      main.subLocations.forEach(sub => {
-
-        allPlaces.value.push({
-          label: sub.name,
-          caption: main.name,
-          mainPin: main,
-          subPin: sub
-        })
-
+      allPlaces.value.push({
+        label: sub.name,
+        caption: main.name,
+        mainPin: main,
+        subPin: sub
       })
 
-    }
+    })
 
   })
 
-  mainPlaceOptions.value.sort((a, b) =>
-    a.label.localeCompare(
-      b.label,
-      'ja',
-      {
-        numeric: true
-      }
+  const sortedOptions =
+    mainPlaceOptions.value.sort((a, b) =>
+      a.label.localeCompare(
+        b.label,
+        'ja',
+        {
+          numeric: true
+        }
+      )
     )
-  )
+
+  mainPlaceOptions.value = [
+    {
+      label: '📍現在地から選択',
+      value: 'current-location'
+    },
+    ...sortedOptions
+  ]
 
   searchOptions.value = []
 
@@ -333,10 +334,7 @@ onMounted(async () => {
     marker.on('click', () => {
       overlayPin.value = pin
 
-      if (
-        pin.subLocations &&
-        pin.subLocations.length > 0
-      ) {
+      if (hasSubLocations(pin)) {
         showSubPins(pin)
         return
       }
@@ -381,10 +379,8 @@ function showSubMap(mainPin) {
 
   if (!element) return
 
-  if (subMap) {
-    subMap.remove()
-    subMap = null
-  }
+  subMap?.remove()
+  subMap = null
 
   subMap = L.map('submap', {
     center: [mainPin.lat, mainPin.lng],
@@ -588,42 +584,13 @@ function moveToPlace(place) {
     return
   }
 
-  overlayPin.value = place.mainPin
-
-  if (
-    place.mainPin.subLocations &&
-    place.mainPin.subLocations.length > 0
-  ) {
-
-    selectedSubPin.value = null
-
-  } else {
-
-    selectedSubPin.value =
-      place.mainPin
-
-  }
-
-  map.setView(
-    [
-      place.mainPin.lat,
-      place.mainPin.lng
-    ],
-    18
-  )
-
-  showOverlay.value = true
-
-  setTimeout(() => {
-
-    if (place.mainPin.subLocations) {
-      showSubMap(place.mainPin)
-    }
-
-  }, 100)
+  openMainPin(place.mainPin)
 }
 
 function selectMainPlace(option) {
+
+  if (!option) return
+
   if (
     option.value === 'current-location'
   ) {
@@ -644,46 +611,40 @@ function selectMainPlace(option) {
         )
 
       if (distance < minDistance) {
-
         minDistance = distance
         nearest = pin
-
       }
 
     })
 
     if (!nearest) return
 
-    option = {
-      value: nearest
-    }
+    openMainPin(nearest)
+
+    return
   }
 
-  if (!option) return
+  openMainPin(option.value)
+}
+function hasSubLocations(pin) {
+  return !!(
+    pin?.subLocations &&
+    pin.subLocations.length > 0
+  )
+}
 
-  const mainPin = option.value
+function openMainPin(mainPin) {
 
   overlayPin.value = mainPin
 
-  if (
-    mainPin.subLocations &&
-    mainPin.subLocations.length > 0
-  ) {
-
+  if (hasSubLocations(mainPin)) {
     selectedSubPin.value = null
-
   } else {
-
-    selectedSubPin.value =
-      mainPin
-
+    selectedSubPin.value = mainPin
   }
 
   map.setView(
-    [
-      mainPin.lat,
-      mainPin.lng
-    ],
+    [mainPin.lat, mainPin.lng],
     18
   )
 
@@ -691,16 +652,12 @@ function selectMainPlace(option) {
 
   setTimeout(() => {
 
-    if (
-      mainPin.subLocations &&
-      mainPin.subLocations.length > 0
-    ) {
+    if (hasSubLocations(mainPin)) {
       showSubMap(mainPin)
     }
 
   }, 100)
 }
-
 function getDistance(lat1, lng1, lat2, lng2) {
 
   const R = 6371000
