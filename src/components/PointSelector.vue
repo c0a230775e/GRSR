@@ -1,6 +1,55 @@
 <template>
   <div class="point-selector">
 
+    <!-- 検索エリア -->
+    <div class="search-area">
+
+      <q-select
+        v-model="searchPlace"
+        use-input
+        fill-input
+        hide-selected
+        input-debounce="0"
+        outlined
+        dense
+        label="場所を検索"
+        option-label="label"
+        :options="searchOptions"
+        @filter="filterPlaces"
+        @update:model-value="moveToPlace"
+      >
+
+        <template #option="scope">
+          <q-item v-bind="scope.itemProps">
+            <q-item-section>
+              <q-item-label>
+                {{ scope.opt.label }}
+              </q-item-label>
+
+              <q-item-label caption>
+                {{ scope.opt.caption }}
+              </q-item-label>
+
+            </q-item-section>
+          </q-item>
+        </template>
+
+      </q-select>
+
+      <q-select
+        v-model="selectedMainPlace"
+        outlined
+        dense
+        label="メイン地点一覧"
+        :options="mainPlaceOptions"
+        @update:model-value="selectMainPlace"
+      />
+
+    </div>
+
+
+    </div>
+
     <!-- メイン地図 -->
     <div id="map" class="map-container"></div>
 
@@ -11,19 +60,25 @@
     >
       <div class="overlay-content">
         <div
-          v-if="selectedSubPin"
           id="submap"
           class="submap-container"
-        />
+        ></div>
         <!-- 選択画像 -->
-        <div
-          v-if="selectedSubPin"
-          class="selected-image-wrapper"
-        >
+        <div class="selected-image-wrapper">
+
           <q-img
+            v-if="selectedSubPin"
             :src="selectedSubPin.image"
             class="point-selected-img"
           />
+
+          <div
+            v-else
+            class="select-pin-message"
+          >
+            青色のピンを選択してください
+          </div>
+
         </div>
 
         <!-- ボタン -->
@@ -58,8 +113,6 @@
 
       </div>
     </div>
-
-  </div>
 </template>
 
 <script setup>
@@ -78,6 +131,14 @@ let subMap = null
 
 const centerLat = 35.6417633
 const centerLng = 140.0473219
+
+const searchPlace = ref(null)
+const searchOptions = ref([])
+
+const selectedMainPlace = ref(null)
+const mainPlaceOptions = ref([])
+
+const allPlaces = ref([])
 
 // オーバーレイ制御
 const showOverlay = ref(false)
@@ -161,6 +222,51 @@ onMounted(async () => {
 
   const res = await fetch('/assets/pins.json')
   pins.value = await res.json()
+
+  allPlaces.value = []
+  mainPlaceOptions.value = []
+
+  pins.value.forEach(main => {
+
+    mainPlaceOptions.value.push({
+      label: main.name,
+      value: main
+    })
+
+    allPlaces.value.push({
+      label: main.name,
+      mainPin: main,
+      subPin: null
+    })
+
+    if (main.subLocations) {
+
+      main.subLocations.forEach(sub => {
+
+        allPlaces.value.push({
+          label: sub.name,
+          caption: main.name,
+          mainPin: main,
+          subPin: sub
+        })
+
+      })
+
+    }
+
+  })
+
+  mainPlaceOptions.value.sort((a, b) =>
+    a.label.localeCompare(
+      b.label,
+      'ja',
+      {
+        numeric: true
+      }
+    )
+  )
+
+  searchOptions.value = []
 
   pins.value.forEach(pin => {
     if (!pin.lat || !pin.lng) return
@@ -376,6 +482,147 @@ function showSubPins(mainPin) {
 
     subMarkers.push(marker)
   })
+}
+
+function normalizeText(text) {
+  return text
+    .toLowerCase()
+    .replace(/[ァ-ヶ]/g, char =>
+      String.fromCharCode(
+        char.charCodeAt(0) - 0x60
+      )
+    )
+}
+
+function filterPlaces(val, update) {
+
+  update(() => {
+
+    if (!val || val.trim() === '') {
+      searchOptions.value = []
+      return
+    }
+
+    const keyword =
+      normalizeText(val)
+
+    searchOptions.value =
+      allPlaces.value.filter(place => {
+
+        const name =
+          normalizeText(place.label)
+
+        return (
+          name.includes(keyword) ||
+          (place.keywords || []).some(k =>
+            normalizeText(k).includes(keyword)
+          )
+        )
+
+      })
+  })
+}
+
+function moveToPlace(place) {
+
+  if (!place) return
+
+  if (place.subPin) {
+
+    overlayPin.value = place.mainPin
+    selectedSubPin.value = place.subPin
+
+    map.setView(
+      [place.subPin.lat, place.subPin.lng],
+      18
+    )
+
+    showOverlay.value = true
+
+    setTimeout(() => {
+      showSubMap(place.mainPin)
+    }, 100)
+
+    return
+  }
+
+  overlayPin.value = place.mainPin
+
+  if (
+    place.mainPin.subLocations &&
+    place.mainPin.subLocations.length > 0
+  ) {
+
+    selectedSubPin.value = null
+
+  } else {
+
+    selectedSubPin.value =
+      place.mainPin
+
+  }
+
+  map.setView(
+    [
+      place.mainPin.lat,
+      place.mainPin.lng
+    ],
+    18
+  )
+
+  showOverlay.value = true
+
+  setTimeout(() => {
+
+    if (place.mainPin.subLocations) {
+      showSubMap(place.mainPin)
+    }
+
+  }, 100)
+}
+
+function selectMainPlace(option) {
+
+  if (!option) return
+
+  const mainPin = option.value
+
+  overlayPin.value = mainPin
+
+  if (
+    mainPin.subLocations &&
+    mainPin.subLocations.length > 0
+  ) {
+
+    selectedSubPin.value = null
+
+  } else {
+
+    selectedSubPin.value =
+      mainPin
+
+  }
+
+  map.setView(
+    [
+      mainPin.lat,
+      mainPin.lng
+    ],
+    18
+  )
+
+  showOverlay.value = true
+
+  setTimeout(() => {
+
+    if (
+      mainPin.subLocations &&
+      mainPin.subLocations.length > 0
+    ) {
+      showSubMap(mainPin)
+    }
+
+  }, 100)
 }
 
 </script>

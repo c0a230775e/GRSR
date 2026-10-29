@@ -68,7 +68,7 @@
       { "id": "D", "name": "打瀬小東", "lat": 35.641956, "lng": 140.047997, "image": "/assets/photo/打瀬小東.jpg" }
     ] 
   },
-  { "id": 21, "name": "7番街", "lat": 35.6416059, "lng": 140.0483385, "image": "/assets/photo/７番街北.jpg" ,
+  { "id": 21, "name": "７番街", "lat": 35.6416059, "lng": 140.0483385, "image": "/assets/photo/７番街北.jpg" ,
     "subLocations": [
       { "id": "A", "name": "７番街白帆通り南", "lat": 35.641510, "lng": 140.048860, "image": "/assets/photo/７番街白帆通り南.jpg" },
       { "id": "B", "name": "７番街バレンタイン通り東", "lat": 35.641340, "lng": 140.048719, "image": "/assets/photo/７番街バレンタイン通り東.jpg" },
@@ -78,7 +78,7 @@
       { "id": "D", "name": "７番街白帆通り北", "lat": 35.641844, "lng": 140.048674, "image": "/assets/photo/７番街白帆通り北.jpg" }
     ] 
   },
-  { "id": 22, "name": "9番街", "lat": 35.6409073, "lng": 140.0487254, "image": "/assets/photo/９番街南.jpg" ,
+  { "id": 22, "name": "９番街", "lat": 35.6409073, "lng": 140.0487254, "image": "/assets/photo/９番街南.jpg" ,
     "subLocations": [
       { "id": "A", "name": "９番街バレンタイン通り東", "lat": 35.641265, "lng": 140.048874, "image": "/assets/photo/９番街バレンタイン通り東.jpg" },
       { "id": "B", "name": "９番街白帆通り", "lat": 35.640997, "lng": 140.049117, "image": "/assets/photo/９番街白帆通り.jpg" },
@@ -87,27 +87,27 @@
       { "id": "E", "name": "９番街バレンタイン通り西", "lat": 35.641121, "lng": 140.048466, "image": "/assets/photo/９番街バレンタイン通り西.jpg" }
     ] 
   },
-  { "id": 23, "name": "8番街", "lat": 35.6413053, "lng": 140.0472736, "image": "/assets/photo/８番街.jpg" ,
+  { "id": 23, "name": "８番街", "lat": 35.6413053, "lng": 140.0472736, "image": "/assets/photo/８番街.jpg" ,
     "subLocations": [
       { "id": "A", "name": "８番街打瀬小前西", "lat": 35.641541, "lng": 140.047063, "image": "/assets/photo/８番街打瀬小前西.jpg" },
       { "id": "B", "name": "８番街打瀬小前東", "lat": 35.641637, "lng": 140.047380, "image": "/assets/photo/８番街打瀬小前東.jpg" },
-      { "id": "C", "name": "８番街東", "lat": 35.641329, "lng": 140.047829, "image": "/assets/photo/8番街東.jpg" },
-      { "id": "D", "name": "８番街バレンタイン通り東", "lat": 35.641010, "lng": 140.047639, "image": "/assets/photo/8番街バレンタイン通り東.jpg" },
-      { "id": "E", "name": "８番街バレンタイン通り西", "lat": 35.640879, "lng": 140.047264, "image": "/assets/photo/8番街バレンタイン通り西.jpg" },
+      { "id": "C", "name": "８番街東", "lat": 35.641329, "lng": 140.047829, "image": "/assets/photo/８番街東.jpg" },
+      { "id": "D", "name": "８番街バレンタイン通り東", "lat": 35.641010, "lng": 140.047639, "image": "/assets/photo/８番街バレンタイン通り東.jpg" },
+      { "id": "E", "name": "８番街バレンタイン通り西", "lat": 35.640879, "lng": 140.047264, "image": "/assets/photo/８番街バレンタイン通り西.jpg" },
       { "id": "F", "name": "８番街打瀬東通り南", "lat": 35.640971, "lng": 140.047002, "image": "/assets/photo/８番街打瀬東通り南.jpg" },
       { "id": "G", "name": "８番街打瀬東通り北", "lat": 35.641307, "lng": 140.046848, "image": "/assets/photo/８番街打瀬東通り北.jpg" }
     ] 
   },
-  { "id": 24, "name": "10番街", "lat": 35.6406005, "lng": 140.0477273, "image": "/assets/photo/10番街南.jpg" ,
+  { "id": 24, "name": "１０番街", "lat": 35.6406005, "lng": 140.0477273, "image": "/assets/photo/10番街南.jpg" ,
     "subLocations": [
-      { "id": "A", "name": "１０番街南", "lat": 35.640198, "lng": 140.047755, "image": "/assets/photo/10番街南.jpg" },
+      { "id": "A", "name": "１０番街南", "lat": 35.640198, "lng": 140.047755, "image": "/assets/photo/１０番街南.jpg" },
       { "id": "B", "name": "１０番街打瀬東通り", "lat": 35.640529, "lng": 140.047199, "image": "/assets/photo/１０番街打瀬東通り.jpg" },
       { "id": "C", "name": "１０番街バレンタイン通り東", "lat": 35.640876, "lng": 140.047727, "image": "/assets/photo/１０番街バレンタイン通り東.jpg" },
       { "id": "C", "name": "１０番街バレンタイン通り西", "lat": 35.640782, "lng": 140.047263, "image": "/assets/photo/１０番街バレンタイン通り西.jpg" },
       { "id": "D", "name": "１０番街東", "lat": 35.640489, "lng": 140.048161, "image": "/assets/photo/１０番街東.jpg" }
     ] 
   },
-  { "id": 25, "name": "打瀬１丁目公園", "lat": 35.6430061, "lng": 140.0440282, "image": "/assets/photo/打瀬1丁目公園.jpg" ,
+  { "id": 25, "name": "打瀬１丁目公園", "lat": 35.6430061, "lng": 140.0440282, "image": "/assets/photo/打瀬１丁目公園.jpg" ,
     "subLocations": [
       { "id": "A", "name": "打瀬１丁目公園北", "lat": 35.640353, "lng": 140.048622, "image": "/assets/photo/打瀬１丁目公園北.jpg" },
       { "id": "B", "name": "打瀬１丁目公園東", "lat": 35.640505, "lng": 140.049073, "image": "/assets/photo/打瀬１丁目公園東.jpg" },
@@ -122,7 +122,7 @@
       { "id": "B", "name": "セントラルパークW D棟SOL by K", "lat": 35.642782, "lng": 140.045203, "image": "/assets/photo/セントラルパークW_D棟_SOLbyK.jpg" }
     ] 
   },
-  { "id": 29, "name": "1番街", "lat": 35.6424604, "lng": 140.0457089, "image": "/assets/photo/１番街打瀬北通り.jpg" ,
+  { "id": 29, "name": "１番街", "lat": 35.6424604, "lng": 140.0457089, "image": "/assets/photo/１番街打瀬北通り.jpg" ,
     "subLocations": [
       { "id": "A", "name": "１番街バス停", "lat": 35.642758, "lng": 140.045788, "image": "/assets/photo/１番街バス停.jpg" },
       { "id": "B", "name": "１番街打瀬東通り", "lat": 35.642515, "lng": 140.046121, "image": "/assets/photo/１番街打瀬東通り.jpg" },
@@ -132,7 +132,7 @@
       { "id": "E", "name": "１番街打瀬北通り", "lat": 35.642680, "lng": 140.045375, "image": "/assets/photo/１番街打瀬北通り.jpg" }
     ] 
   },
-  { "id": 30, "name": "3番街", "lat": 35.6417187, "lng": 140.0460770, "image": "/assets/photo/３番街北.jpg" ,
+  { "id": 30, "name": "３番街", "lat": 35.6417187, "lng": 140.0460770, "image": "/assets/photo/３番街北.jpg" ,
     "subLocations": [
       { "id": "A", "name": "３番街北", "lat": 35.642043, "lng": 140.046012, "image": "/assets/photo/３番街北.jpg" },
       { "id": "B", "name": "３番街東", "lat": 35.641685, "lng": 140.046507, "image": "/assets/photo/３番街東.jpg" },
@@ -145,7 +145,7 @@
       { "id": "G", "name": "３番街打瀬東通り北", "lat": 35.641291, "lng": 140.046698, "image": "/assets/photo/３番街打瀬東通り北.jpg" }
     ] 
   },
-  { "id": 31, "name": "5番街", "lat": 35.6409566, "lng": 140.0463355, "image": "/assets/photo/５番街北.jpg" ,
+  { "id": 31, "name": "５番街", "lat": 35.6409566, "lng": 140.0463355, "image": "/assets/photo/５番街北.jpg" ,
     "subLocations": [
       { "id": "A", "name": "５番街北", "lat": 35.641204, "lng": 140.045961, "image": "/assets/photo/５番街北.jpg" },
       { "id": "B", "name": "５番街打瀬東通り北", "lat": 35.641291, "lng": 140.046698, "image": "/assets/photo/５番街打瀬東通り北.jpg" },
@@ -164,7 +164,7 @@
   },
   { "id": 33, "name": "美浜図書館打瀬分館", "lat": 35.639663, "lng": 140.047431, "image": "/assets/photo/美浜図書館打瀬分館.jpg" },
   { "id": 34, "name": "打瀬公民館", "lat": 35.639630, "lng": 140.046438, "image": "/assets/photo/打瀬公民館.jpg" },
-  { "id": 35, "name": "12番街", "lat": 35.6387520, "lng": 140.0473538, "image": "/assets/photo/12番街.jpg" ,
+  { "id": 35, "name": "１２番街", "lat": 35.6387520, "lng": 140.0473538, "image": "/assets/photo/１２番街.jpg" ,
     "subLocations": [
       { "id": "A", "name": "１２番街北", "lat": 35.639168, "lng": 140.047371, "image": "/assets/photo/１２番街北.jpg" },
       { "id": "B", "name": "１２番街打瀬東通り北", "lat": 35.639113, "lng": 140.047667, "image": "/assets/photo/１２番街打瀬東通り北.jpg" },
@@ -199,7 +199,7 @@
       { "id": "F", "name": "４番街ベイタウン郵便局", "lat": 35.641699, "lng": 140.045371, "image": "/assets/photo/４番街ベイタウン郵便局.jpg" }
     ] 
   },
-  { "id": 39, "name": "6番街", "lat": 35.6406759, "lng": 140.0453210, "image": "/assets/photo/６番街北.jpg" ,
+  { "id": 39, "name": "６番街", "lat": 35.6406759, "lng": 140.0453210, "image": "/assets/photo/６番街北.jpg" ,
     "subLocations": [
       { "id": "A", "name": "６番街北", "lat": 35.641010, "lng": 140.045267, "image": "/assets/photo/６番街北.jpg" },
       { "id": "B", "name": "６番街打瀬中通り南", "lat": 35.640428, "lng": 140.044934, "image": "/assets/photo/６番街打瀬中通り南.jpg" },
@@ -210,7 +210,7 @@
       { "id": "F", "name": "６番街家CoCo", "lat": 35.640949, "lng": 140.045695, "image": "/assets/photo/６番街家CoCo.jpg" }
     ] 
   },
-  { "id": 40, "name": "11番街", "lat": 35.6398054, "lng": 140.0456911, "image": "/assets/photo/１１番街美浜プロムナード北.jpg" ,
+  { "id": 40, "name": "１１番街", "lat": 35.6398054, "lng": 140.0456911, "image": "/assets/photo/１１番街美浜プロムナード北.jpg" ,
     "subLocations": [
       { "id": "A", "name": "１１番街絆", "lat": 35.640312, "lng": 140.045722, "image": "/assets/photo/１１番街絆.jpg" },
       { "id": "B", "name": "１１番街今日和", "lat": 35.640174, "lng": 140.045297, "image": "/assets/photo/１１番街今日和.jpg" },
@@ -222,7 +222,7 @@
       { "id": "D", "name": "１１番街美浜プロムナード北", "lat": 35.640141, "lng": 140.046049, "image": "/assets/photo/１１番街美浜プロムナード北.jpg" }
     ] 
   },
-  { "id": 41, "name": "13番街", "lat": 35.6384563, "lng": 140.0463580, "image": "/assets/photo/１３番街打瀬中通り西.jpg" ,
+  { "id": 41, "name": "１３番街", "lat": 35.6384563, "lng": 140.0463580, "image": "/assets/photo/１３番街打瀬中通り西.jpg" ,
     "subLocations": [
       { "id": "A", "name": "１３番街三井のリパーク前東", "lat": 35.638854, "lng": 140.046349, "image": "/assets/photo/１３番街三井のリパーク前東.jpg" },
       { "id": "B", "name": "１３番街三井のリパーク前西", "lat": 35.638718, "lng": 140.045920, "image": "/assets/photo/１３番街三井のリパーク前西.jpg" },
@@ -239,7 +239,7 @@
       { "id": "B", "name": "ミラリオ１番館", "lat": 35.637960, "lng": 140.046252, "image": "/assets/photo/ミラリオ１番館.jpg" }
     ] 
   },
-  { "id": 43, "name": "2丁目公園", "lat": 35.6417173, "lng": 140.0431692, "image": "/assets/photo/打瀬2丁目公園打瀬北通り中.jpg" ,
+  { "id": 43, "name": "２丁目公園", "lat": 35.6417173, "lng": 140.0431692, "image": "/assets/photo/打瀬２丁目公園打瀬北通り中.jpg" ,
     "subLocations": [
       { "id": "A", "name": "公園東の街打瀬北通り", "lat": 35.642548, "lng": 140.044489, "image": "/assets/photo/公園東の街打瀬北通り.jpg" },
       { "id": "B", "name": "公園西の街２番館", "lat": 35.642233, "lng": 140.043404, "image": "/assets/photo/公園西の街２番館.jpg" },
@@ -259,7 +259,7 @@
       { "id": "D", "name": "赤玉青玉公園青玉前", "lat": 35.641236, "lng": 140.044376, "image": "/assets/photo/赤玉青玉公園青玉前.jpg" }
     ] 
   },
-  { "id": 45, "name": "15番街", "lat": 35.6403890, "lng": 140.0443028, "image": "/assets/photo/" ,
+  { "id": 45, "name": "１５番街", "lat": 35.6403890, "lng": 140.0443028, "image": "/assets/photo/" ,
     "subLocations": [
       { "id": "A", "name": "１５番街北", "lat": 35.640666, "lng": 140.044169, "image": "/assets/photo/.jpg" },
       { "id": "B", "name": "１５番街桜通り北", "lat": 35.640397, "lng": 140.043832, "image": "/assets/photo/.jpg" },
@@ -269,7 +269,7 @@
       { "id": "D", "name": "１５番街東", "lat": 35.640497, "lng": 140.044709, "image": "/assets/photo/.jpg" }
     ] 
   },
-  { "id": 46, "name": "17番街", "lat": 35.6396163, "lng": 140.0446545, "image": "/assets/photo/" ,
+  { "id": 46, "name": "１７番街", "lat": 35.6396163, "lng": 140.0446545, "image": "/assets/photo/" ,
     "subLocations": [
       { "id": "A", "name": "１７番街CUBIC CAFE", "lat": 35.640006, "lng": 140.044735, "image": "/assets/photo/.jpg" },
       { "id": "B", "name": "１７番街幕張ベイクリニック", "lat": 35.639890, "lng": 140.044306, "image": "/assets/photo/.jpg" },
@@ -278,15 +278,15 @@
       { "id": "C", "name": "１７番街東", "lat": 35.639677, "lng": 140.045092, "image": "/assets/photo/.jpg" }
     ] 
   },
-  { "id": 47, "name": "14番街", "lat": 35.640941, "lng": 140.043434, "image": "/assets/photo/" },
-  { "id": 48, "name": "16番街", "lat": 35.6400438, "lng": 140.0433767, "image": "/assets/photo/" ,
+  { "id": 47, "name": "１４番街", "lat": 35.640941, "lng": 140.043434, "image": "/assets/photo/" },
+  { "id": 48, "name": "１６番街", "lat": 35.6400438, "lng": 140.0433767, "image": "/assets/photo/" ,
     "subLocations": [
       { "id": "A", "name": "１６番街桜通り", "lat": 35.640217, "lng": 140.043753, "image": "/assets/photo/.jpg" },
       { "id": "B", "name": "１６番街フロンティア外語学院", "lat": 35.639731, "lng": 140.043328, "image": "/assets/photo/.jpg" },
       { "id": "C", "name": "１６番街マーガレット外語学院", "lat": 35.639859, "lng": 140.043725, "image": "/assets/photo/.jpg" }
     ] 
   },
-  { "id": 49, "name": "18番街", "lat": 35.6393296, "lng": 140.0436922, "image": "/assets/photo/" ,
+  { "id": 49, "name": "１８番街", "lat": 35.6393296, "lng": 140.0436922, "image": "/assets/photo/" ,
     "subLocations": [
       { "id": "A", "name": "１８番街クリーニングmamasho@", "lat": 35.639710, "lng": 140.043770, "image": "/assets/photo/.jpg" },
       { "id": "B", "name": "１８番街ECCジュニア", "lat": 35.639609, "lng": 140.043407, "image": "/assets/photo/.jpg" }
@@ -301,7 +301,7 @@
       { "id": "D", "name": "美浜打瀬小子供ルーム", "lat": 35.638785, "lng": 140.045496, "image": "/assets/photo/.jpg" }
     ] 
   },
-  { "id": 51, "name": "19番街", "lat": 35.6374340, "lng": 140.0453927, "image": "/assets/photo/" ,
+  { "id": 51, "name": "１９番街", "lat": 35.6374340, "lng": 140.0453927, "image": "/assets/photo/" ,
     "subLocations": [
       { "id": "A", "name": "１９番街打瀬南通り東", "lat": 35.637815, "lng": 140.045741, "image": "/assets/photo/.jpg" },
       { "id": "B", "name": "１９番街打瀬南通り西", "lat": 35.637519, "lng": 140.044742, "image": "/assets/photo/.jpg" }
@@ -315,7 +315,7 @@
   },
   { "id": 53, "name": "打瀬ふれあい緑地", "lat": 35.641113, "lng": 140.040631, "image": "/assets/photo/" },
   { "id": 54, "name": "海浜打瀬小", "lat": 35.640244, "lng": 140.041003, "image": "/assets/photo/" },
-  { "id": 55, "name": "20番街", "lat": 35.6396394, "lng": 140.0419176, "image": "/assets/photo/" ,
+  { "id": 55, "name": "２０番街", "lat": 35.6396394, "lng": 140.0419176, "image": "/assets/photo/" ,
     "subLocations": [
       { "id": "A", "name": "２０番街打瀬西通り北", "lat": 35.639644, "lng": 140.041262, "image": "/assets/photo/.jpg" },
       { "id": "B", "name": "２０番街打瀬西通り南", "lat": 35.639349, "lng": 140.041419, "image": "/assets/photo/.jpg" },
@@ -323,7 +323,7 @@
       { "id": "D", "name": "２０番街うたせメディカルクリニック", "lat": 35.639469, "lng": 140.042479, "image": "/assets/photo/.jpg" }
     ] 
   },
-  { "id": 56, "name": "21番街", "lat": 35.6389016, "lng": 140.0422458, "image": "/assets/photo/" ,
+  { "id": 56, "name": "２１番街", "lat": 35.6389016, "lng": 140.0422458, "image": "/assets/photo/" ,
     "subLocations": [
       { "id": "A", "name": "２１番街ポニークリーニング", "lat": 35.639318, "lng": 140.042566, "image": "/assets/photo/.jpg" },
       { "id": "B", "name": "２１番街うたせデンタルオフィス", "lat": 35.639121, "lng": 140.041873, "image": "/assets/photo/.jpg" },
@@ -331,13 +331,13 @@
       { "id": "D", "name": "２１番街打瀬西通り南", "lat": 35.638575, "lng": 140.041830, "image": "/assets/photo/.jpg" }
     ] 
   },
-  { "id": 57, "name": "打瀬第5公園", "lat": 35.6381819, "lng": 140.0426354, "image": "/assets/photo/" ,
+  { "id": 57, "name": "打瀬第５公園", "lat": 35.6381819, "lng": 140.0426354, "image": "/assets/photo/" ,
     "subLocations": [
       { "id": "A", "name": "打瀬第５公園打瀬西通り北", "lat": 35.638253, "lng": 140.041946, "image": "/assets/photo/.jpg" },
       { "id": "B", "name": "打瀬第５公園打瀬西通り南", "lat": 35.637846, "lng": 140.042150, "image": "/assets/photo/.jpg" }
     ] 
   },
-  { "id": 58, "name": "22番街", "lat": 35.6374776, "lng": 140.0430126, "image": "/assets/photo/" ,
+  { "id": 58, "name": "２２番街", "lat": 35.6374776, "lng": 140.0430126, "image": "/assets/photo/" ,
     "subLocations": [
       { "id": "A", "name": "２２番街打瀬西通り北", "lat": 35.637453, "lng": 140.042259, "image": "/assets/photo/.jpg" },
       { "id": "B", "name": "２２番街打瀬西通り南", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
