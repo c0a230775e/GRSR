@@ -251,7 +251,7 @@
                 icon="delete"
                 label="削除"
                 flat
-                @click="removeReservation(day[slot])"
+                @click="confirmDelete(day[slot])"
               />
 
             </div>
@@ -267,6 +267,38 @@
       </div>
 
     </div>
+
+    <q-dialog v-model="deleteDialog">
+
+      <q-card style="min-width:300px">
+
+        <q-card-section class="text-h6">
+          予約削除
+        </q-card-section>
+
+        <q-card-section>
+          この予約を削除しますか？
+        </q-card-section>
+
+        <q-card-actions align="right">
+
+          <q-btn
+            flat
+            label="いいえ"
+            v-close-popup
+          />
+
+          <q-btn
+            color="negative"
+            label="はい"
+            @click="removeReservation"
+          />
+
+        </q-card-actions>
+
+      </q-card>
+
+    </q-dialog>
 
   </q-page>
 </template>
@@ -297,6 +329,8 @@ const isAdmin = ref(false)
 const showLoginDialog = ref(false)
 const password = ref('')
 const maps = {}
+const deleteDialog = ref(false)
+const deleteTarget = ref(null)
 
 /* -------------------------
    予約一覧取得
@@ -319,11 +353,17 @@ async function loadReservations() {
 /* -------------------------
    削除処理
 ------------------------- */
-async function removeReservation(item) {
+function confirmDelete(item) {
+  deleteTarget.value = item
+  deleteDialog.value = true
+}
+
+async function removeReservation() {
+
+  const item = deleteTarget.value
 
   if (!item) return
 
-  // 親予約を削除すると相乗り予約も削除
   if (item.share === false) {
 
     const { error: childErr } = await supabase
@@ -332,9 +372,11 @@ async function removeReservation(item) {
       .eq('parent_id', item.id)
 
     if (childErr) {
-      console.error('子予約削除エラー:', childErr)
+      console.error(
+        '子予約削除エラー:',
+        childErr
+      )
     }
-
   }
 
   const { error } = await supabase
@@ -343,9 +385,14 @@ async function removeReservation(item) {
     .eq('id', item.id)
 
   if (error) {
-    console.error('予約削除エラー:', error)
+    console.error(
+      '予約削除エラー:',
+      error
+    )
     return
   }
+
+  deleteDialog.value = false
 
   await loadReservations()
 }

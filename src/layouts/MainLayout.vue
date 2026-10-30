@@ -55,7 +55,7 @@ function onTitleClick () {
   background: linear-gradient(
     to bottom,
     #8bc34a 0%,
-    #aed581 50%,
+    #10AA34 50%,
     #fcfcfc 100%
   );
 }

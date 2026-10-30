@@ -136,10 +136,11 @@
     <q-expansion-item
       icon="person"
       label="氏名・電話番号を入力する（任意）"
-      class="q-mt-md"
+      class="q-mt-md q-mb-xl"
       header-class="text-grey-7"
       @show="onOpenPassengerInfo"
     >
+
 
       <div class="text-caption text-grey q-mb-md">
         通常は入力不要です。必要な方のみ入力してください。

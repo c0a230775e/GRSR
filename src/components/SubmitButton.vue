@@ -10,8 +10,8 @@ const { canSubmit, submit } = defineProps({
   <q-btn
     v-if="canSubmit"
     label="予約送信"
-    color="light-green-6"
     class="common-btn q-mt-md"
+    style="background-color:#10AA34;color:white"
     @click="submit"
   />
 </template>
