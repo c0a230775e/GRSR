@@ -46,6 +46,9 @@
       :frontFull="remainingFront <= 0"
       :backFull="remainingBack <= 0"
 
+      :remaining-front="remainingFront"
+      :remaining-back="remainingBack"
+
       @open-share="onShareRide"
     />
 
@@ -64,6 +67,12 @@
       :remainingFront="remainingFront"
       :remainingBack="remainingBack"
       :isFrontShareTarget="isFrontShareTarget"
+
+      :from-image="shareFromImage"
+      :to-image="shareToImage"
+
+      :from-place="shareTarget?.reservedFrom"
+      :to-place="shareTarget?.reservedTo"
 
       @open-share="onShareRide"
       @close-share="shareDialogVisible = false"
@@ -187,6 +196,7 @@ const phoneNumber = ref('')
 
 /* --- timeSlots.json 読み込み --- */
 const timeSlotsRaw = ref([])
+const pins = ref([])
 
 async function loadAllSlots() {
   const url = '/assets/timeSlots.json?ts=' + Date.now()
@@ -395,6 +405,45 @@ const shareDialogVisible = ref(false)
 const shareTarget = ref(null)
 const shareError = ref('')
 
+const shareFromImage = computed(() => {
+
+  if (!shareTarget.value) return ''
+
+  return getPlaceImage(
+    shareTarget.value.reservedFrom
+  )
+})
+
+const shareToImage = computed(() => {
+
+  if (!shareTarget.value) return ''
+
+  return getPlaceImage(
+    shareTarget.value.reservedTo
+  )
+})
+
+function getPlaceImage(placeName) {
+
+    for (const mainPin of pins.value) {
+
+      if (mainPin.name === placeName) {
+        return mainPin.image
+      }
+
+      const sub =
+        mainPin.subLocations?.find(
+          s => s.name === placeName
+        )
+
+      if (sub) {
+        return sub.image
+      }
+    }
+
+    return ''
+  }
+
 function onShareRide(mode) {
 
   let targetSlots = mode === 'front'
@@ -496,6 +545,8 @@ onMounted(async () => {
   loadReservedSlots()
   await loadAllSlots()
   updateFreeRideDates(currentYear, currentMonth)
+  const res = await fetch('/assets/pins.json')
+  pins.value = await res.json()
 
   window.addEventListener('storage', () => {
     loadReservedSlots()

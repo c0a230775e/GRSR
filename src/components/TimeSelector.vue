@@ -24,6 +24,9 @@ const props = defineProps({
 
   frontFull: Boolean,
   backFull: Boolean,
+
+  remainingFront: Number,
+  remainingBack: Number
 })
 
 const emit = defineEmits([
@@ -65,7 +68,11 @@ const emit = defineEmits([
                 </div>
 
                 <div class="share-text">
-                  {{ props.frontFull ? '満員' : '相乗り' }}
+                  {{
+                    props.frontFull
+                      ? '満員'
+                      : `あと${props.remainingFront}人`
+                  }}
                 </div>
 
               </div>
@@ -130,8 +137,13 @@ const emit = defineEmits([
                 </div>
 
                 <div class="share-text">
-                  {{ props.backFull ? '満員' : '相乗り' }}
+                  {{
+                    props.backFull
+                      ? '満員'
+                      : `あと${props.remainingBack}人`
+                  }}
                 </div>
+
               </div>
 
               <div class="share-right">
