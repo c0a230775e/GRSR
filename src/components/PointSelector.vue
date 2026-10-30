@@ -16,6 +16,7 @@
         label="場所を検索"
         option-label="label"
         :options="searchOptions"
+        behavior="menu"
         @filter="filterPlaces"
         @update:model-value="moveToPlace"
       >
