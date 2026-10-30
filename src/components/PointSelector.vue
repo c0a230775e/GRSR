@@ -169,6 +169,7 @@ onMounted(async () => {
     center: [centerLat, centerLng],
     zoom: 15,
     minZoom: 15,
+    zoomControl: false,
     maxBounds: [
       [35.6517931, 140.0636615],
       [35.6318486, 140.0317373]
@@ -176,6 +177,7 @@ onMounted(async () => {
     maxBoundsViscosity: 0.2,
     rotate: true,
     touchRotate: true
+    
   })
 
   map.setBearing(-40)
@@ -192,7 +194,7 @@ onMounted(async () => {
   ------------------------- */
   const CompassControl = L.Control.extend({
     options: {
-      position: 'topleft'
+      position: 'bottomright'
     },
 
     onAdd() {
@@ -203,11 +205,11 @@ onMounted(async () => {
 
       const button = L.DomUtil.create(
         'a',
-        'leaflet-control-zoom-in',
+        'leaflet-control-reset',
         wrapper
       )
 
-      button.innerHTML = '🧭'
+      button.innerHTML = '↺'
       button.href = '#'
       button.title = '初期位置へ戻る'
       button.setAttribute('role', 'button')
@@ -227,6 +229,9 @@ onMounted(async () => {
     }
   })
 
+  L.control.zoom({
+    position: 'bottomright'
+  }).addTo(map)
   map.addControl(new CompassControl())
 
   const res = await fetch('/assets/pins.json')

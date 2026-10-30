@@ -82,19 +82,35 @@ const emit = defineEmits([
               </div>
 
               <div class="share-right">
+
                 <div class="share-place">
-                  <span class="place-label">乗：</span>
+                  <span class="place-label">
+                    <q-icon
+                      name="location_on"
+                      color="primary"
+                      size="18px"
+                    />
+                  </span>
+
                   <span class="place-name">
                     {{ props.reservedFrontFrom }}
                   </span>
                 </div>
 
                 <div class="share-place">
-                  <span class="place-label">降：</span>
+                  <span class="place-label">
+                    <q-icon
+                      name="location_on"
+                      color="negative"
+                      size="18px"
+                    />
+                  </span>
+
                   <span class="place-name">
                     {{ props.reservedFrontTo }}
                   </span>
                 </div>
+
               </div>
 
             </div>
@@ -161,19 +177,35 @@ const emit = defineEmits([
               </div>
 
               <div class="share-right">
+
                 <div class="share-place">
-                  <span class="place-label">乗：</span>
+                  <span class="place-label">
+                    <q-icon
+                      name="location_on"
+                      color="primary"
+                      size="18px"
+                    />
+                  </span>
+
                   <span class="place-name">
                     {{ props.reservedBackFrom }}
                   </span>
                 </div>
 
                 <div class="share-place">
-                  <span class="place-label">降：</span>
+                  <span class="place-label">
+                    <q-icon
+                      name="location_on"
+                      color="negative"
+                      size="18px"
+                    />
+                  </span>
+
                   <span class="place-name">
                     {{ props.reservedBackTo }}
                   </span>
                 </div>
+
               </div>
 
             </div>

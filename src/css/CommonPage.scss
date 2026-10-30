@@ -365,10 +365,16 @@
   width: 100%;
   max-width: 300px;
 }
-.leaflet-control-zoom a {
-  font-size: 18px;
-  line-height: 26px;
+.leaflet-control-zoom a,
+.leaflet-control-reset {
+  width: 36px !important;
+  height: 36px !important;
+
+  line-height: 36px !important;
+
+  font-size: 24px !important;
 }
+
 
 
 .search-area {
@@ -547,4 +553,8 @@
   margin-right: 1px;
 
   letter-spacing: 2px;
+}
+.leaflet-bottom.leaflet-right {
+  margin-bottom: 12px;
+  margin-right: 12px;
 }
