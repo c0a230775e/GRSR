@@ -1,3 +1,3 @@
 import 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import 'leaflet-rotate'
+// import 'leaflet-rotate'

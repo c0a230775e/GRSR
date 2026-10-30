@@ -74,8 +74,21 @@
     >
 
       <!-- 日付 -->
-      <div class="date-title">
-        {{ displayDate(date) }}
+      <div class="date-title-row">
+        <div class="date-title">
+          {{ displayDate(date) }}
+        </div>
+
+        <div
+          class="map-label"
+          @click="toggleMapMode(date)"
+        >
+          {{
+            mapMode[date]
+              ? '画像を表示'
+              : '地図を表示'
+          }}
+        </div>
       </div>
 
       <div class="reservation-list-card q-mb-md">
@@ -189,45 +202,55 @@
             <!-- 展開エリア -->
             <div
               v-if="expandedItems[day[slot].id]"
-              class="location-photo-area"
             >
+              <!-- 画像モード -->
+              <div
+                v-if="!mapMode[date]"
+                class="location-photo-area"
+              >
+                <div class="location-photo-card">
+                  <div class="photo-title">
+                    乗車場所
+                  </div>
 
-              <div class="location-photo-card">
+                  <img
+                    :src="getPlaceImage(day[slot].from_name)"
+                    class="location-photo"
+                  >
 
-                <div class="photo-title">
-                  乗車場所
+                  <div
+                    :id="`from-map-${day[slot].id}`"
+                    class="location-mini-map"
+                  />
                 </div>
 
-                <img
-                  :src="getPlaceImage(day[slot].from_name)"
-                  class="location-photo"
-                >
+                <div class="location-photo-card">
+                  <div class="photo-title">
+                    降車場所
+                  </div>
 
-                <div
-                  :id="`from-map-${day[slot].id}`"
-                  class="location-mini-map"
-                />
+                  <img
+                    :src="getPlaceImage(day[slot].to_name)"
+                    class="location-photo"
+                  >
 
-              </div>
-
-              <div class="location-photo-card">
-
-                <div class="photo-title">
-                  降車場所
+                  <div
+                    :id="`to-map-${day[slot].id}`"
+                    class="location-mini-map"
+                  />
                 </div>
-
-                <img
-                  :src="getPlaceImage(day[slot].to_name)"
-                  class="location-photo"
-                >
-
-                <div
-                  :id="`to-map-${day[slot].id}`"
-                  class="location-mini-map"
-                />
-
               </div>
 
+              <!-- 地図モード -->
+              <div
+                v-else
+                class="route-map-wrapper"
+              >
+                <div
+                  :id="`route-map-${date}`"
+                  class="route-map"
+                />
+              </div>
             </div>
 
             <!-- 一番下に矢印と削除 -->
@@ -331,6 +354,7 @@ const password = ref('')
 const maps = {}
 const deleteDialog = ref(false)
 const deleteTarget = ref(null)
+const mapMode = ref({})
 
 /* -------------------------
    予約一覧取得
@@ -457,15 +481,23 @@ async function toggleExpand(item) {
 
     await nextTick()
 
-    drawMap(
-      item.from_name,
-      `from-map-${item.id}`
-    )
+    if (!mapMode.value[item.ride_date]) {
 
-    drawMap(
-      item.to_name,
-      `to-map-${item.id}`
-    )
+      drawMap(
+        item.from_name,
+        `from-map-${item.id}`
+      )
+
+      drawMap(
+        item.to_name,
+        `to-map-${item.id}`
+      )
+
+    } else {
+
+      drawRouteMap(item.ride_date)
+
+    }
   }
 }
 
@@ -496,9 +528,15 @@ function getPlaceImage(placeName) {
 }
 
 function getPlaceLocation(placeName) {
+   console.log('search place =', placeName)
   for (const mainPin of pins.value) {
+    console.log('main =', mainPin.name)
 
-    if (mainPin.name === placeName) {
+    if (
+      mainPin.name === placeName ||
+      mainPin.name.includes(placeName) ||
+      placeName.includes(mainPin.name)
+    ) {
       return {
         lat: mainPin.lat,
         lng: mainPin.lng
@@ -617,6 +655,97 @@ async function login () {
     logout()
 
   }, 3 * 60 * 1000)
+}
+
+function toggleMapMode(date) {
+
+  mapMode.value[date] =
+    !mapMode.value[date]
+
+  nextTick(() => {
+    if (mapMode.value[date]) {
+      drawRouteMap(date)
+    }
+  })
+}
+async function drawRouteMap(date) {
+
+  const day =
+    groupedReservations.value[date]
+
+  const ride =
+    day?.front || day?.back
+
+  if (!ride) return
+
+  const from =
+    getPlaceLocation(ride.from_name)
+
+  const to =
+    getPlaceLocation(ride.to_name)
+
+  if (!from || !to) return
+
+  const mapId = `route-map-${date}`
+
+  await nextTick()
+
+  const mapElement =
+    document.getElementById(mapId)
+
+  console.log('mapElement', mapElement)
+
+  if (!mapElement) return
+
+  if (maps[mapId]) {
+    maps[mapId].remove()
+  }
+
+  const map = L.map(mapId)
+
+  maps[mapId] = map
+
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      attribution:
+        '&copy; OpenStreetMap contributors'
+    }
+  ).addTo(map)
+
+  L.marker([
+    from.lat,
+    from.lng
+  ]).addTo(map)
+
+  L.marker([
+    to.lat,
+    to.lng
+  ]).addTo(map)
+
+  const bounds = L.latLngBounds([
+    [from.lat, from.lng],
+    [to.lat, to.lng]
+  ])
+
+  map.fitBounds(bounds, {
+    padding: [40, 40]
+  })
+
+  L.polyline(
+    [
+      [from.lat, from.lng],
+      [to.lat, to.lng]
+    ],
+    {
+      color: '#10AA34',
+      weight: 5
+    }
+  ).addTo(map)
+
+  setTimeout(() => {
+    map.invalidateSize()
+  }, 100)
 }
 
 /* -------------------------

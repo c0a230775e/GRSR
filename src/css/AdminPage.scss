@@ -221,3 +221,19 @@
 
   padding: 16px;
 }
+.map-label {
+  cursor: pointer;
+  color: #10AA34;
+  font-weight: 600;
+}
+
+.route-map-wrapper {
+  margin-top: 12px;
+}
+
+.route-map {
+  width: 100%;
+  height: 320px;
+  border-radius: 12px;
+  overflow: hidden;
+}
