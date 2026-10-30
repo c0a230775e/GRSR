@@ -259,9 +259,9 @@
       { "id": "D", "name": "赤玉青玉公園青玉前", "lat": 35.641236, "lng": 140.044376, "image": "/assets/photo/赤玉青玉公園青玉前.jpg" }
     ] 
   },
-  { "id": 45, "name": "１５番街", "lat": 35.6403890, "lng": 140.0443028, "image": "/assets/photo/" ,
+  { "id": 45, "name": "１５番街", "lat": 35.6403890, "lng": 140.0443028, "image": "/assets/photo/１５番街北.jpg" ,
     "subLocations": [
-      { "id": "A", "name": "１５番街北", "lat": 35.640666, "lng": 140.044169, "image": "/assets/photo/.jpg" },
+      { "id": "A", "name": "１５番街北", "lat": 35.640666, "lng": 140.044169, "image": "/assets/photo/１５番街北.jpg" },
       { "id": "B", "name": "１５番街桜通り北", "lat": 35.640397, "lng": 140.043832, "image": "/assets/photo/.jpg" },
       { "id": "C", "name": "１５番街桜通り南", "lat": 35.640106, "lng": 140.043975, "image": "/assets/photo/.jpg" },
       { "id": "D", "name": "１５番街バレンタイン通り西", "lat": 35.639985, "lng": 140.044231, "image": "/assets/photo/.jpg" },

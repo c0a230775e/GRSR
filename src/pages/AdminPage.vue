@@ -16,7 +16,7 @@
         outline
         color="primary"
         icon="login"
-        label="サインイン"
+        label="ログイン"
         @click="showLoginDialog = true"
       />
 
