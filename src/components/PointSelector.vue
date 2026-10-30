@@ -524,13 +524,15 @@ function showSubPins(mainPin) {
 }
 
 function normalizeText(text) {
-  return text
+  return String(text)
+    .normalize('NFKC')
     .toLowerCase()
     .replace(/[ァ-ヶ]/g, char =>
       String.fromCharCode(
         char.charCodeAt(0) - 0x60
       )
     )
+    .replace(/\s+/g, '')
 }
 
 function filterPlaces(val, update) {

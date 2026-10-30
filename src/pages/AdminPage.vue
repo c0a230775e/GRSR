@@ -215,7 +215,7 @@
                 <div class="photo-title">
                   降車場所
                 </div>
-                
+
                 <img
                   :src="getPlaceImage(day[slot].to_name)"
                   class="location-photo"
@@ -278,7 +278,16 @@ import { useRouter } from 'vue-router'
 import '@/css/AdminPage.scss'
 import L from 'leaflet'
 import { nextTick } from 'vue'
+import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png'
+import markerIcon from 'leaflet/dist/images/marker-icon.png'
+import markerShadow from 'leaflet/dist/images/marker-shadow.png'
+delete L.Icon.Default.prototype._getIconUrl
 
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: markerIcon2x,
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow
+})
 
 const reservations = ref([])
 const expandedItems = ref({})
@@ -355,7 +364,15 @@ async function drawMap(placeName, mapId) {
 
   maps[mapId] = L.map(mapId, {
     zoomControl: false,
-    attributionControl: false
+    attributionControl: false,
+
+    dragging: false,
+    touchZoom: false,
+    scrollWheelZoom: false,
+    doubleClickZoom: false,
+    boxZoom: false,
+    keyboard: false,
+    tap: false
   }).setView(
     [location.lat, location.lng],
     17
