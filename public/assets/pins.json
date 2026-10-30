@@ -288,7 +288,7 @@
   },
   { "id": 49, "name": "１８番街", "lat": 35.6393296, "lng": 140.0436922, "image": "/assets/photo/" ,
     "subLocations": [
-      { "id": "A", "name": "１８番街クリーニングmamasho@", "lat": 35.639710, "lng": 140.043770, "image": "/assets/photo/.jpg" },
+      { "id": "A", "name": "１８番街クリーニングmamashop", "lat": 35.639710, "lng": 140.043770, "image": "/assets/photo/.jpg" },
       { "id": "B", "name": "１８番街ECCジュニア", "lat": 35.639609, "lng": 140.043407, "image": "/assets/photo/.jpg" }
     ] 
   },

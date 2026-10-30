@@ -452,7 +452,9 @@ function closeOverlay() {
   showOverlay.value = false
 
   selectedSubPin.value = null
-
+  searchPlace.value = null
+  selectedMainPlace.value = null
+  searchOptions.value = []
   clearSubPins()
 
   map.setView(
