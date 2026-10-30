@@ -78,17 +78,6 @@
         <div class="date-title">
           {{ displayDate(date) }}
         </div>
-
-        <div
-          class="map-label"
-          @click="toggleMapMode(date)"
-        >
-          {{
-            mapMode[date]
-              ? '画像を表示'
-              : '地図を表示'
-          }}
-        </div>
       </div>
 
       <div class="reservation-list-card q-mb-md">
@@ -256,17 +245,32 @@
             <!-- 一番下に矢印と削除 -->
             <div class="card-footer">
 
-              <q-btn
-                flat
-                dense
-                size="lg"
-                :icon="
-                  expandedItems[day[slot].id]
-                    ? 'expand_less'
-                    : 'expand_more'
-                "
-                @click="toggleExpand(day[slot])"
-              />
+              <div class="footer-left">
+
+                <q-btn
+                  flat
+                  dense
+                  size="lg"
+                  :icon="
+                    expandedItems[day[slot].id]
+                      ? 'expand_less'
+                      : 'expand_more'
+                  "
+                  @click="toggleExpand(day[slot])"
+                />
+
+                <span
+                  class="map-toggle-text"
+                  @click="toggleMapMode(date)"
+                >
+                  {{
+                    mapMode[date]
+                      ? '画像を表示'
+                      : '地図を表示'
+                  }}
+                </span>
+
+              </div>
 
               <q-btn
                 v-if="isAdmin"
@@ -278,6 +282,7 @@
               />
 
             </div>
+
 
           </template>
 
@@ -355,6 +360,19 @@ const maps = {}
 const deleteDialog = ref(false)
 const deleteTarget = ref(null)
 const mapMode = ref({})
+const fromIcon = L.icon({
+  iconUrl:
+    'https://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png',
+  iconSize: [32, 32],
+  iconAnchor: [16, 32]
+})
+
+const toIcon = L.icon({
+  iconUrl:
+    'https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png',
+  iconSize: [32, 32],
+  iconAnchor: [16, 32]
+})
 
 /* -------------------------
    予約一覧取得
@@ -434,6 +452,7 @@ async function drawMap(placeName, mapId) {
   }
 
   maps[mapId] = L.map(mapId, {
+    rotate: false,
     zoomControl: false,
     attributionControl: false,
 
@@ -474,10 +493,30 @@ function displayDate(date) {
 
 async function toggleExpand(item) {
 
-  expandedItems.value[item.id] =
+  const isOpening =
     !expandedItems.value[item.id]
 
-  if (expandedItems.value[item.id]) {
+  // 同じ日付の予約を閉じる
+  Object.keys(expandedItems.value)
+    .forEach(id => {
+
+      const reservation =
+        reservations.value.find(
+          r => r.id === Number(id)
+        )
+
+      if (
+        reservation &&
+        reservation.ride_date === item.ride_date
+      ) {
+        expandedItems.value[id] = false
+      }
+    })
+
+  // 選択したものだけ開く
+  expandedItems.value[item.id] = isOpening
+
+  if (isOpening) {
 
     await nextTick()
 
@@ -528,10 +567,7 @@ function getPlaceImage(placeName) {
 }
 
 function getPlaceLocation(placeName) {
-   console.log('search place =', placeName)
   for (const mainPin of pins.value) {
-    console.log('main =', mainPin.name)
-
     if (
       mainPin.name === placeName ||
       mainPin.name.includes(placeName) ||
@@ -693,8 +729,6 @@ async function drawRouteMap(date) {
   const mapElement =
     document.getElementById(mapId)
 
-  console.log('mapElement', mapElement)
-
   if (!mapElement) return
 
   if (maps[mapId]) {
@@ -713,15 +747,37 @@ async function drawRouteMap(date) {
     }
   ).addTo(map)
 
-  L.marker([
-    from.lat,
-    from.lng
-  ]).addTo(map)
+  L.marker(
+    [from.lat, from.lng],
+    {
+      icon: fromIcon
+    }
+  )
+  .addTo(map)
+  .bindTooltip(
+    ride.from_name,
+    {
+      permanent: true,
+      direction: 'top',
+      offset: [0, -24]
+    }
+  )
 
-  L.marker([
-    to.lat,
-    to.lng
-  ]).addTo(map)
+  L.marker(
+    [to.lat, to.lng],
+    {
+      icon: toIcon
+    }
+  )
+  .addTo(map)
+  .bindTooltip(
+    ride.to_name,
+    {
+      permanent: true,
+      direction: 'top',
+      offset: [0, -24]
+    }
+  )
 
   const bounds = L.latLngBounds([
     [from.lat, from.lng],

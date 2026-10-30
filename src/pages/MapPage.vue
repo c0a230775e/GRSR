@@ -160,7 +160,7 @@ onMounted(() => {
       fromMarker.bindTooltip('乗車場所', {
         permanent: true,
         direction: 'top',
-        offset: [0, -20]
+        offset: [0, -24]
       }).openTooltip()
 
       fromAddress.value = await fetchAddress(lat, lng)
@@ -172,7 +172,7 @@ onMounted(() => {
       toMarker.bindTooltip('降車場所', {
         permanent: true,
         direction: 'top',
-        offset: [0, -20]
+        offset: [0, -24]
       }).openTooltip()
 
       toAddress.value = await fetchAddress(lat, lng)

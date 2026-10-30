@@ -121,6 +121,7 @@ import { ref, onMounted } from 'vue'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import '@/css/CommonPage.scss'
+import 'leaflet-rotate'
 
 const emit = defineEmits(['update:from', 'update:to'])
 
@@ -260,7 +261,8 @@ onMounted(async () => {
         '現在地',
         {
           permanent: true,
-          direction: 'top'
+          direction: 'top',
+          offset: [0, -24]
         }
       )
 
@@ -330,7 +332,7 @@ onMounted(async () => {
     marker.bindTooltip(pin.name, {
       permanent: true,
       direction: 'top',
-      offset: [0, -10]
+      offset: [0, -24]
     })
 
     marker.closeTooltip()
@@ -413,7 +415,7 @@ function showSubMap(mainPin) {
     marker.bindTooltip(sub.name, {
       permanent: true,
       direction: 'top',
-      offset: [0, -10]
+      offset: [0, -24]
     })
 
     marker.on('click', () => {
@@ -508,7 +510,8 @@ function showSubPins(mainPin) {
 
     marker.bindTooltip(sub.name, {
       permanent: true,
-      direction: 'top'
+      direction: 'top',
+      offset: [0, -24]
     })
 
     marker.on('click', () => {
