@@ -9,7 +9,8 @@ const routes = [
       { path: 'complete', component: () => import('@/pages/CompletePage.vue') },
       { path: 'calendar', component: () => import('@/pages/CalendarPage.vue') },
       { path: 'map', component: () => import('@/pages/MapPage.vue') },
-      { path: 'test', component: () => import('@/pages/testPage.vue') }
+      { path: 'test', component: () => import('@/pages/testPage.vue') },
+      { path: 'reserved', component: () => import('@/pages/ReservedPage.vue') }
     ]
   },
 

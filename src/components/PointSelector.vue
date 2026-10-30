@@ -461,11 +461,6 @@ function closeOverlay() {
   selectedMainPlace.value = null
   searchOptions.value = []
   clearSubPins()
-
-  map.setView(
-    [centerLat, centerLng],
-    15
-  )
 }
 
 function updatePinLabels() {

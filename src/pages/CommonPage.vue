@@ -1,6 +1,18 @@
 <template>
   <q-page padding>
 
+    <div class="top-button-row">
+
+      <q-btn
+        outline
+        color="primary"
+        icon="history"
+        label="予約履歴"
+        @click="openReservedPage"
+      />
+
+    </div>
+
     <!-- 乗車人数 -->
     <RidePeopleSelector
       v-model="people"
@@ -206,6 +218,10 @@ async function loadAllSlots() {
   const url = '/assets/timeSlots.json?ts=' + Date.now()
   const res = await fetch(url)
   timeSlotsRaw.value = await res.json()
+}
+
+function openReservedPage() {
+  router.push('/reserved')
 }
 
 function getFreeDates(month) {
@@ -496,6 +512,7 @@ async function confirmShareRide() {
   const { error } = await supabase
     .from('reservations')
     .insert({
+      user_id: localStorage.getItem('userId'),
       ride_date: rideDate.value,
       time: shareTarget.value.label,
       people: Number(people.value),
@@ -568,6 +585,8 @@ async function submit() {
   const { error } = await supabase
     .from('reservations')
     .insert({
+      user_id: localStorage.getItem('userId'),
+
       ride_date: rideDate.value,
       time: time.value.label,
       people: Number(people.value),
