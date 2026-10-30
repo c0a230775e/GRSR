@@ -1,7 +1,7 @@
 [
   { "id": 1,  "name": "クロスポート", "lat": 35.6465617, "lng": 140.0500605, "image": "/assets/photo/クロスポート.jpg"},
   { "id": 2, "name": "イオンスタイル南自転車置き場前", "lat": 35.646395, "lng": 140.049388, "image": "/assets/photo/イオンスタイル南自転車置き場前.jpg" },
-  { "id": 3, "name": "ミニストップ幕張ベイーパーク", "lat": 35.646082, "lng": 140.051044, "image": "/assets/photo/ミニストップ幕張ベイパーク.jpg" },
+  { "id": 3, "name": "ミニストップ幕張ベイパーク", "lat": 35.646082, "lng": 140.051044, "image": "/assets/photo/ミニストップ幕張ベイパーク.jpg" },
   { "id": 4, "name": "ZOZOPARK", "lat": 35.645803, "lng": 140.048825, "image": "/assets/photo/ZOZOPARK.jpg" },
   { "id": 5,  "name": "ながしま整形外科", "lat": 35.645653, "lng": 140.050440, "image": "/assets/photo/ながしま整形外科.jpg" },
   { "id": 6, "name": "アミーズ音楽教室", "lat": 35.645129, "lng": 140.051053, "image": "/assets/photo/アミーズ音楽教室.jpg" },
@@ -64,8 +64,8 @@
     "subLocations": [
       { "id": "A", "name": "打瀬小学校校庭", "lat": 35.642585, "lng": 140.046297, "image": "/assets/photo/打瀬小校庭.jpg" },
       { "id": "B", "name": "打瀬小学校公衆電話", "lat": 35.641784, "lng": 140.046646, "image": "/assets/photo/打瀬小公衆電話.jpg" },
-      { "id": "C", "name": "打瀬小南", "lat": 35.641733, "lng": 140.047275, "image": "/assets/photo/打瀬小南.jpg" },
-      { "id": "D", "name": "打瀬小東", "lat": 35.641956, "lng": 140.047997, "image": "/assets/photo/打瀬小東.jpg" }
+      { "id": "C", "name": "打瀬小学校南", "lat": 35.641733, "lng": 140.047275, "image": "/assets/photo/打瀬小南.jpg" },
+      { "id": "D", "name": "打瀬小学校東", "lat": 35.641956, "lng": 140.047997, "image": "/assets/photo/打瀬小東.jpg" }
     ] 
   },
   { "id": 21, "name": "７番街", "lat": 35.6416059, "lng": 140.0483385, "image": "/assets/photo/７番街北.jpg" ,
@@ -73,7 +73,7 @@
       { "id": "A", "name": "７番街白帆通り南", "lat": 35.641510, "lng": 140.048860, "image": "/assets/photo/７番街白帆通り南.jpg" },
       { "id": "B", "name": "７番街バレンタイン通り東", "lat": 35.641340, "lng": 140.048719, "image": "/assets/photo/７番街バレンタイン通り東.jpg" },
       { "id": "C", "name": "７番街バレンタイン通り西", "lat": 35.641217, "lng": 140.048353, "image": "/assets/photo/７番街バレンタイン通り西.jpg" },
-      { "id": "D", "name": "７番街南", "lat": 35.641619, "lng": 140.047848, "image": "/assets/photo/７番街南.jpg" },
+      { "id": "D", "name": "７番街西", "lat": 35.641619, "lng": 140.047848, "image": "/assets/photo/７番街南.jpg" },
       { "id": "D", "name": "７番街北", "lat": 35.641893, "lng": 140.048396, "image": "/assets/photo/７番街北.jpg" },
       { "id": "D", "name": "７番街白帆通り北", "lat": 35.641844, "lng": 140.048674, "image": "/assets/photo/７番街白帆通り北.jpg" }
     ] 
@@ -89,8 +89,8 @@
   },
   { "id": 23, "name": "８番街", "lat": 35.6413053, "lng": 140.0472736, "image": "/assets/photo/８番街.jpg" ,
     "subLocations": [
-      { "id": "A", "name": "８番街打瀬小前西", "lat": 35.641541, "lng": 140.047063, "image": "/assets/photo/８番街打瀬小前西.jpg" },
-      { "id": "B", "name": "８番街打瀬小前東", "lat": 35.641637, "lng": 140.047380, "image": "/assets/photo/８番街打瀬小前東.jpg" },
+      { "id": "A", "name": "８番街打瀬小学校前西", "lat": 35.641541, "lng": 140.047063, "image": "/assets/photo/８番街打瀬小前西.jpg" },
+      { "id": "B", "name": "８番街打瀬小学校前東", "lat": 35.641637, "lng": 140.047380, "image": "/assets/photo/８番街打瀬小前東.jpg" },
       { "id": "C", "name": "８番街東", "lat": 35.641329, "lng": 140.047829, "image": "/assets/photo/８番街東.jpg" },
       { "id": "D", "name": "８番街バレンタイン通り東", "lat": 35.641010, "lng": 140.047639, "image": "/assets/photo/８番街バレンタイン通り東.jpg" },
       { "id": "E", "name": "８番街バレンタイン通り西", "lat": 35.640879, "lng": 140.047264, "image": "/assets/photo/８番街バレンタイン通り西.jpg" },
@@ -114,7 +114,7 @@
       { "id": "C", "name": "打瀬１丁目公園西", "lat": 35.639767, "lng": 140.047554, "image": "/assets/photo/打瀬１丁目公園西.jpg" }
     ] 
   },
-  { "id": 26, "name": "くすりの福太郎", "lat": 35.639179, "lng": 140.047792, "image": "/assets/photo/くすりの福太郎.jpg" },
+  { "id": 26, "name": "くすりの福太郎・ココファン", "lat": 35.639179, "lng": 140.047792, "image": "/assets/photo/くすりの福太郎.jpg" },
   { "id": 27, "name": "グリーナ", "lat": 35.638883, "lng": 140.047956, "image": "/assets/photo/グリーナ.jpg" },
   { "id": 28, "name": "セントラルパークW", "lat": 35.6435415, "lng": 140.0454370, "image": "/assets/photo/セントラルパークW_D棟_東口.jpg" ,
     "subLocations": [
@@ -163,7 +163,7 @@
     ] 
   },
   { "id": 33, "name": "美浜図書館打瀬分館", "lat": 35.639663, "lng": 140.047431, "image": "/assets/photo/美浜図書館打瀬分館.jpg" },
-  { "id": 34, "name": "打瀬公民館", "lat": 35.639630, "lng": 140.046438, "image": "/assets/photo/打瀬公民館.jpg" },
+  { "id": 34, "name": "打瀬公民館・コア", "lat": 35.639630, "lng": 140.046438, "image": "/assets/photo/打瀬公民館.jpg" },
   { "id": 35, "name": "１２番街", "lat": 35.6387520, "lng": 140.0473538, "image": "/assets/photo/１２番街.jpg" ,
     "subLocations": [
       { "id": "A", "name": "１２番街北", "lat": 35.639168, "lng": 140.047371, "image": "/assets/photo/１２番街北.jpg" },
@@ -292,13 +292,13 @@
       { "id": "B", "name": "１８番街ECCジュニア", "lat": 35.639609, "lng": 140.043407, "image": "/assets/photo/.jpg" }
     ] 
   },
-  { "id": 50, "name": "美浜打瀬小", "lat": 35.6385531, "lng": 140.0446602, "image": "/assets/photo/" ,
+  { "id": 50, "name": "美浜打瀬小学校", "lat": 35.6385531, "lng": 140.0446602, "image": "/assets/photo/" ,
     "subLocations": [
-      { "id": "A", "name": "美浜打瀬小１７番街前", "lat": 35.639266, "lng": 140.044935, "image": "/assets/photo/.jpg" },
-      { "id": "B", "name": "美浜打瀬小南", "lat": 35.637628, "lng": 140.044625, "image": "/assets/photo/.jpg" },
+      { "id": "A", "name": "美浜打瀬小学校１７番街前", "lat": 35.639266, "lng": 140.044935, "image": "/assets/photo/.jpg" },
+      { "id": "B", "name": "美浜打瀬小学校南", "lat": 35.637628, "lng": 140.044625, "image": "/assets/photo/.jpg" },
       { "id": "C", "name": "チャチャチルドレン打瀬南通り", "lat": 35.637903, "lng": 140.045599, "image": "/assets/photo/.jpg" },
       { "id": "C", "name": "チャチャチルドレン打瀬中通り", "lat": 35.638142, "lng": 140.045774, "image": "/assets/photo/.jpg" },
-      { "id": "D", "name": "美浜打瀬小子供ルーム", "lat": 35.638785, "lng": 140.045496, "image": "/assets/photo/.jpg" }
+      { "id": "D", "name": "美浜打瀬小学校子供ルーム", "lat": 35.638785, "lng": 140.045496, "image": "/assets/photo/.jpg" }
     ] 
   },
   { "id": 51, "name": "１９番街", "lat": 35.6374340, "lng": 140.0453927, "image": "/assets/photo/" ,
@@ -314,7 +314,7 @@
     ] 
   },
   { "id": 53, "name": "打瀬ふれあい緑地", "lat": 35.641113, "lng": 140.040631, "image": "/assets/photo/" },
-  { "id": 54, "name": "海浜打瀬小", "lat": 35.640244, "lng": 140.041003, "image": "/assets/photo/" },
+  { "id": 54, "name": "海浜打瀬小学校", "lat": 35.640244, "lng": 140.041003, "image": "/assets/photo/" },
   { "id": 55, "name": "２０番街", "lat": 35.6396394, "lng": 140.0419176, "image": "/assets/photo/" ,
     "subLocations": [
       { "id": "A", "name": "２０番街打瀬西通り北", "lat": 35.639644, "lng": 140.041262, "image": "/assets/photo/.jpg" },
@@ -345,7 +345,7 @@
       { "id": "D", "name": "２２番街打瀬南通り東", "lat": null, "lng": null, "image": "/assets/photo/.jpg" }
     ] 
   },
-  { "id": 59, "name": "打瀬中", "lat": 35.6363209, "lng": 140.0435202, "image": "/assets/photo/",
+  { "id": 59, "name": "打瀬中学校", "lat": 35.6363209, "lng": 140.0435202, "image": "/assets/photo/",
     "subLocations": [
       { "id": "A", "name": "打瀬中打瀬南通り東", "lat": null, "lng": null, "image": "/assets/photo/.jpg" },
       { "id": "B", "name": "打瀬中打瀬南通り西", "lat": null, "lng": null, "image": "/assets/photo/.jpg" }

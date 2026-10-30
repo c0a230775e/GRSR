@@ -13,7 +13,7 @@
             size="24px"
           />
           <span>
-            {{ people || '未選択' }}
+            {{ people || 'ー' }}
           </span>
         </div>
 
@@ -27,11 +27,11 @@
 
           <div class="preview-card-column">
             <div>
-              {{ displayRideDate || '未選択' }}
+              {{ displayRideDate || 'ー' }}
             </div>
 
             <div>
-              {{ time?.label || '未選択' }}
+              {{ time?.label || 'ー' }}
             </div>
           </div>
         </div>
@@ -49,7 +49,7 @@
               size="20px"
             />
             <span>
-              {{ from?.name || '未選択' }}
+              {{ from?.name || 'ー' }}
             </span>
           </div>
 
@@ -60,7 +60,7 @@
               size="20px"
             />
             <span>
-              {{ to?.name || '未選択' }}
+              {{ to?.name || 'ー' }}
             </span>
           </div>
 

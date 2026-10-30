@@ -85,6 +85,10 @@
         乗車場所・降車場所
       </div>
 
+      <div class="place-guide">
+        場所を検索するか、青色のピンを選択してください
+      </div>
+
       <PointSelector
         @update:from="from = $event"
         @update:to="to = $event"

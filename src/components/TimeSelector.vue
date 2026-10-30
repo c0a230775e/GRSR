@@ -62,6 +62,10 @@ const emit = defineEmits([
           >
             <div class="share-content">
 
+              <div class="share-label">
+                相乗り
+              </div>
+
               <div class="share-left">
                 <div class="share-time">
                   {{ props.reservedFrontLabel }}
@@ -79,11 +83,17 @@ const emit = defineEmits([
 
               <div class="share-right">
                 <div class="share-place">
-                  {{ props.reservedFrontFrom }}
+                  <span class="place-label">乗：</span>
+                  <span class="place-name">
+                    {{ props.reservedFrontFrom }}
+                  </span>
                 </div>
 
                 <div class="share-place">
-                  {{ props.reservedFrontTo }}
+                  <span class="place-label">降：</span>
+                  <span class="place-name">
+                    {{ props.reservedFrontTo }}
+                  </span>
                 </div>
               </div>
 
@@ -131,6 +141,10 @@ const emit = defineEmits([
           >
             <div class="share-content">
 
+              <div class="share-label">
+                相乗り
+              </div>
+
               <div class="share-left">
                 <div class="share-time">
                   {{ props.reservedBackLabel }}
@@ -147,12 +161,18 @@ const emit = defineEmits([
               </div>
 
               <div class="share-right">
-                <div>
-                  {{ props.reservedBackFrom }}
+                <div class="share-place">
+                  <span class="place-label">乗：</span>
+                  <span class="place-name">
+                    {{ props.reservedBackFrom }}
+                  </span>
                 </div>
 
-                <div>
-                  {{ props.reservedBackTo }}
+                <div class="share-place">
+                  <span class="place-label">降：</span>
+                  <span class="place-name">
+                    {{ props.reservedBackTo }}
+                  </span>
                 </div>
               </div>
 
