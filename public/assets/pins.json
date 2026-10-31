@@ -340,15 +340,15 @@
   { "id": 58, "name": "２２番街", "lat": 35.6374776, "lng": 140.0430126, "image": "/assets/photo/２２番街打瀬西通り北.jpg" ,
     "subLocations": [
       { "id": "A", "name": "２２番街打瀬西通り北", "lat": 35.637453, "lng": 140.042259, "image": "/assets/photo/２２番街打瀬西通り北.jpg" },
-      { "id": "B", "name": "２２番街打瀬西通り南", "lat": null, "lng": null, "image": "/assets/photo/２２番街打瀬西通り南.jpg" },
-      { "id": "C", "name": "２２番街打瀬南通り西", "lat": null, "lng": null, "image": "/assets/photo/２２番街打瀬西通り西.jpg" },
-      { "id": "D", "name": "２２番街打瀬南通り東", "lat": null, "lng": null, "image": "/assets/photo/２２番街打瀬西通り東.jpg" }
+      { "id": "B", "name": "２２番街打瀬西通り南", "lat": 35.637112, "lng": 140.042422, "image": "/assets/photo/２２番街打瀬西通り南.jpg" },
+      { "id": "C", "name": "２２番街打瀬南通り西", "lat": 35.637075, "lng": 140.042798, "image": "/assets/photo/２２番街打瀬西通り西.jpg" },
+      { "id": "D", "name": "２２番街打瀬南通り東", "lat": 35.637331, "lng": 140.043574, "image": "/assets/photo/２２番街打瀬西通り東.jpg" }
     ] 
   },
   { "id": 59, "name": "打瀬中学校", "lat": 35.6363209, "lng": 140.0435202, "image": "/assets/photo/打瀬中打瀬南通り東.jpg",
     "subLocations": [
-      { "id": "A", "name": "打瀬中打瀬南通り東", "lat": null, "lng": null, "image": "/assets/photo/打瀬中打瀬南通り東.jpg" },
-      { "id": "B", "name": "打瀬中打瀬南通り西", "lat": null, "lng": null, "image": "/assets/photo/打瀬中打瀬南通り西.jpg" }
+      { "id": "A", "name": "打瀬中打瀬南通り東", "lat": 35.637204, "lng": 140.043657, "image": "/assets/photo/打瀬中打瀬南通り東.jpg" },
+      { "id": "B", "name": "打瀬中打瀬南通り西", "lat": 35.637204, "lng": 140.043657, "image": "/assets/photo/打瀬中打瀬南通り西.jpg" }
     ]  
   },
   { "id": 60, "name": "打瀬第３公園", "lat": 35.6407421, "lng": 140.0401782, "image": "/assets/photo/打瀬第３公園打瀬西通り南.jpg",
