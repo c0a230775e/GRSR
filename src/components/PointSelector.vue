@@ -67,11 +67,18 @@
         <!-- 選択画像 -->
         <div class="selected-image-wrapper">
 
-          <q-img
-            v-if="selectedSubPin"
-            :src="selectedSubPin.image"
-            class="point-selected-img"
-          />
+          <template v-if="selectedSubPin">
+
+            <div class="selected-place-name">
+              {{ selectedSubPin.name }}
+            </div>
+
+            <q-img
+              :src="selectedSubPin.image"
+              class="point-selected-img"
+            />
+
+          </template>
 
           <div
             v-else
@@ -164,6 +171,14 @@ const currentLocationIcon = L.icon({
   iconSize: [28, 28],
   iconAnchor: [14, 28]
 })
+
+const selectedBlueIcon = L.icon({
+  iconUrl: 'https://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png',
+  iconSize: [30, 30],
+  iconAnchor: [15, 30]
+})
+
+const subMapMarkers = []
 
 onMounted(async () => {
   map = L.map('map', {
@@ -337,7 +352,10 @@ onMounted(async () => {
 
     marker.closeTooltip()
 
-    markers.push(marker)
+    markers.push({
+      marker,
+      pin
+    })
 
     marker.on('click', () => {
       overlayPin.value = pin
@@ -383,6 +401,7 @@ function setFromLocation() {
 }
 
 function showSubMap(mainPin) {
+  subMapMarkers.length = 0
   const element = document.getElementById('submap')
 
   if (!element) return
@@ -412,6 +431,11 @@ function showSubMap(mainPin) {
       }
     ).addTo(subMap)
 
+    subMapMarkers.push({
+      marker,
+      sub
+    })
+
     marker.bindTooltip(sub.name, {
       permanent: true,
       direction: 'top',
@@ -420,6 +444,7 @@ function showSubMap(mainPin) {
 
     marker.on('click', () => {
       selectedSubPin.value = sub
+      highlightSelectedSubPin()
     })
   })
 
@@ -433,7 +458,31 @@ function showSubMap(mainPin) {
   setTimeout(() => {
     subMap.invalidateSize()
   }, 100)
+
+  if (selectedSubPin.value) {
+    highlightSelectedSubPin()
+  }
 }
+
+function highlightSelectedSubPin() {
+  subMapMarkers.forEach(item => {
+
+    if (
+      item.sub.id === selectedSubPin.value?.id
+    ) {
+      item.marker.setIcon(
+        selectedBlueIcon
+      )
+    } else {
+      item.marker.setIcon(
+        blueIcon
+      )
+    }
+
+  })
+}
+
+
 
 function setToLocation() {
 
@@ -470,7 +519,7 @@ function updatePinLabels() {
 
   const zoom = map.getZoom()
 
-  markers.forEach(marker => {
+  markers.forEach(({ marker }) => {
     if (zoom >= 16) {
       marker.openTooltip()
     } else {
@@ -488,9 +537,23 @@ function clearSubPins() {
   })
 
   subMarkers.length = 0
+
+  markers.forEach(({ marker }) => {
+    if (!map.hasLayer(marker)) {
+      marker.addTo(map)
+    }
+  })
 }
 function showSubPins(mainPin) {
   clearSubPins()
+
+  const targetMarker = markers.find(
+    m => m.pin.id === mainPin.id
+  )
+
+  if (targetMarker) {
+    map.removeLayer(targetMarker.marker)
+  }
 
   map.setView(
     [mainPin.lat, mainPin.lng],
