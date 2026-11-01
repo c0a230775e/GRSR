@@ -6,7 +6,7 @@
     </div>
 
     <div class="text-center q-mb-md">
-      乗車の際は手をあげて、運転手にアピールしてください。
+      乗車の際は手をあげて、「〇〇時に予約している者です」と伝えてください
     </div>
 
     <!-- ★ 予約内容の表示 -->
@@ -132,13 +132,28 @@
           </div>
         </div>
       </div>
+      <!-- アンケート案内 -->
+      <div class="q-mt-md q-mb-sm text-center">
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLScPAXHNVZ4vZ7vdOBiZHFp9472U9jGzyrjvT51tbh9d_MlQWA/viewform"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="survey-link"
+        >
+          グリスロ予約アプリに関するアンケート
+        </a>
+
+        <div class="text-grey-7 q-mt-xs">
+          卒業論文のためのアンケートです。ご協力お願いいたします。
+        </div>
+      </div>
       <!-- チェックボタン -->
-    <q-btn
-      label="✔"
-      color="primary"
-      class="full-width q-mt-sm"
-      @click="goHome"
-    />
+      <q-btn
+        label="✔"
+        color="primary"
+        class="full-width q-mt-sm"
+        @click="goHome"
+      />
     </div>
   </q-page>
 </template>
