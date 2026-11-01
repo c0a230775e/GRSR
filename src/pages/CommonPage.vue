@@ -269,20 +269,30 @@ function formatTime(t) {
 }
 
 function createTimeButtons(label, y, m, d) {
-  const [startStr] = label.split('-')
-  const base = `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`
+  const [startStr, endStr] = label.split('-')
+
+  const base =
+    `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`
 
   const start = new Date(`${base} ${startStr}`)
+  const end = new Date(`${base} ${endStr}`)
+
   const offsets = [0, 10, 20, 40, 50]
 
-  return offsets.map(min => {
-    const t = new Date(start.getTime() + min * 60000)
-    return {
-      label: formatTime(t),
-      start: t,
-      end: new Date(t.getTime() + 10 * 60000)
-    }
-  })
+  return offsets
+    .map(min => {
+      const t =
+        new Date(start.getTime() + min * 60000)
+
+      return {
+        label: formatTime(t),
+        start: t,
+        end: new Date(
+          t.getTime() + 10 * 60000
+        )
+      }
+    })
+    .filter(slot => slot.end <= end)
 }
 
 function updateTimeSlots(y, m, d) {
@@ -343,7 +353,7 @@ function isExpired(slot) {
 
 const availableTimeSlots = computed(() => {
   const groupA = timeSlots.value.slice(0, 3)
-  const groupB = timeSlots.value.slice(3, 5)
+  const groupB = timeSlots.value.slice(3)
 
   const groupA_reserved = groupA.some(slot => reservedSlots.value.includes(slot.label))
   const groupB_reserved = groupB.some(slot => reservedSlots.value.includes(slot.label))
@@ -381,7 +391,7 @@ const reservedPeopleFront = computed(() =>
 )
 
 const reservedPeopleBack = computed(() =>
-  availableTimeSlots.value.slice(3, 5).reduce((sum, slot) => sum + slot.reservedPeople, 0)
+  availableTimeSlots.value.slice(3).reduce((sum, slot) => sum + slot.reservedPeople, 0)
 )
 
 const reservedFront = computed(() =>
@@ -392,7 +402,7 @@ const reservedFront = computed(() =>
 
 const reservedBack = computed(() =>
   availableTimeSlots.value
-    .slice(3, 5)
+    .slice(3)
     .find(slot => slot.reserved)
 )
 
@@ -402,7 +412,7 @@ const reservedFrontLabel = computed(() => {
 })
 
 const reservedBackLabel = computed(() => {
-  const slot = availableTimeSlots.value.slice(3, 5).find(s => s.reserved)
+  const slot = availableTimeSlots.value.slice(3).find(s => s.reserved)
   return slot ? slot.label : null
 })
 
@@ -417,7 +427,7 @@ const hasReservedFront = computed(() =>
 
 const hasReservedBack = computed(() =>
   availableTimeSlots.value
-    .slice(3, 5)
+    .slice(3)
     .some(slot => slot.reserved)
 )
 
@@ -469,7 +479,7 @@ function onShareRide(mode) {
 
   let targetSlots = mode === 'front'
     ? availableTimeSlots.value.slice(0, 3)
-    : availableTimeSlots.value.slice(3, 5)
+    : availableTimeSlots.value.slice(3)
   const reservedSlot = targetSlots.find(
     s => s.reserved
   )
