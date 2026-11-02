@@ -337,7 +337,7 @@
       { "id": "B", "name": "打瀬第５公園打瀬西通り南", "lat": 35.637846, "lng": 140.042150, "image": "/assets/photo/打瀬第５公園打瀬西通り南.jpg" }
     ] 
   },
-  { "id": 58, "name": "２２番街", "lat": 35.6374776, "lng": 140.0430126, "image": "/assets/photo/２２番街打瀬西通り北.jpg" ,
+  { "id": 58, "name": "22番街", "lat": 35.6374776, "lng": 140.0430126, "image": "/assets/photo/２２番街打瀬西通り北.jpg" ,
     "subLocations": [
       { "id": "A", "name": "２２番街打瀬西通り北", "lat": 35.637453, "lng": 140.042259, "image": "/assets/photo/２２番街打瀬西通り北.jpg" },
       { "id": "B", "name": "22番街打瀬西通り南", "lat": 35.637112, "lng": 140.042422, "image": "/assets/photo/22番街打瀬西通り南.jpg" },
