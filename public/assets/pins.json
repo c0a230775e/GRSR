@@ -265,7 +265,7 @@
       { "id": "B", "name": "１５番街桜通り北", "lat": 35.640397, "lng": 140.043832, "image": "/assets/photo/１５番街桜通り北.jpg" },
       { "id": "C", "name": "１５番街桜通り南", "lat": 35.640106, "lng": 140.043975, "image": "/assets/photo/１５番街桜通り南.jpg" },
       { "id": "D", "name": "１５番街バレンタイン通り西", "lat": 35.639985, "lng": 140.044231, "image": "/assets/photo/１５番街バレンタイン通り西.jpg" },
-      { "id": "C", "name": "１５番街伊藤楽器", "lat": 35.640099, "lng": 140.044612, "image": "/assets/photo/１５版が伊藤楽器.jpg" },
+      { "id": "C", "name": "１５番街伊藤楽器", "lat": 35.640099, "lng": 140.044612, "image": "/assets/photo/１５番街伊藤楽器.jpg" },
       { "id": "D", "name": "１５番街東", "lat": 35.640497, "lng": 140.044709, "image": "/assets/photo/１５番街東.jpg" }
     ] 
   },
@@ -340,7 +340,7 @@
   { "id": 58, "name": "２２番街", "lat": 35.6374776, "lng": 140.0430126, "image": "/assets/photo/２２番街打瀬西通り北.jpg" ,
     "subLocations": [
       { "id": "A", "name": "２２番街打瀬西通り北", "lat": 35.637453, "lng": 140.042259, "image": "/assets/photo/２２番街打瀬西通り北.jpg" },
-      { "id": "B", "name": "２２番街打瀬西通り南", "lat": 35.637112, "lng": 140.042422, "image": "/assets/photo/２２番街打瀬西通り南.jpg" },
+      { "id": "B", "name": "22番街打瀬西通り南", "lat": 35.637112, "lng": 140.042422, "image": "/assets/photo/22番街打瀬西通り南.jpg" },
       { "id": "C", "name": "２２番街打瀬南通り西", "lat": 35.637075, "lng": 140.042798, "image": "/assets/photo/２２番街打瀬西通り西.jpg" },
       { "id": "D", "name": "２２番街打瀬南通り東", "lat": 35.637331, "lng": 140.043574, "image": "/assets/photo/２２番街打瀬西通り東.jpg" }
     ] 
