@@ -3,6 +3,13 @@
 
     <div class="top-button-row">
 
+        <q-btn
+          outline
+          color="secondary"
+          label="スタッフ用画面を開く"
+          @click="openAdminPage"
+        />
+
       <q-btn
         outline
         color="primary"
@@ -215,6 +222,7 @@ const phoneNumber = ref('')
 const timeSlotsRaw = ref([])
 const pins = ref([])
 
+
 async function loadAllSlots() {
   const url = '/assets/timeSlots.json?ts=' + Date.now()
   const res = await fetch(url)
@@ -223,6 +231,10 @@ async function loadAllSlots() {
 
 function openReservedPage() {
   router.push('/reserved')
+}
+
+const openAdminPage = () => {
+  router.push('/admin')
 }
 
 function getFreeDates(month) {
