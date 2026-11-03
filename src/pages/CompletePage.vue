@@ -133,18 +133,21 @@
         </div>
       </div>
       <!-- アンケート案内 -->
-      <div class="q-mt-md q-mb-sm text-center">
-        <a
-          href="https://docs.google.com/forms/d/e/1FAIpQLScPAXHNVZ4vZ7vdOBiZHFp9472U9jGzyrjvT51tbh9d_MlQWA/viewform"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="survey-link"
-        >
-          グリスロ予約アプリに関するアンケート
-        </a>
+      <div class="survey-box">
+        <div class="q-mt-md q-mb-sm text-center">
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLScPAXHNVZ4vZ7vdOBiZHFp9472U9jGzyrjvT51tbh9d_MlQWA/viewform"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="survey-link"
+          >
+            グリスロ予約アプリに関する
+            アンケート
+          </a>
 
-        <div class="text-grey-7 q-mt-xs">
-          卒業論文のためのアンケートです。ご協力お願いいたします。
+          <div class="text-grey-10 q-mt-xs">
+            卒業論文のためのアンケートです。ご協力お願いいたします。
+          </div>
         </div>
       </div>
       <!-- チェックボタン -->

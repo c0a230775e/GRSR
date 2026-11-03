@@ -240,3 +240,32 @@
   border-radius: 12px;
   overflow: hidden;
 }
+
+.survey-link {
+  font-size: 19px;
+  font-weight: 700;
+}
+.survey-box {
+  background: #f3fff4;
+  border: 2px solid #10aa34;
+  border-radius: 16px;
+  padding: 1px;
+  margin-top: 10px;
+}
+
+.survey-link {
+  display: inline-block;
+  background: #10aa34;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 22px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(16, 170, 52, 0.3);
+  transition: transform 0.2s;
+}
+
+.survey-link:hover {
+  transform: scale(1.03);
+}
