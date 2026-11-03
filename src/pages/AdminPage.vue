@@ -194,7 +194,7 @@
             >
               <!-- 画像モード -->
               <div
-                v-if="!mapMode[date]"
+                v-if="!mapMode[day[slot].id]"
                 class="location-photo-area"
               >
                 <div class="location-photo-card">
@@ -236,7 +236,7 @@
                 class="route-map-wrapper"
               >
                 <div
-                  :id="`route-map-${date}`"
+                  :id="`route-map-${day[slot].id}`"
                   class="route-map"
                 />
               </div>
@@ -261,7 +261,7 @@
 
                 <span
                   class="map-toggle-text"
-                  @click="toggleMapMode(date)"
+                  @click="toggleMapMode(day[slot])"
                 >
                   {{
                     mapMode[date]
@@ -567,12 +567,10 @@ function getPlaceImage(placeName) {
 }
 
 function getPlaceLocation(placeName) {
+
   for (const mainPin of pins.value) {
-    if (
-      mainPin.name === placeName ||
-      mainPin.name.includes(placeName) ||
-      placeName.includes(mainPin.name)
-    ) {
+
+    if (mainPin.name === placeName) {
       return {
         lat: mainPin.lat,
         lng: mainPin.lng
@@ -692,26 +690,18 @@ async function login () {
 
   }, 3 * 60 * 1000)
 }
-
-function toggleMapMode(date) {
-
-  mapMode.value[date] =
-    !mapMode.value[date]
+function toggleMapMode(item) {
+  mapMode.value[item.id] =
+    !mapMode.value[item.id]
 
   nextTick(() => {
-    if (mapMode.value[date]) {
-      drawRouteMap(date)
+    if (mapMode.value[item.id]) {
+      drawRouteMap(item)
     }
   })
 }
-async function drawRouteMap(date) {
 
-  const day =
-    groupedReservations.value[date]
-
-  const ride =
-    day?.front || day?.back
-
+async function drawRouteMap(ride) {
   if (!ride) return
 
   const from =
@@ -722,7 +712,7 @@ async function drawRouteMap(date) {
 
   if (!from || !to) return
 
-  const mapId = `route-map-${date}`
+  const mapId = `route-map-${ride.id}`
 
   await nextTick()
 
