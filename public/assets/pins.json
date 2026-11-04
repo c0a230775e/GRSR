@@ -107,7 +107,7 @@
       { "id": "D", "name": "１０番街東", "lat": 35.640489, "lng": 140.048161, "image": "/assets/photo/１０番街東.jpg" }
     ] 
   },
-  { "id": 25, "name": "打瀬１丁目公園", "lat": 35.6430061, "lng": 140.0440282, "image": "/assets/photo/打瀬１丁目公園.jpg" ,
+  { "id": 25, "name": "打瀬１丁目公園", "lat": 35.6400029, "lng": 140.0483515, "image": "/assets/photo/打瀬１丁目公園.jpg" ,
     "subLocations": [
       { "id": "A", "name": "打瀬１丁目公園北", "lat": 35.640353, "lng": 140.048622, "image": "/assets/photo/打瀬１丁目公園北.jpg" },
       { "id": "B", "name": "打瀬１丁目公園東", "lat": 35.640505, "lng": 140.049073, "image": "/assets/photo/打瀬１丁目公園東.jpg" },
@@ -245,10 +245,10 @@
       { "id": "B", "name": "公園西の街２番館", "lat": 35.642233, "lng": 140.043404, "image": "/assets/photo/公園西の街２番館.jpg" },
       { "id": "C", "name": "公園西の街３番館", "lat": 35.641890, "lng": 140.042288, "image": "/assets/photo/公園西の街３番館.jpg" },
       { "id": "D", "name": "２丁目公園打瀬北通り東", "lat": 35.642207, "lng": 140.043719, "image": "/assets/photo/２丁目公園打瀬北通り東.jpg" },
-      { "id": "A", "name": "２丁目公園打瀬北通り中", "lat": 35.641985, "lng": 140.043024, "image": "/assets/photo/２丁目公園打瀬北通り中.jpg" },
-      { "id": "B", "name": "２丁目公園打瀬北通り西", "lat": 35.641809, "lng": 140.042374, "image": "/assets/photo/２丁目公園打瀬北通り西.jpg" },
-      { "id": "C", "name": "２丁目公園公共駐車場前", "lat": 35.641499, "lng": 140.043746, "image": "/assets/photo/２丁目公園公共駐車場前.jpg" },
-      { "id": "D", "name": "２丁目公園東", "lat": 35.641912, "lng": 140.044082, "image": "/assets/photo/２丁目公園東.jpg" }
+      { "id": "E", "name": "２丁目公園打瀬北通り中", "lat": 35.641985, "lng": 140.043024, "image": "/assets/photo/２丁目公園打瀬北通り中.jpg" },
+      { "id": "F", "name": "２丁目公園打瀬北通り西", "lat": 35.641809, "lng": 140.042374, "image": "/assets/photo/２丁目公園打瀬北通り西.jpg" },
+      { "id": "G", "name": "２丁目公園公共駐車場前", "lat": 35.641499, "lng": 140.043746, "image": "/assets/photo/２丁目公園公共駐車場前.jpg" },
+      { "id": "H", "name": "２丁目公園東", "lat": 35.641912, "lng": 140.044082, "image": "/assets/photo/２丁目公園東.jpg" }
     ] 
   },
   { "id": 44, "name": "赤玉青玉公園", "lat": 35.6408857, "lng": 140.0440221, "image": "/assets/photo/赤玉青玉公園青玉前.jpg" ,
