@@ -670,6 +670,7 @@ async function confirmShareRide() {
     path: '/complete',
     query: {
       mode: 'share',
+      nickname: nickname.value.trim(),
       people: people.value,
       time: shareTarget.value.label,
       rideDate: rideDate.value,

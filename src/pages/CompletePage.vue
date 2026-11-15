@@ -6,7 +6,7 @@
     </div>
 
     <div class="text-center q-mb-md">
-      乗車の際は手をあげて、「〇〇時に予約している者です」と伝えてください
+      乗車の際は手をあげて、ニックネームを伝えてください
     </div>
 
     <!-- ★ 予約内容の表示 -->
@@ -16,6 +16,19 @@
       </div>
 
       <div class="reservation-list-card q-mb-sm">
+
+        <div
+            v-if="info.nickname"
+            class="row items-center text-weight-medium q-mb-sm"
+          >
+            <q-icon
+              :name="isShare ? 'group_add' : 'person'"
+              :color="isShare ? 'secondary' : 'primary'"
+              size="20px"
+              class="q-mr-xs"
+            />
+            <span>{{ isShare ? '相乗り' : '予約' }}：{{ info.nickname }}</span>
+          </div>
 
         <div class="reservation-half">
 
@@ -190,6 +203,7 @@ const maps = {}
 
 const isShare = ref(false)
 const info = ref({
+  nickname: '',
   people: '',
   rideDate: '',
   time: '',
@@ -208,6 +222,7 @@ onMounted(async () => {
     isShare.value = true
 
     info.value = {
+      nickname: route.query.nickname || '', // ★ 追加
       people: route.query.people,
       rideDate: route.query.rideDate,
       time: route.query.time,
@@ -238,6 +253,7 @@ onMounted(async () => {
   const last = data[0]
 
   info.value = {
+    nickname: last?.nickname || '', // ★ 追加
     people: last?.people,
     rideDate: last?.ride_date,
     time: last?.time,
