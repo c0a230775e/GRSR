@@ -90,6 +90,30 @@
 
           <template v-if="day[slot]">
 
+            <!-- ★ ニックネーム表示エリア（preview-containerの外に出すことで下側に予約情報が並ぶ） -->
+            <div
+              v-if="day[slot].mainNickname || day[slot].shareNicknames.length"
+              class="q-mb-sm"
+            >
+              <!-- 通常予約のニックネーム -->
+              <div
+                v-if="day[slot].mainNickname"
+                class="row items-center text-weight-medium"
+              >
+                <q-icon name="person" color="primary" size="18px" class="q-mr-xs" />
+                <span>通常予約：{{ day[slot].mainNickname }}</span>
+              </div>
+
+              <!-- 相乗り予約のニックネーム -->
+              <div
+                v-if="day[slot].shareNicknames.length"
+                class="row items-center text-weight-medium text-grey-8 q-mt-xs"
+              >
+                <q-icon name="group_add" color="secondary" size="18px" class="q-mr-xs" />
+                <span>相乗り：{{ day[slot].shareNicknames.join('、') }}</span>
+              </div>
+            </div>
+
             <!-- 予約概要 -->
             <div class="preview-container">
 
@@ -377,12 +401,16 @@ const toIcon = L.icon({
 /* -------------------------
    予約一覧取得
 ------------------------- */
+/* -------------------------
+   予約一覧取得
+------------------------- */
 async function loadReservations() {
 
   const { data, error } = await supabase
     .from('reservations')
     .select('*')
     .order('ride_date', { ascending: true })
+    .order('id', { ascending: true }) // 親予約が先に処理されるよう追加
 
   if (error) {
     console.error('Supabase error:', error)
@@ -608,20 +636,14 @@ const groupedReservations = computed(() => {
     const date = r.ride_date
 
     if (!result[date]) {
-
       result[date] = {
         front: null,
         back: null
       }
-
     }
 
     const minute = Number(r.time.split(':')[1])
-
-    const slotType =
-      minute < 30
-        ? 'front'
-        : 'back'
+    const slotType = minute < 30 ? 'front' : 'back'
 
     if (!result[date][slotType]) {
 
@@ -633,6 +655,9 @@ const groupedReservations = computed(() => {
         time: r.time,
         from_name: r.from_name,
         to_name: r.to_name,
+        // ★ 通常予約と相乗り予約のニックネームを分けて保持
+        mainNickname: !r.share && r.nickname ? r.nickname : '',
+        shareNicknames: r.share && r.nickname ? [r.nickname] : [],
         passenger_name: r.passenger_name,
         phone_number: r.phone_number
       }
@@ -640,6 +665,15 @@ const groupedReservations = computed(() => {
     } else {
 
       result[date][slotType].people += Number(r.people)
+
+      // ★ 2件目以降のレコードを通常／相乗りで振り分け
+      if (r.nickname) {
+        if (r.share) {
+          result[date][slotType].shareNicknames.push(r.nickname)
+        } else {
+          result[date][slotType].mainNickname = r.nickname
+        }
+      }
 
     }
 

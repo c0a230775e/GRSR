@@ -39,6 +39,29 @@
 
           <template v-if="day[slot]">
 
+            <div
+              v-if="day[slot].mainNickname || day[slot].shareNicknames.length"
+              class="q-mb-sm"
+            >
+              <!-- 通常予約のニックネーム -->
+              <div
+                v-if="day[slot].mainNickname"
+                class="row items-center text-weight-medium"
+              >
+                <q-icon name="person" color="primary" size="18px" class="q-mr-xs" />
+                <span>通常予約：{{ day[slot].mainNickname }}</span>
+              </div>
+
+              <!-- 相乗り予約のニックネーム -->
+              <div
+                v-if="day[slot].shareNicknames.length"
+                class="row items-center text-weight-medium text-grey-8 q-mt-xs"
+              >
+                <q-icon name="group_add" color="secondary" size="18px" class="q-mr-xs" />
+                <span>相乗り：{{ day[slot].shareNicknames.join('、') }}</span>
+              </div>
+            </div>
+
             <!-- 予約概要 -->
             <div class="preview-container">
 
@@ -255,13 +278,26 @@ const groupedReservations = computed(() => {
     if (!result[date][slotType]) {
 
       result[date][slotType] = {
-        ...r
+        ...r,
+        people: Number(r.people),
+        // ★ 通常予約と相乗り予約のニックネームを分けて保持
+        mainNickname: !r.share && r.nickname ? r.nickname : '',
+        shareNicknames: r.share && r.nickname ? [r.nickname] : []
       }
 
     } else {
 
       result[date][slotType].people +=
         Number(r.people)
+
+      // ★ 2件目以降のレコードを通常／相乗りで振り分け
+      if (r.nickname) {
+        if (r.share) {
+          result[date][slotType].shareNicknames.push(r.nickname)
+        } else {
+          result[date][slotType].mainNickname = r.nickname
+        }
+      }
 
     }
 

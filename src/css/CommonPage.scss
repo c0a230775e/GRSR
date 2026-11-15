@@ -590,3 +590,28 @@
   align-items: center;
   margin-bottom: 12px;
 }
+
+.nickname-section {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.nickname-label {
+  margin-bottom: 8px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #333;
+}
+
+.validation-error {
+  background: #fff3cd;
+  border-left: 5px solid #f57c00;
+  color: #8a5300;
+
+  padding: 12px;
+  margin: 8px 0 12px;
+
+  border-radius: 8px;
+
+  font-size: 20px;
+}

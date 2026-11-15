@@ -19,89 +19,136 @@
       />
 
     </div>
+    <!--ニックネーム-->
+    <div id="nickname-section">
+      <NicknameInput
+        v-model="nickname"
+      />
+      <div
+        v-if="errorField === 'nickname'"
+        class="validation-error"
+      >
+        ニックネームを入力してください
+      </div>
+
+    </div>
 
     <!-- 乗車人数 -->
-    <RidePeopleSelector
-      v-model="people"
-      :options="peopleOptions"
-      :btnColor="btnColor"
-    />
+    <div id="people-section">
+      <RidePeopleSelector
+        v-model="people"
+        :options="peopleOptions"
+        :btnColor="btnColor"
+      />
+      <div
+        v-if="errorField === 'people'"
+        class="validation-error"
+      >
+        乗車人数を選択してください
+      </div>
+    </div>
 
     <!-- 月選択 -->
-    <MonthSelector
-      v-model="selectedMonth"
-      :months="months"
-      :btnColor="btnColor"
-      :selectMonth="selectMonth"
-    />
+    <div>
+      <MonthSelector
+        v-model="selectedMonth"
+        :months="months"
+        :btnColor="btnColor"
+        :selectMonth="selectMonth"
+      />
+    </div>
 
     <!-- 日付選択 -->
-    <DaySelector
-      v-model="rideDate"
-      :freeRideDates="freeRideDates"
-      :btnColor="btnColor"
-      class="day-selector-block"
-    />
+     <div id="date-section">
+      <DaySelector
+        v-model="rideDate"
+        :freeRideDates="freeRideDates"
+        :btnColor="btnColor"
+        class="day-selector-block"
+      />
+      <div
+        v-if="errorField === 'date'"
+        class="validation-error"
+      >
+        乗車日を選択してください
+      </div>
+    </div>
 
     <!-- 時間選択 -->
-    <TimeSelector
-      v-if="rideDate"
-      v-model="time"
-      :availableTimeSlots="availableTimeSlots"
-      :btnColor="btnColor"
+    <div id="time-section">
+      <TimeSelector
+        v-if="rideDate"
+        v-model="time"
+        :availableTimeSlots="availableTimeSlots"
+        :btnColor="btnColor"
 
-      :hasReservedFront="hasReservedFront"
-      :hasReservedBack="hasReservedBack"
+        :hasReservedFront="hasReservedFront"
+        :hasReservedBack="hasReservedBack"
 
-      :reservedFrontLabel="reservedFrontLabel"
-      :reservedBackLabel="reservedBackLabel"
+        :reservedFrontLabel="reservedFrontLabel"
+        :reservedBackLabel="reservedBackLabel"
 
-      :reservedFrontFrom="reservedFront?.reservedFrom"
-      :reservedFrontTo="reservedFront?.reservedTo"
+        :reservedFrontFrom="reservedFront?.reservedFrom"
+        :reservedFrontTo="reservedFront?.reservedTo"
 
-      :reservedBackFrom="reservedBack?.reservedFrom"
-      :reservedBackTo="reservedBack?.reservedTo"
+        :reservedBackFrom="reservedBack?.reservedFrom"
+        :reservedBackTo="reservedBack?.reservedTo"
 
-      :frontFull="remainingFront <= 0"
-      :backFull="remainingBack <= 0"
+        :frontFull="remainingFront <= 0"
+        :backFull="remainingBack <= 0"
 
-      :remaining-front="remainingFront"
-      :remaining-back="remainingBack"
+        :remaining-front="remainingFront"
+        :remaining-back="remainingBack"
 
-      @open-share="onShareRide"
-    />
+        @open-share="onShareRide"
+      />
+      <div
+        v-if="errorField === 'time'"
+        class="validation-error"
+      >
+        予約時間を選択してください
+      </div>
+    </div>
 
     <!-- 相乗りボタン -->
-    <ShareRideButtons
-      :hasReservedFront="hasReservedFront"
-      :hasReservedBack="hasReservedBack"
+    <div>
+      <ShareRideButtons
+        :hasReservedFront="hasReservedFront"
+        :hasReservedBack="hasReservedBack"
 
-      :reservedFrontLabel="reservedFrontLabel"
-      :reservedBackLabel="reservedBackLabel"
+        :reservedFrontLabel="reservedFrontLabel"
+        :reservedBackLabel="reservedBackLabel"
 
-      :shareDialogVisible="shareDialogVisible"
-      :shareTarget="shareTarget"
-      :shareError="shareError"
+        :shareDialogVisible="shareDialogVisible"
+        :shareTarget="shareTarget"
+        :shareError="shareError"
 
-      :remainingFront="remainingFront"
-      :remainingBack="remainingBack"
-      :isFrontShareTarget="isFrontShareTarget"
+        :remainingFront="remainingFront"
+        :remainingBack="remainingBack"
+        :isFrontShareTarget="isFrontShareTarget"
 
-      :from-image="shareFromImage"
-      :to-image="shareToImage"
+        :from-image="shareFromImage"
+        :to-image="shareToImage"
 
-      :from-place="shareTarget?.reservedFrom"
-      :to-place="shareTarget?.reservedTo"
+        :from-place="shareTarget?.reservedFrom"
+        :to-place="shareTarget?.reservedTo"
 
-      @open-share="onShareRide"
-      @close-share="shareDialogVisible = false"
-      @confirm-share="confirmShareRide"
-    />
+        @open-share="onShareRide"
+        @close-share="shareDialogVisible = false"
+        @confirm-share="confirmShareRide"
+      />
+    </div>
 
     <div class="mode-wrapper q-mt-md">
-
-      <div class="section-title q-mb-sm">
+      <div class="section-title q-mb-sm" id="from-section">
         乗車場所・降車場所
+      </div>
+
+      <div
+        v-if="errorField === 'place'"
+        class="validation-error"
+      >
+        乗車場所と降車場所を選択してください
       </div>
 
       <div class="place-guide">
@@ -133,7 +180,6 @@
       />
 
       <SubmitButton
-        v-if="people && rideDate && time && from && to"
         :canSubmit="true"
         :submit="submit"
       />
@@ -180,6 +226,7 @@ import PreviewPanel from '@/components/PreviewPanel.vue'
 import SubmitButton from '@/components/SubmitButton.vue'
 import PointSelector from '@/components/PointSelector.vue'
 import MemoPage from '@/components/MemoPage.vue'
+import NicknameInput from '@/components/NicknameInput.vue'
 
 
 const router = useRouter()
@@ -189,6 +236,9 @@ function btnColor(active, disabled) {
   if (disabled) return 'grey-3'
   return active ? 'positive' : 'white'
 }
+
+const validationMessage = ref('')
+const errorField = ref('')
 
 /* --- 乗車人数 --- */
 const peopleOptions = ['1', '2', '3', '4', '5']
@@ -217,6 +267,8 @@ const to = ref(null)
 
 const passengerName = ref('')
 const phoneNumber = ref('')
+
+const nickname = ref('')
 
 /* --- timeSlots.json 読み込み --- */
 const timeSlotsRaw = ref([])
@@ -315,6 +367,43 @@ function updateTimeSlots(y, m, d) {
   )
   timeSlots.value = slot ? createTimeButtons(slot.label, y, m, d) : []
 }
+
+watch(nickname, () => {
+  if (errorField.value === 'nickname') {
+    errorField.value = ''
+  }
+})
+
+watch(people, () => {
+  if (errorField.value === 'people') {
+    errorField.value = ''
+  }
+})
+
+watch(rideDate, () => {
+  if (errorField.value === 'date') {
+    errorField.value = ''
+  }
+})
+
+watch(time, () => {
+  if (errorField.value === 'time') {
+    errorField.value = ''
+  }
+})
+
+watch(from, () => {
+  if (errorField.value === 'place') {
+    errorField.value = ''
+  }
+})
+
+watch(to, () => {
+  if (errorField.value === 'place') {
+    errorField.value = ''
+  }
+})
+
 
 watch(rideDate, newDate => {
   if (!newDate) return
@@ -489,6 +578,19 @@ function getPlaceImage(placeName) {
 
 function onShareRide(mode) {
 
+  // ★ 相乗りダイアログを開く前にニックネームと人数の必須チェックを行う
+  if (!nickname.value?.trim()) {
+    errorField.value = 'nickname'
+    scrollToElement('nickname-section')
+    return
+  }
+
+  if (!people.value) {
+    errorField.value = 'people'
+    scrollToElement('people-section')
+    return
+  }
+
   let targetSlots = mode === 'front'
     ? availableTimeSlots.value.slice(0, 3)
     : availableTimeSlots.value.slice(3)
@@ -498,6 +600,7 @@ function onShareRide(mode) {
 
   if (!reservedSlot) return
 
+  shareError.value = '' // 前回のエラー表示をリセット
   shareTarget.value = reservedSlot
   shareDialogVisible.value = true
 }
@@ -508,6 +611,11 @@ const isFrontShareTarget = computed(() => {
 })
 
 async function confirmShareRide() {
+
+  if (!nickname.value?.trim()) {
+    shareError.value = 'ニックネームを入力してください'
+    return
+  }
 
   if (!people.value) {
     shareError.value = '乗車人数を選択してください'
@@ -536,6 +644,7 @@ async function confirmShareRide() {
     .from('reservations')
     .insert({
       user_id: localStorage.getItem('userId'),
+      nickname: nickname.value.trim(), // ★ ニックネームをDBに保存
       ride_date: rideDate.value,
       time: shareTarget.value.label,
       people: Number(people.value),
@@ -605,11 +714,50 @@ onMounted(async () => {
 /* --- 予約送信 --- */
 async function submit() {
 
+  if (!nickname.value?.trim()) {
+    errorField.value = 'nickname'
+    scrollToElement('nickname-section')
+    return
+  }
+
+  if (!people.value) {
+    errorField.value = 'people'
+    scrollToElement('people-section')
+    return
+  }
+
+  if (!rideDate.value) {
+    errorField.value = 'date'
+    scrollToElement('date-section')
+    return
+  }
+
+  if (!time.value) {
+    errorField.value = 'time'
+    scrollToElement('time-section')
+    return
+  }
+
+  if (!from.value) {
+    errorField.value = 'place'
+    scrollToElement('from-section')
+    return
+  }
+
+  if (!to.value) {
+    errorField.value = 'place'
+    scrollToElement('from-section')
+    return
+  }
+
+  validationMessage.value = ''
+
   const { error } = await supabase
     .from('reservations')
     .insert({
       user_id: localStorage.getItem('userId'),
 
+      nickname: nickname.value,
       ride_date: rideDate.value,
       time: time.value.label,
       people: Number(people.value),
@@ -632,5 +780,20 @@ async function submit() {
   }
 
   router.push('/complete')
+}
+function scrollToElement(id) {
+  const el = document.getElementById(id)
+
+  if (!el) return
+
+  const y =
+    el.getBoundingClientRect().top +
+    window.pageYOffset -
+    20
+
+  window.scrollTo({
+    top: y,
+    behavior: 'smooth'
+  })
 }
 </script>
