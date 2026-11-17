@@ -368,11 +368,11 @@ function updateTimeSlots(y, m, d) {
   timeSlots.value = slot ? createTimeButtons(slot.label, y, m, d) : []
 }
 
-watch(nickname, () => {
-  if (errorField.value === 'nickname') {
-    errorField.value = ''
-  }
-})
+// watch(nickname, () => {
+//   if (errorField.value === 'nickname') {
+//     errorField.value = ''
+//   }
+// })
 
 watch(people, () => {
   if (errorField.value === 'people') {
@@ -612,10 +612,10 @@ const isFrontShareTarget = computed(() => {
 
 async function confirmShareRide() {
 
-  if (!nickname.value?.trim()) {
-    shareError.value = 'ニックネームを入力してください'
-    return
-  }
+  // if (!nickname.value?.trim()) {
+  //   shareError.value = 'ニックネームを入力してください'
+  //   return
+  // }
 
   if (!people.value) {
     shareError.value = '乗車人数を選択してください'
@@ -715,11 +715,11 @@ onMounted(async () => {
 /* --- 予約送信 --- */
 async function submit() {
 
-  if (!nickname.value?.trim()) {
-    errorField.value = 'nickname'
-    scrollToElement('nickname-section')
-    return
-  }
+  // if (!nickname.value?.trim()) {
+  //   errorField.value = 'nickname'
+  //   scrollToElement('nickname-section')
+  //   return
+  // }
 
   if (!people.value) {
     errorField.value = 'people'
