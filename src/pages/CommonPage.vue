@@ -226,7 +226,7 @@ import PreviewPanel from '@/components/PreviewPanel.vue'
 import SubmitButton from '@/components/SubmitButton.vue'
 import PointSelector from '@/components/PointSelector.vue'
 import MemoPage from '@/components/MemoPage.vue'
-import NicknameInput from '@/components/NicknameInput.vue'
+// import NicknameInput from '@/components/NicknameInput.vue'
 
 
 const router = useRouter()
