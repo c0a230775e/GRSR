@@ -579,11 +579,11 @@ function getPlaceImage(placeName) {
 function onShareRide(mode) {
 
   // ★ 相乗りダイアログを開く前にニックネームと人数の必須チェックを行う
-  if (!nickname.value?.trim()) {
-    errorField.value = 'nickname'
-    scrollToElement('nickname-section')
-    return
-  }
+  // if (!nickname.value?.trim()) {
+  //   errorField.value = 'nickname'
+  //   scrollToElement('nickname-section')
+  //   return
+  // }
 
   if (!people.value) {
     errorField.value = 'people'
